@@ -1,32 +1,48 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: mwallage <mwallage@student.42berlin.de>    +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2023/08/10 15:31:16 by mwallage          #+#    #+#              #
+#    Updated: 2023/08/10 15:54:40 by mwallage         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
 
-
-NAME	:= Game
+NAME	:= fdf
 CFLAGS	:= -Wall -Wextra -Werror -Wunreachable-code -Ofast
 LIBMLX	:= ./lib/MLX42
 LIBFT	:= ./lib/libft
-HEADERS	:= -I ./include -I $(LIBMLX)/include -I $(LIBFT)/inc
-LIBS	:= $(LIBFT)/libft.a -lft $(LIBMLX)/build/libmlx42.a -ldl -lglfw -pthread -lm
-SRCS	:= $(shell find ./src -iname "*.c")
-OBJS	:= ${SRCS:.c=.o}
+HEADERS	:= -I ./inc -I $(LIBMLX)/include -I $(LIBFT)/inc
+LIBS	:= -L$(LIBFT) -lft $(LIBMLX)/build/libmlx42.a -ldl -lglfw -pthread -lm
+SRCDIR	:= src
+SRC		:= $(SRCDIR)/fdf_main.c
+OBJ		:= ${SRC:.c=.o}
 
-all: libmlx $(NAME)
+all: libmlx libft $(NAME)
 
 libmlx:
-	@cmake $(LIBMLX) -B $(LIBMLX)/build && make -C $(LIBMLX)/build -j4
+	cmake $(LIBMLX) -B $(LIBMLX)/build && make -C $(LIBMLX)/build -j4
+
+libft:
+	make -C$(LIBFT)
 
 %.o: %.c
-	@$(CC) $(CFLAGS) -o $@ -c $< $(HEADERS) && printf "Compiling: $(notdir $<)"
+	$(CC) $(CFLAGS) -o $@ -c $< $(HEADERS)
 
-$(NAME): $(OBJS)
-	@$(CC) $(OBJS) $(LIBS) $(HEADERS) -o $(NAME)
+$(NAME): $(OBJ)
+	$(CC) $(OBJ) $(LIBS) $(HEADERS) -o $(NAME)
 
 clean:
-	@rm -rf $(OBJS)
-	@rm -rf $(LIBMLX)/build
+	rm -rf $(OBJ)
+	rm -rf $(LIBMLX)/build
+	make clean -C$(LIBFT)
 
 fclean: clean
-	@rm -rf $(NAME)
+	rm -rf $(NAME)
+	make fclean -C$(LIBFT)
 
 re: clean all
 
-.PHONY: all, clean, fclean, re, libmlx
+.PHONY: all, clean, fclean, re, libmlx, libft
