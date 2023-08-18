@@ -6,7 +6,7 @@
 /*   By: mwallage <mwallage@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/10 15:30:52 by mwallage          #+#    #+#             */
-/*   Updated: 2023/08/10 17:22:33 by mwallage         ###   ########.fr       */
+/*   Updated: 2023/08/17 11:52:40 by mwallage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ typedef struct	point3d_s
 	float	y;
 	float	z;
 }			point3d_t;
-
 
 typedef struct map_s
 {

@@ -6,7 +6,7 @@
 /*   By: mwallage <mwallage@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/10 15:31:03 by mwallage          #+#    #+#             */
-/*   Updated: 2023/08/10 17:38:52 by mwallage         ###   ########.fr       */
+/*   Updated: 2023/08/18 17:27:10 by mwallage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,34 +18,24 @@ void	handle_error(const char *message)
 	exit(1);
 }
 
-int	open_fdf(char *arg)
-{
-	char	*filepath;
-	int		fd;
-
-	filepath = ft_strjoin("maps/", arg);
-	if (!filepath)
-		return (-1);
-	fd = open(filepath, O_RDONLY, 0777);
-	free(filepath);
-	return (fd);
-}
-
 map_t	*parse_map(int fd)
 {
 	char	*line;
 	map_t	*map;
 
-	map = malloc(sizeof(map));
+	map = malloc(sizeof(map_t));
 	if (!map)
-		handle_error("malloc failed");
-	line = get_next_line(fd);
-	if (!line)
 	{
-		free(map);
+		close(fd);
 		handle_error("malloc failed");
 	}
-	free(line);
+	while (1)
+	{
+ 		line = get_next_line(fd);
+		if (!line)
+			break ;
+	}
+	free(line);	
 	return (map);
 }
 
@@ -56,11 +46,12 @@ map_t	*parse_input(int ac, char **av)
 
 	if (ac != 2 || ! ft_strnstr(av[1], ".fdf", ft_strlen(av[1])))
 		handle_error("Format:\n\t./fdf *.fdf");
-	fd = open_fdf(av[2]);
+ 	fd = open(av[1], O_RDONLY, 0777);
 	if (fd == -1)
 		return (NULL);
 	map = parse_map(fd);
-	close(fd);
+	close(fd); 
+	map = malloc(sizeof(map_t));
 	return (map);
 }
 
@@ -82,13 +73,11 @@ void	draw_image(mlx_image_t *image)
 
 int32_t	main(int ac, char **av)
 {
-	mlx_t	*mlx;
+	mlx_t		*mlx;
 	mlx_image_t	*image;
-	map_t	*map;
+	map_t		*map;
 
 	map = parse_input(ac, av);
-	if (!map)
-		handle_error("bad input");
 	mlx = mlx_init(WIDTH, HEIGHT, "FdF", true);
 	if (!mlx)
 		handle_error(mlx_strerror(mlx_errno));
