@@ -6,7 +6,7 @@
 /*   By: mwallage <mwallage@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/10 15:31:03 by mwallage          #+#    #+#             */
-/*   Updated: 2023/08/22 16:04:48 by mwallage         ###   ########.fr       */
+/*   Updated: 2023/08/22 16:18:11 by mwallage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,7 +126,6 @@ void	get_rows(int fd, map_t *map)
 	map->rows = y;
 }
 
-#include <stdio.h>
 map_t	*parse_input(int ac, char **av)
 {
 	map_t	*map;
@@ -152,23 +151,24 @@ map_t	*parse_input(int ac, char **av)
 		free(map);
 		handle_error("mlx: malloc failed");
 	}
-	printf("cols: %d, rows: %d\n", map->cols, map->rows);
 	fd = open(av[1], O_RDONLY, 0777);
 	parse_map(fd, map);
 	close(fd);
 	return (map);
 }
 
-void	draw_image(mlx_image_t *image)
+void	draw_image(mlx_image_t *image, map_t *map)
 {
 	uint32_t	i;
 	uint32_t	j;
 
+	if (!map)
+		i = 0;
 	i = -1;
-	while (++i < image->width)
+	while (++i < (uint32_t)(map->cols * 10))
 	{
 		j = -1;
-		while (++j < image->height)
+		while (++j < (uint32_t)(map->rows * 10))
 			mlx_put_pixel(image, i, j, 0xFFFFFF);
 	}
 }
@@ -192,13 +192,13 @@ int32_t	main(int ac, char **av)
 	mlx = mlx_init(WIDTH, HEIGHT, "FdF", true);
 	if (!mlx)
 		handle_error(mlx_strerror(mlx_errno));
-	image = mlx_new_image(mlx, 128, 128);
+	image = mlx_new_image(mlx, map->cols * 10, map->rows * 10);
 	if (!image)
 	{
 		mlx_close_window(mlx);
 		handle_error(mlx_strerror(mlx_errno));
 	}
-	draw_image(image);
+	draw_image(image, map);
 	if (mlx_image_to_window(mlx, image, 10, 10) == -1)
 	{
 		mlx_close_window(mlx);
