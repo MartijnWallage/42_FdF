@@ -6,7 +6,7 @@
 #    By: mwallage <mwallage@student.42berlin.de>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/10 15:31:16 by mwallage          #+#    #+#              #
-#    Updated: 2023/08/18 17:33:33 by mwallage         ###   ########.fr        #
+#    Updated: 2023/08/22 15:12:24 by mwallage         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,10 +29,10 @@ libft:
 	make -C$(LIBFT)
 
 %.o: %.c
-	$(CC) $(CFLAGS) -o $@ -c $< $(HEADERS)
+	$(CC) -g $(CFLAGS) -o $@ -c $< $(HEADERS)
 
 $(NAME): $(OBJ)
-	$(CC) $(OBJ) $(LIBS) $(HEADERS) -o $(NAME)
+	$(CC) -g $(OBJ) $(LIBS) $(HEADERS) -o $(NAME)
 
 clean:
 	rm -rf $(OBJ)
