@@ -6,7 +6,7 @@
 /*   By: mwallage <mwallage@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/10 15:31:03 by mwallage          #+#    #+#             */
-/*   Updated: 2023/08/23 17:36:44 by mwallage         ###   ########.fr       */
+/*   Updated: 2023/08/23 17:54:54 by mwallage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,18 +162,41 @@ map_t	*parse_input(int ac, char **av)
 	return (map);
 }
 
-void	draw_image(mlx_image_t *image, map_t *map)
+void	draw_grid(mlx_image_t *image, map_t *map)
 {
 	point2d_t	*points;
 	int			i;
 
 	points = map->map2d;
 	i = -1;
-	while (++i < ((map->rows) * (map->cols)))
+	while (++i < (map->rows) * (map->cols))
 	{
-		mlx_put_pixel(image, points->x, points->y, 0xFFFFFF);
+		mlx_put_pixel(image, points->x, points->y, 0xFFFFFFFF);
 		points++;
 	}
+}
+
+void	draw_lines(mlx_image_t *image, map_t *map)
+{
+	uint32_t	i;
+	uint32_t	j;
+	
+	i = -1;
+	while (++i <= (map->rows - 1) * (map->interval))
+	{
+		j = -1;
+		while (++j <= (map->cols - 1) * (map->interval))
+		{
+			if (i % map->interval == 0 || j % map->interval == 0)
+				mlx_put_pixel(image, j, i, 0xEEDDFFFF);
+		}
+	}	
+}
+
+void	draw_image(mlx_image_t *image, map_t *map)
+{
+	draw_grid(image, map);
+	draw_lines(image, map);
 }
 
 void ft_hook(void* param)
