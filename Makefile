@@ -10,23 +10,32 @@
 #                                                                              #
 # **************************************************************************** #
 
-NAME	:= fdf
+# Compiler targets and libraries
+CC		:= CC
+UNAME	:= $(shell uname)
 CFLAGS	:= -Wall -Wextra -Werror -Wunreachable-code -Ofast
-LIBMLX	:= ./lib/MLX42
-LIBFT	:= ./lib/libft
-HEADERS	:= -I ./inc -I $(LIBMLX)/include -I $(LIBFT)/inc
-LIBS	:= -L$(LIBFT) -lft $(LIBMLX)/build/libmlx42.a -ldl -lglfw -pthread -lm
-SRCDIR	:= src
-SRC		:= $(SRCDIR)/fdf_main.c
-OBJ		:= ${SRC:.c=.o}
+NAME	:= fdf
+LIBFT	:= libft.a
+MLX42	:= libmlx42.a
+
+# Directories
+SRC_DIR		:= ./src
+MLX_DIR		:= ./lib/MLX42
+LIBFT_TDIR	:= ./lib/libft
+LIBS		:= -L$(LIBFT_DIR) -lft $(MLX_DIR)/build/libmlx42.a -ldl -lglfw -pthread -lm
+
+SRC		:= fdf_main.c
+SRCS	:= $(addprefix $(SRCDIR), $(SRC))
+OBJ		:= ${SRCS:.c=.o}
+HEADERS	:= -I ./inc -I $(MLX_DIR)/include -I $(LIBFT_DIR)/inc
 
 all: libmlx libft $(NAME)
 
 libmlx:
-	cmake $(LIBMLX) -B $(LIBMLX)/build && make -C $(LIBMLX)/build -j4
+	cmake $(MLX_DIR) -B $(MLX_DIR)/build && make -C $(MLX_DIR)/build -j4
 
 libft:
-	make -C$(LIBFT)
+	make -C$(LIBFT_DIR)
 
 %.o: %.c
 	$(CC) -g $(CFLAGS) -o $@ -c $< $(HEADERS)
@@ -36,12 +45,12 @@ $(NAME): $(OBJ)
 
 clean:
 	rm -rf $(OBJ)
-	rm -rf $(LIBMLX)/build
-	make clean -C$(LIBFT)
+	rm -rf $(MLX_DIR)/build
+	make clean -C$(LIBFT_DIR)
 
 fclean: clean
 	rm -rf $(NAME)
-	make fclean -C$(LIBFT)
+	make fclean -C$(LIBFT_DIR)
 
 re: clean all
 
