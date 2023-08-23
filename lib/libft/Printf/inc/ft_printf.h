@@ -6,7 +6,7 @@
 /*   By: mwallage <mwallage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 14:34:02 by mwallage          #+#    #+#             */
-/*   Updated: 2023/06/14 17:45:22 by mwallage         ###   ########.fr       */
+/*   Updated: 2023/07/13 15:27:03 by mwallage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int				put_sign_or_space(t_print *tab);
 /* utils.c */
 unsigned int	ft_strlen(const char *str);
 int				is_in_set(const char c, const char *set);
-int				ft_min(int a, int b);
-int				ft_max(int a, int b);
+int				printf_min(int a, int b);
+int				printf_max(int a, int b);
 
 #endif

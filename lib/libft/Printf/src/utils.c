@@ -6,7 +6,7 @@
 /*   By: mwallage <mwallage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 18:22:36 by mwallage          #+#    #+#             */
-/*   Updated: 2023/05/30 19:33:35 by mwallage         ###   ########.fr       */
+/*   Updated: 2023/07/13 15:27:03 by mwallage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	is_in_set(const char c, const char *set)
 	return (*set == c);
 }
 
-int	ft_min(int a, int b)
+int	printf_min(int a, int b)
 {
 	if (a <= b)
 		return (a);
@@ -39,7 +39,7 @@ int	ft_min(int a, int b)
 		return (b);
 }
 
-int	ft_max(int a, int b)
+int	printf_max(int a, int b)
 {
 	if (a >= b)
 		return (a);

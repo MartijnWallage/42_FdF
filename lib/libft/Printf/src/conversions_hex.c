@@ -6,7 +6,7 @@
 /*   By: mwallage <mwallage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/27 18:40:00 by mwallage          #+#    #+#             */
-/*   Updated: 2023/06/01 16:28:10 by mwallage         ###   ########.fr       */
+/*   Updated: 2023/07/13 15:27:03 by mwallage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,10 @@ void	ft_parse_hex(t_print *tab, char *base, char *zerox)
 	if (nb == 0)
 		tab->hash = 0;
 	numdigits = ft_numdigits(nb, 16);
-	numlen = ft_max(tab->precision, numdigits);
+	numlen = printf_max(tab->precision, numdigits);
 	if (nb == 0 && tab->point && !tab->precision)
 		numlen = 0;
-	paddinglen = ft_max(0, tab->width - numlen - 2 * (tab->hash));
+	paddinglen = printf_max(0, tab->width - numlen - 2 * (tab->hash));
 	if (tab->hash && tab->padding == '0')
 		tab->len += write(1, zerox, 2);
 	if (!tab->dash)
@@ -47,7 +47,7 @@ static int	handle_nullptr(t_print *tab, void *ptr)
 
 	if (ptr == NULL)
 	{
-		paddinglen = ft_max(0, tab->width - 5);
+		paddinglen = printf_max(0, tab->width - 5);
 		if (!tab->dash)
 			tab->len += put_padding(' ', paddinglen);
 		tab->len += write(1, "(nil)", 5);
@@ -71,8 +71,8 @@ void	ft_parse_pnt(t_print *tab)
 		return ;
 	nb = (size_t) ptr;
 	numdigits = ft_numdigits(nb, 16);
-	numlen = ft_max(tab->precision, numdigits) + 2;
-	paddinglen = ft_max(0, tab->width - numlen);
+	numlen = printf_max(tab->precision, numdigits) + 2;
+	paddinglen = printf_max(0, tab->width - numlen);
 	if (tab->padding == '0')
 		tab->len += write(1, "0x", 2);
 	if (!tab->dash)

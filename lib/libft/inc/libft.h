@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mwallage <mwallage@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: mwallage <mwallage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 13:05:42 by mwallage          #+#    #+#             */
-/*   Updated: 2023/08/03 15:47:41 by mwallage         ###   ########.fr       */
+/*   Updated: 2023/07/13 15:29:27 by mwallage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,9 @@ typedef struct s_list
 	struct s_list	*next;
 }					t_list;
 
+/*	minmax.c	*/
+int		ft_min(int a, int b);
+int		ft_max(int a, int b);
 /* ASCII functions*/
 int		ft_isalpha(int c);
 int		ft_isdigit(int c);

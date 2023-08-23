@@ -6,7 +6,7 @@
 /*   By: mwallage <mwallage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 13:33:57 by mwallage          #+#    #+#             */
-/*   Updated: 2023/06/14 17:44:58 by mwallage         ###   ########.fr       */
+/*   Updated: 2023/07/13 15:27:03 by mwallage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,8 @@ void	ft_parse_str(t_print *tab)
 	if (str == NULL && (!tab->point || tab->precision >= 6))
 		strlen = 6;
 	if (tab->point)
-		strlen = ft_min(strlen, tab->precision);
-	paddinglen = ft_max(0, tab->width - strlen);
+		strlen = printf_min(strlen, tab->precision);
+	paddinglen = printf_max(0, tab->width - strlen);
 	if (!tab->dash)
 		tab->len += put_padding(' ', paddinglen);
 	tab->len += ft_putstr(str, strlen);
@@ -68,11 +68,11 @@ void	ft_parse_int(t_print *tab)
 
 	unb = get_unsigned_int(tab);
 	numdigits = ft_numdigits(unb, 10);
-	numlen = ft_max(numdigits, tab->precision)
+	numlen = printf_max(numdigits, tab->precision)
 		+ (tab->neg || tab->space || tab->sign);
 	if (unb == 0 && tab->point && !tab->precision)
 		numlen = 0;
-	paddinglen = ft_max(0, tab->width - numlen);
+	paddinglen = printf_max(0, tab->width - numlen);
 	if (tab->padding == '0')
 		tab->len += put_sign_or_space(tab);
 	if (!tab->dash)
@@ -96,10 +96,10 @@ void	ft_parse_uns(t_print *tab)
 
 	nb = va_arg(tab->args, unsigned int);
 	numdigits = ft_numdigits(nb, 10);
-	numlen = ft_max(numdigits, tab->precision);
+	numlen = printf_max(numdigits, tab->precision);
 	if (nb == 0 && tab->point && !tab->precision)
 		numlen = 0;
-	paddinglen = ft_max(0, tab->width - numlen);
+	paddinglen = printf_max(0, tab->width - numlen);
 	if (!tab->dash)
 		tab->len += put_padding(tab->padding, paddinglen);
 	if (tab->point)

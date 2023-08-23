@@ -6,7 +6,7 @@
 /*   By: mwallage <mwallage@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/10 15:31:03 by mwallage          #+#    #+#             */
-/*   Updated: 2023/08/22 16:18:11 by mwallage         ###   ########.fr       */
+/*   Updated: 2023/08/23 17:36:44 by mwallage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,18 @@ void	error_map(int fd, map_t *map, char *line)
 		free(line);
 	handle_error("mlx: invalid map.");
 }
-map_t	*parse_map(int fd, map_t *map)
-{
-	char	*line;
-	char	*current;
-	int32_t	x;
-	int32_t y;
 
+void	parse_map(int fd, map_t *map)
+{
+	char		*line;
+	char		*current;
+	int32_t		x;
+	int32_t 	y;
+	point2d_t	*points;
+
+	points = map->map2d;
 	y = -1;
+	ft_printf("map->rows: %d, map->cols: %d\n", map->rows, map->cols);
 	while (++y < map->rows)
 	{
  		line = get_next_line(fd);
@@ -45,26 +49,26 @@ map_t	*parse_map(int fd, map_t *map)
 		{
 			if (!ft_isdigit(*current))
 				error_map(fd, map, line);
-			map->map2d->x = x++;
-			map->map2d->y = y;
-			map->map2d->value = ft_atoi(current);
+			points->x = (map->interval) * x;
+			points->y = (map->interval) * y;
+			points->value = ft_atoi(current);
 			while (ft_isdigit(*current))
 				current++;
 			if (*current == ',')
 			{
 				if (ft_strncmp(current, "0x", 2))
 					error_map(fd, map, line);
-				map->map2d->rgba = ft_atoi(current);
+				points->rgba = ft_atoi(current);
 				current += 2;
 				while (ft_isdigit(*current))
 					current++;
 			}
+			points++;
 			while (*current == ' ' || *current == '\t')
 				current++;
 		}
 		free(line);
 	}
-	return (map);
 }
 
 static int	valid_filename(const char *filename)
@@ -145,12 +149,13 @@ map_t	*parse_input(int ac, char **av)
 	get_cols(fd, map);
 	get_rows(fd, map);
 	close(fd);
-	map->map2d = malloc(sizeof(map_t) * map->rows * map->cols);
+	(map->map2d) = malloc(sizeof(point2d_t) * (map->rows) * (map->cols));
 	if (!map->map2d)
 	{
 		free(map);
 		handle_error("mlx: malloc failed");
 	}
+	map->interval = ft_min(WIDTH, HEIGHT) / ft_max(map->cols, map->rows);
 	fd = open(av[1], O_RDONLY, 0777);
 	parse_map(fd, map);
 	close(fd);
@@ -159,17 +164,15 @@ map_t	*parse_input(int ac, char **av)
 
 void	draw_image(mlx_image_t *image, map_t *map)
 {
-	uint32_t	i;
-	uint32_t	j;
+	point2d_t	*points;
+	int			i;
 
-	if (!map)
-		i = 0;
+	points = map->map2d;
 	i = -1;
-	while (++i < (uint32_t)(map->cols * 10))
+	while (++i < ((map->rows) * (map->cols)))
 	{
-		j = -1;
-		while (++j < (uint32_t)(map->rows * 10))
-			mlx_put_pixel(image, i, j, 0xFFFFFF);
+		mlx_put_pixel(image, points->x, points->y, 0xFFFFFF);
+		points++;
 	}
 }
 
@@ -187,19 +190,21 @@ int32_t	main(int ac, char **av)
 	mlx_t		*mlx;
 	mlx_image_t	*image;
 	map_t		*map;
+	uint32_t	distance;
 
 	map = parse_input(ac, av);
 	mlx = mlx_init(WIDTH, HEIGHT, "FdF", true);
 	if (!mlx)
 		handle_error(mlx_strerror(mlx_errno));
-	image = mlx_new_image(mlx, map->cols * 10, map->rows * 10);
+	image = mlx_new_image(mlx, mlx->width, mlx->height);
+	distance = ft_min(image->width, image->height) / ft_max(map->cols, map->rows);
 	if (!image)
 	{
 		mlx_close_window(mlx);
 		handle_error(mlx_strerror(mlx_errno));
 	}
 	draw_image(image, map);
-	if (mlx_image_to_window(mlx, image, 10, 10) == -1)
+	if (mlx_image_to_window(mlx, image, WIDTH / 2  - (map->cols * distance) / 2, HEIGHT / 2 - (map->rows * distance) / 2))
 	{
 		mlx_close_window(mlx);
 		handle_error(mlx_strerror(mlx_errno));

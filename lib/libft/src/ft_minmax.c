@@ -1,34 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strjoin.c                                       :+:      :+:    :+:   */
+/*   ft_minmax.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mwallage <mwallage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/04 12:55:19 by mwallage          #+#    #+#             */
-/*   Updated: 2023/06/27 13:27:25 by mwallage         ###   ########.fr       */
+/*   Created: 2023/05/02 14:07:52 by mwallage          #+#    #+#             */
+/*   Updated: 2023/07/13 15:28:26 by mwallage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/libft.h"
 
-char	*ft_strjoin(char const *s1, char const *s2)
+int	ft_min(int a, int b)
 {
-	char	*joined;
-	char	*result;
+	if (a <= b)
+		return (a);
+	else
+		return (b);
+}
 
-	if (s1 == NULL)
-		return ((char *)s2);
-	if (s2 == NULL)
-		return ((char *)s1);
-	joined = malloc(ft_strlen(s1) + ft_strlen(s2) + 1);
-	if (joined == NULL)
-		return (NULL);
-	result = joined;
-	while (*s1)
-		*joined++ = *s1++;
-	while (*s2)
-		*joined++ = *s2++;
-	*joined = '\0';
-	return (result);
+int	ft_max(int a, int b)
+{
+	if (a >= b)
+		return (a);
+	else
+		return (b);
 }

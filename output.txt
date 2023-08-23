@@ -1,0 +1,628 @@
+map->rows: 11, map->cols: 19
+j: 0, i: 0
+x: 0, y: 0, z: 0
+j: 1, i: 0
+x: 23, y: 0, z: 0
+j: 2, i: 0
+x: 46, y: 0, z: 0
+j: 3, i: 0
+x: 69, y: 0, z: 0
+j: 4, i: 0
+x: 92, y: 0, z: 0
+j: 5, i: 0
+x: 115, y: 0, z: 0
+j: 6, i: 0
+x: 138, y: 0, z: 0
+j: 7, i: 0
+x: 161, y: 0, z: 0
+j: 8, i: 0
+x: 184, y: 0, z: 0
+j: 9, i: 0
+x: 207, y: 0, z: 0
+j: 10, i: 0
+x: 230, y: 0, z: 0
+j: 11, i: 0
+x: 253, y: 0, z: 0
+j: 12, i: 0
+x: 276, y: 0, z: 0
+j: 13, i: 0
+x: 299, y: 0, z: 0
+j: 14, i: 0
+x: 322, y: 0, z: 0
+j: 15, i: 0
+x: 345, y: 0, z: 0
+j: 16, i: 0
+x: 368, y: 0, z: 0
+j: 17, i: 0
+x: 391, y: 0, z: 0
+j: 18, i: 0
+x: 414, y: 0, z: 0
+j: 0, i: 1
+x: 0, y: 23, z: 0
+j: 1, i: 1
+x: 23, y: 23, z: 0
+j: 2, i: 1
+x: 46, y: 23, z: 0
+j: 3, i: 1
+x: 69, y: 23, z: 0
+j: 4, i: 1
+x: 92, y: 23, z: 0
+j: 5, i: 1
+x: 115, y: 23, z: 0
+j: 6, i: 1
+x: 138, y: 23, z: 0
+j: 7, i: 1
+x: 161, y: 23, z: 0
+j: 8, i: 1
+x: 184, y: 23, z: 0
+j: 9, i: 1
+x: 207, y: 23, z: 0
+j: 10, i: 1
+x: 230, y: 23, z: 0
+j: 11, i: 1
+x: 253, y: 23, z: 0
+j: 12, i: 1
+x: 276, y: 23, z: 0
+j: 13, i: 1
+x: 299, y: 23, z: 0
+j: 14, i: 1
+x: 322, y: 23, z: 0
+j: 15, i: 1
+x: 345, y: 23, z: 0
+j: 16, i: 1
+x: 368, y: 23, z: 0
+j: 17, i: 1
+x: 391, y: 23, z: 0
+j: 18, i: 1
+x: 414, y: 23, z: 0
+j: 0, i: 2
+x: 0, y: 46, z: 0
+j: 1, i: 2
+x: 23, y: 46, z: 0
+j: 2, i: 2
+x: 46, y: 46, z: 10
+j: 3, i: 2
+x: 69, y: 46, z: 10
+j: 4, i: 2
+x: 92, y: 46, z: 0
+j: 5, i: 2
+x: 115, y: 46, z: 0
+j: 6, i: 2
+x: 138, y: 46, z: 10
+j: 7, i: 2
+x: 161, y: 46, z: 10
+j: 8, i: 2
+x: 184, y: 46, z: 0
+j: 9, i: 2
+x: 207, y: 46, z: 0
+j: 10, i: 2
+x: 230, y: 46, z: 0
+j: 11, i: 2
+x: 253, y: 46, z: 10
+j: 12, i: 2
+x: 276, y: 46, z: 10
+j: 13, i: 2
+x: 299, y: 46, z: 10
+j: 14, i: 2
+x: 322, y: 46, z: 10
+j: 15, i: 2
+x: 345, y: 46, z: 10
+j: 16, i: 2
+x: 368, y: 46, z: 0
+j: 17, i: 2
+x: 391, y: 46, z: 0
+j: 18, i: 2
+x: 414, y: 46, z: 0
+j: 0, i: 3
+x: 0, y: 69, z: 0
+j: 1, i: 3
+x: 23, y: 69, z: 0
+j: 2, i: 3
+x: 46, y: 69, z: 10
+j: 3, i: 3
+x: 69, y: 69, z: 10
+j: 4, i: 3
+x: 92, y: 69, z: 0
+j: 5, i: 3
+x: 115, y: 69, z: 0
+j: 6, i: 3
+x: 138, y: 69, z: 10
+j: 7, i: 3
+x: 161, y: 69, z: 10
+j: 8, i: 3
+x: 184, y: 69, z: 0
+j: 9, i: 3
+x: 207, y: 69, z: 0
+j: 10, i: 3
+x: 230, y: 69, z: 0
+j: 11, i: 3
+x: 253, y: 69, z: 0
+j: 12, i: 3
+x: 276, y: 69, z: 0
+j: 13, i: 3
+x: 299, y: 69, z: 0
+j: 14, i: 3
+x: 322, y: 69, z: 0
+j: 15, i: 3
+x: 345, y: 69, z: 10
+j: 16, i: 3
+x: 368, y: 69, z: 10
+j: 17, i: 3
+x: 391, y: 69, z: 0
+j: 18, i: 3
+x: 414, y: 69, z: 0
+j: 0, i: 4
+x: 0, y: 92, z: 0
+j: 1, i: 4
+x: 23, y: 92, z: 0
+j: 2, i: 4
+x: 46, y: 92, z: 10
+j: 3, i: 4
+x: 69, y: 92, z: 10
+j: 4, i: 4
+x: 92, y: 92, z: 0
+j: 5, i: 4
+x: 115, y: 92, z: 0
+j: 6, i: 4
+x: 138, y: 92, z: 10
+j: 7, i: 4
+x: 161, y: 92, z: 10
+j: 8, i: 4
+x: 184, y: 92, z: 0
+j: 9, i: 4
+x: 207, y: 92, z: 0
+j: 10, i: 4
+x: 230, y: 92, z: 0
+j: 11, i: 4
+x: 253, y: 92, z: 0
+j: 12, i: 4
+x: 276, y: 92, z: 0
+j: 13, i: 4
+x: 299, y: 92, z: 0
+j: 14, i: 4
+x: 322, y: 92, z: 0
+j: 15, i: 4
+x: 345, y: 92, z: 10
+j: 16, i: 4
+x: 368, y: 92, z: 10
+j: 17, i: 4
+x: 391, y: 92, z: 0
+j: 18, i: 4
+x: 414, y: 92, z: 0
+j: 0, i: 5
+x: 0, y: 115, z: 0
+j: 1, i: 5
+x: 23, y: 115, z: 0
+j: 2, i: 5
+x: 46, y: 115, z: 10
+j: 3, i: 5
+x: 69, y: 115, z: 10
+j: 4, i: 5
+x: 92, y: 115, z: 10
+j: 5, i: 5
+x: 115, y: 115, z: 10
+j: 6, i: 5
+x: 138, y: 115, z: 10
+j: 7, i: 5
+x: 161, y: 115, z: 10
+j: 8, i: 5
+x: 184, y: 115, z: 0
+j: 9, i: 5
+x: 207, y: 115, z: 0
+j: 10, i: 5
+x: 230, y: 115, z: 0
+j: 11, i: 5
+x: 253, y: 115, z: 0
+j: 12, i: 5
+x: 276, y: 115, z: 10
+j: 13, i: 5
+x: 299, y: 115, z: 10
+j: 14, i: 5
+x: 322, y: 115, z: 10
+j: 15, i: 5
+x: 345, y: 115, z: 10
+j: 16, i: 5
+x: 368, y: 115, z: 0
+j: 17, i: 5
+x: 391, y: 115, z: 0
+j: 18, i: 5
+x: 414, y: 115, z: 0
+j: 0, i: 6
+x: 0, y: 138, z: 0
+j: 1, i: 6
+x: 23, y: 138, z: 0
+j: 2, i: 6
+x: 46, y: 138, z: 0
+j: 3, i: 6
+x: 69, y: 138, z: 10
+j: 4, i: 6
+x: 92, y: 138, z: 10
+j: 5, i: 6
+x: 115, y: 138, z: 10
+j: 6, i: 6
+x: 138, y: 138, z: 10
+j: 7, i: 6
+x: 161, y: 138, z: 10
+j: 8, i: 6
+x: 184, y: 138, z: 0
+j: 9, i: 6
+x: 207, y: 138, z: 0
+j: 10, i: 6
+x: 230, y: 138, z: 0
+j: 11, i: 6
+x: 253, y: 138, z: 10
+j: 12, i: 6
+x: 276, y: 138, z: 10
+j: 13, i: 6
+x: 299, y: 138, z: 0
+j: 14, i: 6
+x: 322, y: 138, z: 0
+j: 15, i: 6
+x: 345, y: 138, z: 0
+j: 16, i: 6
+x: 368, y: 138, z: 0
+j: 17, i: 6
+x: 391, y: 138, z: 0
+j: 18, i: 6
+x: 414, y: 138, z: 0
+j: 0, i: 7
+x: 0, y: 161, z: 0
+j: 1, i: 7
+x: 23, y: 161, z: 0
+j: 2, i: 7
+x: 46, y: 161, z: 0
+j: 3, i: 7
+x: 69, y: 161, z: 0
+j: 4, i: 7
+x: 92, y: 161, z: 0
+j: 5, i: 7
+x: 115, y: 161, z: 0
+j: 6, i: 7
+x: 138, y: 161, z: 10
+j: 7, i: 7
+x: 161, y: 161, z: 10
+j: 8, i: 7
+x: 184, y: 161, z: 0
+j: 9, i: 7
+x: 207, y: 161, z: 0
+j: 10, i: 7
+x: 230, y: 161, z: 0
+j: 11, i: 7
+x: 253, y: 161, z: 10
+j: 12, i: 7
+x: 276, y: 161, z: 10
+j: 13, i: 7
+x: 299, y: 161, z: 0
+j: 14, i: 7
+x: 322, y: 161, z: 0
+j: 15, i: 7
+x: 345, y: 161, z: 0
+j: 16, i: 7
+x: 368, y: 161, z: 0
+j: 17, i: 7
+x: 391, y: 161, z: 0
+j: 18, i: 7
+x: 414, y: 161, z: 0
+j: 0, i: 8
+x: 0, y: 184, z: 0
+j: 1, i: 8
+x: 23, y: 184, z: 0
+j: 2, i: 8
+x: 46, y: 184, z: 0
+j: 3, i: 8
+x: 69, y: 184, z: 0
+j: 4, i: 8
+x: 92, y: 184, z: 0
+j: 5, i: 8
+x: 115, y: 184, z: 0
+j: 6, i: 8
+x: 138, y: 184, z: 10
+j: 7, i: 8
+x: 161, y: 184, z: 10
+j: 8, i: 8
+x: 184, y: 184, z: 0
+j: 9, i: 8
+x: 207, y: 184, z: 0
+j: 10, i: 8
+x: 230, y: 184, z: 0
+j: 11, i: 8
+x: 253, y: 184, z: 10
+j: 12, i: 8
+x: 276, y: 184, z: 10
+j: 13, i: 8
+x: 299, y: 184, z: 10
+j: 14, i: 8
+x: 322, y: 184, z: 10
+j: 15, i: 8
+x: 345, y: 184, z: 10
+j: 16, i: 8
+x: 368, y: 184, z: 10
+j: 17, i: 8
+x: 391, y: 184, z: 0
+j: 18, i: 8
+x: 414, y: 184, z: 0
+j: 0, i: 9
+x: 0, y: 207, z: 0
+j: 1, i: 9
+x: 23, y: 207, z: 0
+j: 2, i: 9
+x: 46, y: 207, z: 0
+j: 3, i: 9
+x: 69, y: 207, z: 0
+j: 4, i: 9
+x: 92, y: 207, z: 0
+j: 5, i: 9
+x: 115, y: 207, z: 0
+j: 6, i: 9
+x: 138, y: 207, z: 0
+j: 7, i: 9
+x: 161, y: 207, z: 0
+j: 8, i: 9
+x: 184, y: 207, z: 0
+j: 9, i: 9
+x: 207, y: 207, z: 0
+j: 10, i: 9
+x: 230, y: 207, z: 0
+j: 11, i: 9
+x: 253, y: 207, z: 0
+j: 12, i: 9
+x: 276, y: 207, z: 0
+j: 13, i: 9
+x: 299, y: 207, z: 0
+j: 14, i: 9
+x: 322, y: 207, z: 0
+j: 15, i: 9
+x: 345, y: 207, z: 0
+j: 16, i: 9
+x: 368, y: 207, z: 0
+j: 17, i: 9
+x: 391, y: 207, z: 0
+j: 18, i: 9
+x: 414, y: 207, z: 0
+j: 0, i: 10
+x: 0, y: 230, z: 0
+j: 1, i: 10
+x: 23, y: 230, z: 0
+j: 2, i: 10
+x: 46, y: 230, z: 0
+j: 3, i: 10
+x: 69, y: 230, z: 0
+j: 4, i: 10
+x: 92, y: 230, z: 0
+j: 5, i: 10
+x: 115, y: 230, z: 0
+j: 6, i: 10
+x: 138, y: 230, z: 0
+j: 7, i: 10
+x: 161, y: 230, z: 0
+j: 8, i: 10
+x: 184, y: 230, z: 0
+j: 9, i: 10
+x: 207, y: 230, z: 0
+j: 10, i: 10
+x: 230, y: 230, z: 0
+j: 11, i: 10
+x: 253, y: 230, z: 0
+j: 12, i: 10
+x: 276, y: 230, z: 0
+j: 13, i: 10
+x: 299, y: 230, z: 0
+j: 14, i: 10
+x: 322, y: 230, z: 0
+j: 15, i: 10
+x: 345, y: 230, z: 0
+j: 16, i: 10
+x: 368, y: 230, z: 0
+j: 17, i: 10
+x: 391, y: 230, z: 0
+j: 18, i: 10
+x: 414, y: 230, z: 0
+Interval: 23, x: 0, y: 0
+Interval: 23, x: 23, y: 0
+Interval: 23, x: 46, y: 0
+Interval: 23, x: 69, y: 0
+Interval: 23, x: 92, y: 0
+Interval: 23, x: 115, y: 0
+Interval: 23, x: 138, y: 0
+Interval: 23, x: 161, y: 0
+Interval: 23, x: 184, y: 0
+Interval: 23, x: 207, y: 0
+Interval: 23, x: 230, y: 0
+Interval: 23, x: 253, y: 0
+Interval: 23, x: 276, y: 0
+Interval: 23, x: 299, y: 0
+Interval: 23, x: 322, y: 0
+Interval: 23, x: 345, y: 0
+Interval: 23, x: 368, y: 0
+Interval: 23, x: 391, y: 0
+Interval: 23, x: 414, y: 0
+Interval: 23, x: 0, y: 23
+Interval: 23, x: 23, y: 23
+Interval: 23, x: 46, y: 23
+Interval: 23, x: 69, y: 23
+Interval: 23, x: 92, y: 23
+Interval: 23, x: 115, y: 23
+Interval: 23, x: 138, y: 23
+Interval: 23, x: 161, y: 23
+Interval: 23, x: 184, y: 23
+Interval: 23, x: 207, y: 23
+Interval: 23, x: 230, y: 23
+Interval: 23, x: 253, y: 23
+Interval: 23, x: 276, y: 23
+Interval: 23, x: 299, y: 23
+Interval: 23, x: 322, y: 23
+Interval: 23, x: 345, y: 23
+Interval: 23, x: 368, y: 23
+Interval: 23, x: 391, y: 23
+Interval: 23, x: 414, y: 23
+Interval: 23, x: 0, y: 46
+Interval: 23, x: 23, y: 46
+Interval: 23, x: 46, y: 46
+Interval: 23, x: 69, y: 46
+Interval: 23, x: 92, y: 46
+Interval: 23, x: 115, y: 46
+Interval: 23, x: 138, y: 46
+Interval: 23, x: 161, y: 46
+Interval: 23, x: 184, y: 46
+Interval: 23, x: 207, y: 46
+Interval: 23, x: 230, y: 46
+Interval: 23, x: 253, y: 46
+Interval: 23, x: 276, y: 46
+Interval: 23, x: 299, y: 46
+Interval: 23, x: 322, y: 46
+Interval: 23, x: 345, y: 46
+Interval: 23, x: 368, y: 46
+Interval: 23, x: 391, y: 46
+Interval: 23, x: 414, y: 46
+Interval: 23, x: 0, y: 69
+Interval: 23, x: 23, y: 69
+Interval: 23, x: 46, y: 69
+Interval: 23, x: 69, y: 69
+Interval: 23, x: 92, y: 69
+Interval: 23, x: 115, y: 69
+Interval: 23, x: 138, y: 69
+Interval: 23, x: 161, y: 69
+Interval: 23, x: 184, y: 69
+Interval: 23, x: 207, y: 69
+Interval: 23, x: 230, y: 69
+Interval: 23, x: 253, y: 69
+Interval: 23, x: 276, y: 69
+Interval: 23, x: 299, y: 69
+Interval: 23, x: 322, y: 69
+Interval: 23, x: 345, y: 69
+Interval: 23, x: 368, y: 69
+Interval: 23, x: 391, y: 69
+Interval: 23, x: 414, y: 69
+Interval: 23, x: 0, y: 92
+Interval: 23, x: 23, y: 92
+Interval: 23, x: 46, y: 92
+Interval: 23, x: 69, y: 92
+Interval: 23, x: 92, y: 92
+Interval: 23, x: 115, y: 92
+Interval: 23, x: 138, y: 92
+Interval: 23, x: 161, y: 92
+Interval: 23, x: 184, y: 92
+Interval: 23, x: 207, y: 92
+Interval: 23, x: 230, y: 92
+Interval: 23, x: 253, y: 92
+Interval: 23, x: 276, y: 92
+Interval: 23, x: 299, y: 92
+Interval: 23, x: 322, y: 92
+Interval: 23, x: 345, y: 92
+Interval: 23, x: 368, y: 92
+Interval: 23, x: 391, y: 92
+Interval: 23, x: 414, y: 92
+Interval: 23, x: 0, y: 115
+Interval: 23, x: 23, y: 115
+Interval: 23, x: 46, y: 115
+Interval: 23, x: 69, y: 115
+Interval: 23, x: 92, y: 115
+Interval: 23, x: 115, y: 115
+Interval: 23, x: 138, y: 115
+Interval: 23, x: 161, y: 115
+Interval: 23, x: 184, y: 115
+Interval: 23, x: 207, y: 115
+Interval: 23, x: 230, y: 115
+Interval: 23, x: 253, y: 115
+Interval: 23, x: 276, y: 115
+Interval: 23, x: 299, y: 115
+Interval: 23, x: 322, y: 115
+Interval: 23, x: 345, y: 115
+Interval: 23, x: 368, y: 115
+Interval: 23, x: 391, y: 115
+Interval: 23, x: 414, y: 115
+Interval: 23, x: 0, y: 138
+Interval: 23, x: 23, y: 138
+Interval: 23, x: 46, y: 138
+Interval: 23, x: 69, y: 138
+Interval: 23, x: 92, y: 138
+Interval: 23, x: 115, y: 138
+Interval: 23, x: 138, y: 138
+Interval: 23, x: 161, y: 138
+Interval: 23, x: 184, y: 138
+Interval: 23, x: 207, y: 138
+Interval: 23, x: 230, y: 138
+Interval: 23, x: 253, y: 138
+Interval: 23, x: 276, y: 138
+Interval: 23, x: 299, y: 138
+Interval: 23, x: 322, y: 138
+Interval: 23, x: 345, y: 138
+Interval: 23, x: 368, y: 138
+Interval: 23, x: 391, y: 138
+Interval: 23, x: 414, y: 138
+Interval: 23, x: 0, y: 161
+Interval: 23, x: 23, y: 161
+Interval: 23, x: 46, y: 161
+Interval: 23, x: 69, y: 161
+Interval: 23, x: 92, y: 161
+Interval: 23, x: 115, y: 161
+Interval: 23, x: 138, y: 161
+Interval: 23, x: 161, y: 161
+Interval: 23, x: 184, y: 161
+Interval: 23, x: 207, y: 161
+Interval: 23, x: 230, y: 161
+Interval: 23, x: 253, y: 161
+Interval: 23, x: 276, y: 161
+Interval: 23, x: 299, y: 161
+Interval: 23, x: 322, y: 161
+Interval: 23, x: 345, y: 161
+Interval: 23, x: 368, y: 161
+Interval: 23, x: 391, y: 161
+Interval: 23, x: 414, y: 161
+Interval: 23, x: 0, y: 184
+Interval: 23, x: 23, y: 184
+Interval: 23, x: 46, y: 184
+Interval: 23, x: 69, y: 184
+Interval: 23, x: 92, y: 184
+Interval: 23, x: 115, y: 184
+Interval: 23, x: 138, y: 184
+Interval: 23, x: 161, y: 184
+Interval: 23, x: 184, y: 184
+Interval: 23, x: 207, y: 184
+Interval: 23, x: 230, y: 184
+Interval: 23, x: 253, y: 184
+Interval: 23, x: 276, y: 184
+Interval: 23, x: 299, y: 184
+Interval: 23, x: 322, y: 184
+Interval: 23, x: 345, y: 184
+Interval: 23, x: 368, y: 184
+Interval: 23, x: 391, y: 184
+Interval: 23, x: 414, y: 184
+Interval: 23, x: 0, y: 207
+Interval: 23, x: 23, y: 207
+Interval: 23, x: 46, y: 207
+Interval: 23, x: 69, y: 207
+Interval: 23, x: 92, y: 207
+Interval: 23, x: 115, y: 207
+Interval: 23, x: 138, y: 207
+Interval: 23, x: 161, y: 207
+Interval: 23, x: 184, y: 207
+Interval: 23, x: 207, y: 207
+Interval: 23, x: 230, y: 207
+Interval: 23, x: 253, y: 207
+Interval: 23, x: 276, y: 207
+Interval: 23, x: 299, y: 207
+Interval: 23, x: 322, y: 207
+Interval: 23, x: 345, y: 207
+Interval: 23, x: 368, y: 207
+Interval: 23, x: 391, y: 207
+Interval: 23, x: 414, y: 207
+Interval: 23, x: 0, y: 230
+Interval: 23, x: 23, y: 230
+Interval: 23, x: 46, y: 230
+Interval: 23, x: 69, y: 230
+Interval: 23, x: 92, y: 230
+Interval: 23, x: 115, y: 230
+Interval: 23, x: 138, y: 230
+Interval: 23, x: 161, y: 230
+Interval: 23, x: 184, y: 230
+Interval: 23, x: 207, y: 230
+Interval: 23, x: 230, y: 230
+Interval: 23, x: 253, y: 230
+Interval: 23, x: 276, y: 230
+Interval: 23, x: 299, y: 230
+Interval: 23, x: 322, y: 230
+Interval: 23, x: 345, y: 230
+Interval: 23, x: 368, y: 230
+Interval: 23, x: 391, y: 230
+Interval: 23, x: 414, y: 230

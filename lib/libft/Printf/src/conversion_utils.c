@@ -6,7 +6,7 @@
 /*   By: mwallage <mwallage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 18:16:15 by mwallage          #+#    #+#             */
-/*   Updated: 2023/06/14 17:41:05 by mwallage         ###   ########.fr       */
+/*   Updated: 2023/07/07 16:32:37 by mwallage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,6 @@ unsigned int	ft_numdigits(size_t nbr, unsigned int baselen)
 		return (1);
 	count = 0;
 	while (nbr > 0)
-	{
-		nbr /= baselen;
-		count++;
-	}
-	while (nbr < 0)
 	{
 		nbr /= baselen;
 		count++;
