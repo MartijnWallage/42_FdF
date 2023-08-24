@@ -26,8 +26,8 @@ typedef struct	point2d_s
 {
 	int32_t		x;
 	int32_t		y;
-	point3d_s	*right;
-	point3d_s	*down;
+	point2d_s	*right;
+	point2d_s	*down;
 	int			rgba;
 }			point2d_t;
 
