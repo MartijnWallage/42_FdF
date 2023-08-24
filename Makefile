@@ -6,7 +6,7 @@
 #    By: mwallage <mwallage@student.42berlin.de>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/10 15:31:16 by mwallage          #+#    #+#              #
-#    Updated: 2023/08/22 15:12:24 by mwallage         ###   ########.fr        #
+#    Updated: 2023/08/24 15:57:56 by mwallage         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,20 +14,20 @@
 CC		:= CC
 UNAME	:= $(shell uname)
 CFLAGS	:= -Wall -Wextra -Werror -Wunreachable-code -Ofast
-NAME	:= fdf
-LIBFT	:= libft.a
-MLX42	:= libmlx42.a
-
-# Directories
-SRC_DIR		:= ./src
-MLX_DIR		:= ./lib/MLX42
-LIBFT_TDIR	:= ./lib/libft
-LIBS		:= -L$(LIBFT_DIR) -lft $(MLX_DIR)/build/libmlx42.a -ldl -lglfw -pthread -lm
-
-SRC		:= fdf_main.c
-SRCS	:= $(addprefix $(SRCDIR), $(SRC))
+LIBMLX	:= ./lib/MLX42
+LIBFT	:= ./lib/libft
+HEADERS	:= -I ./inc -I $(LIBMLX)/include -I $(LIBFT)/inc
+LIBS	:= -L$(LIBFT) -lft $(LIBMLX)/build/libmlx42.a -ldl -lglfw -pthread -lm
+SRCDIR	:= src
+SRC		:= fdf_main.c \
+			fdf_draw.c \
+			fdf_error.c \
+			fdf_parse.c \
+			fdf_utils.c \
+			fdf_rotate.c \
+			fdf_hooks.c
+SRCS	:= $(addprefix $(SRCDIR)/, $(SRC))
 OBJ		:= ${SRCS:.c=.o}
-HEADERS	:= -I ./inc -I $(MLX_DIR)/include -I $(LIBFT_DIR)/inc
 
 all: libmlx libft $(NAME)
 
@@ -35,13 +35,13 @@ libmlx:
 	cmake $(MLX_DIR) -B $(MLX_DIR)/build && make -C $(MLX_DIR)/build -j4
 
 libft:
-	make -C$(LIBFT_DIR)
+	make -C$(LIBFT)
+
+$(NAME): $(OBJ)
+	$(CC) -g $(OBJ) $(LIBS) $(HEADERS) -o $@
 
 %.o: %.c
 	$(CC) -g $(CFLAGS) -o $@ -c $< $(HEADERS)
-
-$(NAME): $(OBJ)
-	$(CC) -g $(OBJ) $(LIBS) $(HEADERS) -o $(NAME)
 
 clean:
 	rm -rf $(OBJ)
