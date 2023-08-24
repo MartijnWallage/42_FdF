@@ -33,11 +33,4 @@ void ft_hook(void* param)
 		image->instances->y += 5;
 	if (mlx_is_key_down(mlx, MLX_KEY_UP))
 		image->instances->y -= 5;
-	if (mlx_is_key_down(mlx, MLX_KEY_R))
-	{
-		int32_t	previous_x = (image->instances->x);
-		int32_t	previous_y = (image->instances->y);
-		image->instances->x = (previous_x - previous_y) * cos(0.46373398);
-    	image->instances->y = -10 + (previous_x + previous_y) * sin(0.46373398);
-	}
 }

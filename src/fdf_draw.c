@@ -15,15 +15,10 @@
 void	draw_grid(mlx_image_t *image, map_t *map)
 {
 	point3d_t	*points;
-	int			i;
 
-	points = map->map3d;
-	i = -1;
-	while (++i < (map->rows) * (map->cols))
-	{
-		mlx_put_pixel(image, points->x, points->y, 0xFFFFFFFF);
-		points++;
-	}
+	points = (map->map2d) - 1;
+	while (++points)
+		mlx_put_pixel(image, points->x, points->y, points->rgba);
 }
 
 void	draw_lines(mlx_image_t *image, map_t *map)

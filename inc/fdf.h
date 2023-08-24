@@ -22,12 +22,23 @@
 # define	WIDTH	800
 # define	HEIGHT	450
 
+typedef struct	point2d_s
+{
+	int32_t		x;
+	int32_t		y;
+	point3d_s	*right;
+	point3d_s	*down;
+	int			rgba;
+}			point2d_t;
+
 typedef struct	point3d_s
 {
-	int32_t	x;
-	int32_t	y;
-	int32_t	z;
-	int		rgba;
+	int32_t		x;
+	int32_t		y;
+	int32_t		z;
+	point3d_s	*right;
+	point3d_s	*down;
+	int			rgba;
 }			point3d_t;
 
 
@@ -36,8 +47,8 @@ typedef struct map_s
 	int				rows;
 	int				cols;
 	unsigned int	interval;
-	point3d_t		*pivot;
 	point3d_t		*map3d;
+	point2d_t		*projection;
 }					map_t;
 
 typedef struct	ft_hook_s
@@ -63,8 +74,8 @@ void		draw_grid(mlx_image_t *, map_t *);
 void		draw_lines(mlx_image_t *, map_t *);
 void		draw_image(mlx_image_t *, map_t *);
 
-/* fdf_rotate.c */
-void		project_iso(map_t *map, mlx_image_t *image);
+/* fdf_project.c */
+void		iso_project(map_t *map);
 
 /* fdf_hooks.c */
 void		ft_hook(void* param);

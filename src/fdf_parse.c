@@ -28,6 +28,7 @@ void	parse_map(int fd, map_t *map)
  		line = get_next_line(fd);
 		if (!line)
 			error_map(fd, map, NULL);
+		// use ft_split to get tab of each point.
 		current = line;
 		x = -1;
 		while (++x < map->cols)
@@ -134,12 +135,13 @@ map_t	*parse_input(int ac, char **av)
 	get_cols(fd, map);
 	get_rows(fd, map);
 	close(fd);
-	(map->map3d) = malloc(sizeof(point3d_t) * (map->rows) * (map->cols));
+	(map->map3d) = malloc(sizeof(point3d_t) * ((map->rows) * (map->cols) + 1));
 	if (!map->map3d)
 	{
 		free(map);
 		handle_error("mlx: malloc failed");
 	}
+	map->map3d[map->rows * map->cols] = NULL;
 	map->interval = ft_min(WIDTH, HEIGHT) / ft_max(map->cols, map->rows);
 	fd = open(av[1], O_RDONLY, 0777);
 	parse_map(fd, map);

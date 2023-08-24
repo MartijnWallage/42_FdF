@@ -18,21 +18,21 @@ int32_t	main(int ac, char **av)
 	mlx_image_t	*image;
 	map_t		*map;
 	ft_hook_t	*hook;
-	uint32_t	distance;
 
 	map = parse_input(ac, av);
 	mlx = mlx_init(WIDTH, HEIGHT, "FdF", true);
 	if (!mlx)
 		handle_error(mlx_strerror(mlx_errno));
 	image = mlx_new_image(mlx, mlx->width, mlx->height);
-	distance = ft_min(image->width, image->height) / ft_max(map->cols, map->rows);
 	if (!image)
 	{
 		mlx_close_window(mlx);
 		handle_error(mlx_strerror(mlx_errno));
 	}
+	iso_project(map);
 	draw_image(image, map);
-	if (mlx_image_to_window(mlx, image, WIDTH / 2  - (map->cols * distance) / 2, HEIGHT / 2 - (map->rows * distance) / 2))
+	if (mlx_image_to_window(mlx, image, WIDTH / 2  - (map->cols * map->interval) / 2,
+		HEIGHT / 2 - (map->rows * map->interval) / 2))
 	{
 		mlx_close_window(mlx);
 		handle_error(mlx_strerror(mlx_errno));

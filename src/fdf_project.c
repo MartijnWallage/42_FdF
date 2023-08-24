@@ -12,17 +12,28 @@
 
 #include "../inc/fdf.h"
 
-/* static void	iso(int32_t *x, int32_t *y, int32_t z)
+static point2d_t	*iso(map_t *map)
 {
-    int32_t previous_x;
-    int32_t previous_y;
+    point2d_t   *projection;
 
-    previous_x = *x;
-    previous_y = *y;
-    *x = (previous_x - previous_y) * cos(0.46373398);
-    *y = -z + (previous_x + previous_y) * sin(0.46373398);
+    projection = malloc(sizeof(point2d_t) * (map->cols * map->rows + 1));
+    if (!projection)
+    {
+        free(map);
+        handle_error("malloc failed");
+    }
+    projection[map->cols * map->rows] = NULL;
+    while (points)
+    {
+        projection->x = (points->x - points->y) * cos(0.46373398);
+        projection->y = -points->z + (points->x + points->y) * sin(0.46373398);
+        projection->rgba = points->rgba;
+        points++;
+        projection++;
+    }
 }
 
-void	project_iso(map_t *map, mlx_image_t *image)
+void	iso_project(map_t *map)
 {
-} */
+    map->projection = iso(map);
+}

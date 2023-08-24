@@ -10,9 +10,7 @@
 #                                                                              #
 # **************************************************************************** #
 
-# Compiler targets and libraries
 CC		:= CC
-UNAME	:= $(shell uname)
 CFLAGS	:= -Wall -Wextra -Werror -Wunreachable-code -Ofast
 LIBMLX	:= ./lib/MLX42
 LIBFT	:= ./lib/libft
@@ -24,7 +22,7 @@ SRC		:= fdf_main.c \
 			fdf_error.c \
 			fdf_parse.c \
 			fdf_utils.c \
-			fdf_rotate.c \
+			fdf_project.c \
 			fdf_hooks.c
 SRCS	:= $(addprefix $(SRCDIR)/, $(SRC))
 OBJ		:= ${SRCS:.c=.o}
