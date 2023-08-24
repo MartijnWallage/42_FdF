@@ -6,7 +6,7 @@
 #    By: mwallage <mwallage@student.42berlin.de>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/10 15:31:16 by mwallage          #+#    #+#              #
-#    Updated: 2023/08/22 15:12:24 by mwallage         ###   ########.fr        #
+#    Updated: 2023/08/24 15:57:56 by mwallage         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,8 +17,15 @@ LIBFT	:= ./lib/libft
 HEADERS	:= -I ./inc -I $(LIBMLX)/include -I $(LIBFT)/inc
 LIBS	:= -L$(LIBFT) -lft $(LIBMLX)/build/libmlx42.a -ldl -lglfw -pthread -lm
 SRCDIR	:= src
-SRC		:= $(SRCDIR)/fdf_main.c
-OBJ		:= ${SRC:.c=.o}
+SRC		:= fdf_main.c \
+			fdf_draw.c \
+			fdf_error.c \
+			fdf_parse.c \
+			fdf_utils.c \
+			fdf_rotate.c \
+			fdf_hooks.c
+SRCS	:= $(addprefix $(SRCDIR)/, $(SRC))
+OBJ		:= ${SRCS:.c=.o}
 
 all: libmlx libft $(NAME)
 
@@ -28,11 +35,11 @@ libmlx:
 libft:
 	make -C$(LIBFT)
 
+$(NAME): $(OBJ)
+	$(CC) -g $(OBJ) $(LIBS) $(HEADERS) -o $@
+
 %.o: %.c
 	$(CC) -g $(CFLAGS) -o $@ -c $< $(HEADERS)
-
-$(NAME): $(OBJ)
-	$(CC) -g $(OBJ) $(LIBS) $(HEADERS) -o $(NAME)
 
 clean:
 	rm -rf $(OBJ)
