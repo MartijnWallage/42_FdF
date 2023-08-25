@@ -22,33 +22,27 @@
 # define	WIDTH	800
 # define	HEIGHT	450
 
-typedef struct	point2d_s
-{
-	int32_t		x;
-	int32_t		y;
-	point2d_s	*right;
-	point2d_s	*down;
-	int			rgba;
-}			point2d_t;
-
 typedef struct	point3d_s
 {
-	int32_t		x;
-	int32_t		y;
-	int32_t		z;
-	point3d_s	*right;
-	point3d_s	*down;
-	int			rgba;
+	int32_t	x;
+	int32_t	y;
+	int32_t	z;
+	int		rgba;
 }			point3d_t;
 
+typedef struct	point2d_s
+{
+	int32_t	value;
+	int		rgba;
+}			point2d_t;
 
 typedef struct map_s
 {
 	int				rows;
 	int				cols;
 	unsigned int	interval;
-	point3d_t		*map3d;
-	point2d_t		*projection;
+	point3d_t		**map3d;
+	point2d_t		**projection;
 }					map_t;
 
 typedef struct	ft_hook_s

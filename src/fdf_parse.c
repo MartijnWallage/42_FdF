@@ -18,11 +18,10 @@ void	parse_map(int fd, map_t *map)
 	char		*current;
 	int32_t		x;
 	int32_t 	y;
-	point3d_t	*points;
+	point3d_t	**points;
 
 	points = map->map3d;
 	y = -1;
-	ft_printf("map->rows: %d, map->cols: %d\n", map->rows, map->cols);
 	while (++y < map->rows)
 	{
  		line = get_next_line(fd);
@@ -35,21 +34,21 @@ void	parse_map(int fd, map_t *map)
 		{
 			if (!ft_isdigit(*current))
 				error_map(fd, map, line);
-			points->x = (map->interval) * x;
-			points->y = (map->interval) * y;
-			points->z = ft_atoi(current);
+			points[x][y]->z = ft_atoi(current);
 			while (ft_isdigit(*current))
 				current++;
 			if (*current == ',')
 			{
 				if (ft_strncmp(current, "0x", 2))
 					error_map(fd, map, line);
-				points->rgba = ft_atoi(current);
+				points[x][y]->rgba = ft_atoi(current);
 				current += 2;
 				while (ft_isdigit(*current))
 					current++;
 			}
-			points++;
+			else {
+				points[x][y]->rgba = 0xFFFFFFFF;
+			}
 			while (*current == ' ' || *current == '\t')
 				current++;
 		}
@@ -120,6 +119,7 @@ map_t	*parse_input(int ac, char **av)
 {
 	map_t	*map;
 	int		fd;
+	int		i;
 
 	if (ac != 2 || !valid_filename(av[1]))
 		handle_error("Format:\n\t./fdf *.fdf");
@@ -135,13 +135,11 @@ map_t	*parse_input(int ac, char **av)
 	get_cols(fd, map);
 	get_rows(fd, map);
 	close(fd);
-	(map->map3d) = malloc(sizeof(point3d_t) * ((map->rows) * (map->cols) + 1));
-	if (!map->map3d)
-	{
-		free(map);
-		handle_error("mlx: malloc failed");
-	}
-	map->map3d[map->rows * map->cols] = NULL;
+	map->map3d = malloc(sizeof(map3d *) * map->rows);
+	i = -1;
+	while (++i < map->rows)
+		*(map->map3d) = malloc(sizeof(map3d) * map->cols);
+	// malloc needs to be protected;
 	map->interval = ft_min(WIDTH, HEIGHT) / ft_max(map->cols, map->rows);
 	fd = open(av[1], O_RDONLY, 0777);
 	parse_map(fd, map);
