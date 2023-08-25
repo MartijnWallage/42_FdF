@@ -1,39 +1,47 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fdf_rotate.c                                       :+:      :+:    :+:   */
+/*   fdf_project.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mwallage <mwallage@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 14:59:34 by mwallage          #+#    #+#             */
-/*   Updated: 2023/08/24 15:55:48 by mwallage         ###   ########.fr       */
+/*   Updated: 2023/08/25 13:38:12 by mwallage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/fdf.h"
 
-static point2d_t	*iso(map_t *map)
+static point2d_t	**iso(map_t *map)
 {
-    point2d_t   *projection;
-
-    projection = malloc(sizeof(point2d_t) * (map->cols * map->rows + 1));
-    if (!projection)
+    point2d_t   **projection;
+    point3d_t   **source;
+    int         i;
+    int         j;
+    
+    source = map->map3d;
+    projection = malloc(sizeof(point2d_t *) * map->rows);
+    // protect malloc
+    i = -1;
+    while (++i < map->rows)
     {
-        free(map);
-        handle_error("malloc failed");
+        projection[i] = malloc(sizeof(point2d_t) * map->cols);
+        // protect malloc
+        j = -1;
+        while (++j < map->cols)
+        {
+            projection[i][j].x = source[i][j].x
+                + cos(0.46373398) * source[i][j].z
+                - cos(0.46373398) * (source[i][j].y);
+            projection[i][j].y = -(source[i][j].y) * sin(0.46373398)
+                - source[i][j].z * sin(0.46373398);
+            projection[i][j].rgba = (map->map3d)[i][j].rgba;
+        }
     }
-    projection[map->cols * map->rows] = NULL;
-    while (points)
-    {
-        projection->x = (points->x - points->y) * cos(0.46373398);
-        projection->y = -points->z + (points->x + points->y) * sin(0.46373398);
-        projection->rgba = points->rgba;
-        points++;
-        projection++;
-    }
+    return (projection);
 }
 
 void	iso_project(map_t *map)
 {
-    map->projection = iso(map);
+    map->map2d = iso(map);
 }

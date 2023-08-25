@@ -6,7 +6,7 @@
 /*   By: mwallage <mwallage@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 14:37:23 by mwallage          #+#    #+#             */
-/*   Updated: 2023/08/24 15:16:53 by mwallage         ###   ########.fr       */
+/*   Updated: 2023/08/25 13:32:05 by mwallage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,38 +16,41 @@ void	parse_map(int fd, map_t *map)
 {
 	char		*line;
 	char		*current;
-	int32_t		x;
-	int32_t 	y;
+	int			i;
+	int 		j;
 	point3d_t	**points;
 
 	points = map->map3d;
-	y = -1;
-	while (++y < map->rows)
+	i = -1;
+	while (++i < map->rows)
 	{
  		line = get_next_line(fd);
 		if (!line)
 			error_map(fd, map, NULL);
 		// use ft_split to get tab of each point.
 		current = line;
-		x = -1;
-		while (++x < map->cols)
+		j = -1;
+		while (++j < map->cols)
 		{
 			if (!ft_isdigit(*current))
 				error_map(fd, map, line);
-			points[x][y]->z = ft_atoi(current);
+			points[i][j].x = j * map->interval;
+			points[i][j].y = i * map->interval;
+			points[i][j].z = ft_atoi(current) * (map->interval / 2);
+			ft_printf("point[%d][%d].x = %d\n", i, j, points[i][j].x);
+			ft_printf("point[%d][%d].y = %d\n", i, j, points[i][j].y);
+			ft_printf("point[%d][%d].z = %d\n", i, j, points[i][j].z);
 			while (ft_isdigit(*current))
 				current++;
+			points[i][j].rgba = 0xFFFFFF;
 			if (*current == ',')
 			{
 				if (ft_strncmp(current, "0x", 2))
 					error_map(fd, map, line);
-				points[x][y]->rgba = ft_atoi(current);
+				points[i][j].rgba = ft_atoi(current);
 				current += 2;
 				while (ft_isdigit(*current))
 					current++;
-			}
-			else {
-				points[x][y]->rgba = 0xFFFFFFFF;
 			}
 			while (*current == ' ' || *current == '\t')
 				current++;
@@ -115,11 +118,36 @@ void	get_rows(int fd, map_t *map)
 	map->rows = y;
 }
 
+static void	malloc_map3d(map_t	*map)
+{
+	int	i;
+	int j;
+	
+	map->map3d = malloc(sizeof(point3d_t *) * map->rows);
+	if (!(map->map3d))
+	{
+		free(map);
+		handle_error("malloc error");
+	}
+	i = -1;
+	while (++i < map->rows)
+	{
+		map->map3d[i] = malloc(sizeof(point3d_t) * map->cols);
+		if (!(map->map3d[i]))
+		{
+			j = -1;
+			while (++j < i)
+				free(map->map3d[j]);
+			free(map);
+			handle_error("malloc error");
+		}
+	}
+}
+
 map_t	*parse_input(int ac, char **av)
 {
-	map_t	*map;
 	int		fd;
-	int		i;
+	map_t	*map;
 
 	if (ac != 2 || !valid_filename(av[1]))
 		handle_error("Format:\n\t./fdf *.fdf");
@@ -129,17 +157,13 @@ map_t	*parse_input(int ac, char **av)
 	map = malloc(sizeof(map_t));
 	if (!map)
 	{
-		close(fd);
-		handle_error("mlx: malloc failed");
+		free(map);
+		handle_error("malloc error");
 	}
 	get_cols(fd, map);
 	get_rows(fd, map);
 	close(fd);
-	map->map3d = malloc(sizeof(map3d *) * map->rows);
-	i = -1;
-	while (++i < map->rows)
-		*(map->map3d) = malloc(sizeof(map3d) * map->cols);
-	// malloc needs to be protected;
+	malloc_map3d(map);
 	map->interval = ft_min(WIDTH, HEIGHT) / ft_max(map->cols, map->rows);
 	fd = open(av[1], O_RDONLY, 0777);
 	parse_map(fd, map);

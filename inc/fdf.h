@@ -6,7 +6,7 @@
 /*   By: mwallage <mwallage@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/10 15:30:52 by mwallage          #+#    #+#             */
-/*   Updated: 2023/08/24 15:57:46 by mwallage         ###   ########.fr       */
+/*   Updated: 2023/08/25 12:20:28 by mwallage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,8 @@ typedef struct	point3d_s
 
 typedef struct	point2d_s
 {
-	int32_t	value;
+	int32_t	x;
+	int32_t	y;
 	int		rgba;
 }			point2d_t;
 
@@ -42,7 +43,7 @@ typedef struct map_s
 	int				cols;
 	unsigned int	interval;
 	point3d_t		**map3d;
-	point2d_t		**projection;
+	point2d_t		**map2d;
 }					map_t;
 
 typedef struct	ft_hook_s

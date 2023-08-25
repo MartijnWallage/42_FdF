@@ -6,7 +6,7 @@
 /*   By: mwallage <mwallage@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 14:38:25 by mwallage          #+#    #+#             */
-/*   Updated: 2023/08/24 15:56:32 by mwallage         ###   ########.fr       */
+/*   Updated: 2023/08/25 13:36:19 by mwallage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,22 @@
 
 void	draw_grid(mlx_image_t *image, map_t *map)
 {
-	point3d_t	*points;
+	point2d_t	**points;
+	int	i;
+	int	j;
 
-	points = (map->map2d) - 1;
-	while (++points)
-		mlx_put_pixel(image, points->x, points->y, points->rgba);
+	points = map->map2d;
+	i = -1;
+	while (++i < map->rows)
+	{
+		j = -1;
+		while (++j < map->cols)
+		{
+			mlx_put_pixel(image, points[i][j].x + image->height / 2, points[i][j].y + image->width / 2, points[i][j].rgba);
+		}
+	}
 }
-
+/* 
 void	draw_lines(mlx_image_t *image, map_t *map)
 {
 	uint32_t	i;
@@ -37,9 +46,10 @@ void	draw_lines(mlx_image_t *image, map_t *map)
 		}
 	}	
 }
+ */
 
 void	draw_image(mlx_image_t *image, map_t *map)
 {
 	draw_grid(image, map);
-	draw_lines(image, map);
+//	draw_lines(image, map);
 }
