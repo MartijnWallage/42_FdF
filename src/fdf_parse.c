@@ -164,7 +164,7 @@ map_t	*parse_input(int ac, char **av)
 	get_rows(fd, map);
 	close(fd);
 	malloc_map3d(map);
-	map->interval = ft_min(WIDTH, HEIGHT) / ft_max(map->cols, map->rows);
+	map->interval = ft_min(WIDTH / map->cols, HEIGHT / map->rows);
 	fd = open(av[1], O_RDONLY, 0777);
 	parse_map(fd, map);
 	close(fd);
