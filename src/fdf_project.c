@@ -35,6 +35,8 @@ static point2d_t	**iso(map_t *map)
                 - cos(0.46373398) * (source[i][j].y);
             projection[i][j].y = -(source[i][j].y) * sin(0.46373398)
                 - source[i][j].z * sin(0.46373398);
+            projection[i][j].x += WIDTH / 2;
+            projection[i][j].y += HEIGHT / 2;
             projection[i][j].rgba = (map->map3d)[i][j].rgba;
         }
     }
