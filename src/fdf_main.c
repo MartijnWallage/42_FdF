@@ -23,7 +23,7 @@ int32_t	main(int ac, char **av)
 	mlx = mlx_init(WIDTH, HEIGHT, "FdF", true);
 	if (!mlx)
 		handle_error(mlx_strerror(mlx_errno));
-	image = mlx_new_image(mlx, mlx->width, mlx->height);
+	image = mlx_new_image(mlx, WIDTH, HEIGHT);
 	if (!image)
 	{
 		mlx_close_window(mlx);
