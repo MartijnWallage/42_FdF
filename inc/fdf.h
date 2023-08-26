@@ -6,7 +6,7 @@
 /*   By: mwallage <mwallage@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/10 15:30:52 by mwallage          #+#    #+#             */
-/*   Updated: 2023/08/25 12:20:28 by mwallage         ###   ########.fr       */
+/*   Updated: 2023/08/26 17:02:08 by mwallage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@
 # include "../lib/MLX42/include/MLX42/MLX42.h"
 # include "../lib/libft/inc/libft.h"
 
-# define	WIDTH	640
-# define	HEIGHT	360
+# define	WIDTH	720
+# define	HEIGHT	480
 
 typedef struct	point3d_s
 {
@@ -65,14 +65,17 @@ void		handle_error(const char *);
 void		error_map(int, map_t *, char *);
 
 /* fdf_draw.c */
-void		draw_grid(mlx_image_t *, map_t *);
-void		draw_lines(mlx_image_t *, map_t *);
-void		draw_image(mlx_image_t *, map_t *);
+void		draw_grid(mlx_image_t *image, map_t *map);
+void		draw_lines(mlx_image_t *image, map_t *map);
+void		draw_image(mlx_image_t *image, map_t *map);
 
 /* fdf_project.c */
 void		iso_project(map_t *map);
 
 /* fdf_hooks.c */
 void		ft_hook(void* param);
+
+/* fdf_utils.c*/
+void		ft_free_tab(void **ptr);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: mwallage <mwallage@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 14:59:34 by mwallage          #+#    #+#             */
-/*   Updated: 2023/08/25 13:38:12 by mwallage         ###   ########.fr       */
+/*   Updated: 2023/08/26 17:13:04 by mwallage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,23 +21,29 @@ static point2d_t	**iso(map_t *map)
     
     source = map->map3d;
     projection = malloc(sizeof(point2d_t *) * map->rows);
-    // protect malloc
+    if (!projection)
+    {
+        free(map);
+        handle_error("malloc failed");
+    }
     i = -1;
     while (++i < map->rows)
     {
         projection[i] = malloc(sizeof(point2d_t) * map->cols);
-        // protect malloc
+        if (!projection[i])
+        {
+            ft_free_tab((void **)projection);
+            handle_error("malloc failed");
+        }
         j = -1;
         while (++j < map->cols)
         {
-            projection[i][j].x = source[i][j].x
-                + cos(0.46373398) * source[i][j].z
-                - cos(0.46373398) * (source[i][j].y);
-            projection[i][j].y = -(source[i][j].y) * sin(0.46373398)
-                - source[i][j].z * sin(0.46373398);
-            projection[i][j].x += WIDTH / 2;
-            projection[i][j].y += HEIGHT / 2;
-            projection[i][j].rgba = (map->map3d)[i][j].rgba;
+            projection[i][j].y = source[i][j].y + cos(0.46373398) * source[i][j].z
+                - cos(0.46373398) * (source[i][j].x);
+            projection[i][j].x = source[i][j].x * sin(0.46373398) - source[i][j].z * sin(0.46373398);
+            projection[i][j].x += HEIGHT / 2;
+            projection[i][j].y += WIDTH / 2;
+            projection[i][j].rgba = source[i][j].rgba;
         }
     }
     return (projection);

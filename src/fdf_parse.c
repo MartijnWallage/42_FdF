@@ -6,7 +6,7 @@
 /*   By: mwallage <mwallage@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 14:37:23 by mwallage          #+#    #+#             */
-/*   Updated: 2023/08/25 13:32:05 by mwallage         ###   ########.fr       */
+/*   Updated: 2023/08/26 17:15:54 by mwallage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	parse_map(int fd, map_t *map)
 {
 	char		*line;
-	char		*current;
+	char		**tab;
 	int			i;
 	int 		j;
 	point3d_t	**points;
@@ -27,34 +27,18 @@ void	parse_map(int fd, map_t *map)
  		line = get_next_line(fd);
 		if (!line)
 			error_map(fd, map, NULL);
-		// use ft_split to get tab of each point.
-		current = line;
+		tab = ft_split(line, ' ');
 		j = -1;
 		while (++j < map->cols)
 		{
-			if (!ft_isdigit(*current))
+			if (!ft_isdigit(*tab[j]) && *tab[j] != '-')
 				error_map(fd, map, line);
-			points[i][j].x = j * map->interval - WIDTH / 2;
-			points[i][j].y = i * map->interval - HEIGHT / 2;
-			points[i][j].z = ft_atoi(current) * (map->interval);
-			ft_printf("point[%d][%d].x = %d\n", i, j, points[i][j].x);
-			ft_printf("point[%d][%d].y = %d\n", i, j, points[i][j].y);
-			ft_printf("point[%d][%d].z = %d\n", i, j, points[i][j].z);
-			while (ft_isdigit(*current))
-				current++;
+			points[i][j].y = j * (map->interval) - WIDTH / 2;
+			points[i][j].x = i * (map->interval) - HEIGHT / 2;
+			points[i][j].z = ft_atoi(tab[j]) * (map->interval / 2);
 			points[i][j].rgba = 0xFFFFFF;
-			if (*current == ',')
-			{
-				if (ft_strncmp(current, "0x", 2))
-					error_map(fd, map, line);
-				points[i][j].rgba = ft_atoi(current);
-				current += 2;
-				while (ft_isdigit(*current))
-					current++;
-			}
-			while (*current == ' ' || *current == '\t')
-				current++;
 		}
+		ft_free_tab((void **)tab);
 		free(line);
 	}
 }
@@ -81,10 +65,10 @@ void	get_cols(int fd, map_t *map)
 		error_map(fd, map, NULL);
 	x = 0;
 	current = line;
-	while (ft_isdigit(*current))
+	while (ft_isdigit(*current) || *current == '-')
 	{
 		x++;
-		while (ft_isdigit(*current))
+		while (ft_isdigit(*current) || *current == '-')
 			current++;
 		if (*line == ',')
 		{
@@ -156,12 +140,11 @@ map_t	*parse_input(int ac, char **av)
 		handle_error("mlx: file does not exist.");
 	map = malloc(sizeof(map_t));
 	if (!map)
-	{
-		free(map);
 		handle_error("malloc error");
-	}
 	get_cols(fd, map);
 	get_rows(fd, map);
+	if (map->cols == 0 || map->rows == 0)
+		error_map(fd, map, "mlx: map is empty");
 	close(fd);
 	malloc_map3d(map);
 	map->interval = ft_min(WIDTH / map->cols, HEIGHT / map->rows) / 2;
