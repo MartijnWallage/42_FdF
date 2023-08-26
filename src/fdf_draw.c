@@ -25,7 +25,8 @@ void	draw_grid(mlx_image_t *image, map_t *map)
 		j = -1;
 		while (++j < map->cols)
 		{
-			mlx_put_pixel(image, points[i][j].x + image->height / 2, points[i][j].y + image->width / 2, points[i][j].rgba);
+			if (points[i][j].x >= 0 && points[i][j].x < WIDTH && points[i][j].y >= 0 && points[i][j].y < HEIGHT)
+				mlx_put_pixel(image, points[i][j].x, points[i][j].y, points[i][j].rgba);
 		}
 	}
 }
