@@ -34,9 +34,9 @@ void	parse_map(int fd, map_t *map)
 		{
 			if (!ft_isdigit(*current))
 				error_map(fd, map, line);
-			points[i][j].x = j * map->interval;
-			points[i][j].y = i * map->interval;
-			points[i][j].z = ft_atoi(current) * (map->interval / 2);
+			points[i][j].x = j * map->interval - WIDTH / 2;
+			points[i][j].y = i * map->interval - HEIGHT / 2;
+			points[i][j].z = ft_atoi(current) * (map->interval);
 			ft_printf("point[%d][%d].x = %d\n", i, j, points[i][j].x);
 			ft_printf("point[%d][%d].y = %d\n", i, j, points[i][j].y);
 			ft_printf("point[%d][%d].z = %d\n", i, j, points[i][j].z);
@@ -164,7 +164,7 @@ map_t	*parse_input(int ac, char **av)
 	get_rows(fd, map);
 	close(fd);
 	malloc_map3d(map);
-	map->interval = ft_min(WIDTH / map->cols, HEIGHT / map->rows);
+	map->interval = ft_min(WIDTH / map->cols, HEIGHT / map->rows) / 2;
 	fd = open(av[1], O_RDONLY, 0777);
 	parse_map(fd, map);
 	close(fd);
