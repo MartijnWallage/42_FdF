@@ -6,21 +6,40 @@
 /*   By: mwallage <mwallage@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 15:56:53 by mwallage          #+#    #+#             */
-/*   Updated: 2023/08/25 12:12:11 by mwallage         ###   ########.fr       */
+/*   Updated: 2023/08/26 18:14:47 by mwallage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/fdf.h"
+
+void	zoom(map_t	*map, float zoom)
+{
+	int	i;
+	int	j;
+	
+	i = -1;
+	while (++i < map->rows)
+	{
+		j = -1;
+		while (++j < map->cols)
+		{
+			map->map2d[i][j].x *= zoom;
+			map->map2d[i][j].y *= zoom;
+		}
+	}
+}
 
 void ft_hook(void* param)
 {
 	ft_hook_t	*hook;
 	mlx_t		*mlx;
 	mlx_image_t	*image;
+	map_t		*map;
 	
 	hook = (ft_hook_t *)param;
 	mlx = (mlx_t *)(hook->mlx);
 	image = (mlx_image_t *)(hook->image);
+	map = (map_t *)(hook->map);
 	if (mlx_is_key_down(mlx, MLX_KEY_ESCAPE))
 		mlx_close_window(mlx);
 	if (mlx_is_key_down(mlx, MLX_KEY_LEFT))
@@ -31,4 +50,16 @@ void ft_hook(void* param)
 		image->instances->y += 5;
 	if (mlx_is_key_down(mlx, MLX_KEY_UP))
 		image->instances->y -= 5;
+	if (mlx_is_key_down(mlx, MLX_KEY_EQUAL))
+	{
+		zoom(map, 0.9);
+		draw_reset(image);
+		draw_image(image, map);
+	}
+	if (mlx_is_key_down(mlx, MLX_KEY_MINUS))
+	{
+		zoom(map, 1.1);
+		draw_reset(image);
+		draw_image(image, map);
+	}
 }

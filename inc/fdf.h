@@ -6,7 +6,7 @@
 /*   By: mwallage <mwallage@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/10 15:30:52 by mwallage          #+#    #+#             */
-/*   Updated: 2023/08/26 17:02:08 by mwallage         ###   ########.fr       */
+/*   Updated: 2023/08/26 18:20:18 by mwallage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ void		error_map(int, map_t *, char *);
 void		draw_grid(mlx_image_t *image, map_t *map);
 void		draw_lines(mlx_image_t *image, map_t *map);
 void		draw_image(mlx_image_t *image, map_t *map);
+void		draw_reset(mlx_image_t *image);
 
 /* fdf_project.c */
 void		iso_project(map_t *map);

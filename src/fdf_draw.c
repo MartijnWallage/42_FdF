@@ -6,7 +6,7 @@
 /*   By: mwallage <mwallage@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 14:38:25 by mwallage          #+#    #+#             */
-/*   Updated: 2023/08/26 17:02:37 by mwallage         ###   ########.fr       */
+/*   Updated: 2023/08/26 18:20:36 by mwallage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,18 @@ void	draw_grid(mlx_image_t *image, map_t *map)
 	}
 }
 
+
+/* int	ft_abs(float a, float b)
+{
+	float	temp;
+
+	temp = a - b;
+	if (temp >= 0)
+		return ((int)temp);
+	else
+		return ((int)-temp);	
+}
+ */
 void	bresenham(mlx_image_t *image, point2d_t a, point2d_t b)
 {
     int dx = abs(b.x - a.x);
@@ -85,4 +97,20 @@ void	draw_image(mlx_image_t *image, map_t *map)
 {
 	draw_lines(image, map);
 	draw_grid(image, map);
+}
+
+void	draw_reset(mlx_image_t *image)
+{
+	int32_t	i;
+	int32_t	j;
+
+	i = -1;
+	while (++i < HEIGHT)
+	{
+		j = -1;
+		while (++j < WIDTH)
+		{
+			mlx_put_pixel(image, j, i, 0x000000);
+		}
+	}
 }
