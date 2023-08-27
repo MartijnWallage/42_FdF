@@ -33,9 +33,9 @@ void	parse_map(int fd, map_t *map)
 		{
 			if (!ft_isdigit(*tab[j]) && *tab[j] != '-')
 				error_map(fd, map, line);
-			points[i][j].y = j * (map->interval) - WIDTH / 2;
-			points[i][j].x = i * (map->interval) - HEIGHT / 2;
-			points[i][j].z = ft_atoi(tab[j]) * (map->interval / 2);
+			points[i][j].y = (double) (j * (map->interval));
+			points[i][j].x = (double) (i * (map->interval));
+			points[i][j].z = (double) (ft_atoi(tab[j]) * (map->interval / 4));
 			points[i][j].rgba = 0xFFFFFF;
 		}
 		ft_free_tab((void **)tab);

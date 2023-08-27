@@ -14,19 +14,23 @@
 
 void	draw_grid(mlx_image_t *image, map_t *map)
 {
-	point2d_t	**points;
+ 	point2d_t	**points;
 	int	i;
 	int	j;
+ 	int x;
+	int y;
 
 	points = map->map2d;
-	i = -1;
+ 	i = -1;
 	while (++i < map->rows)
 	{
 		j = -1;
 		while (++j < map->cols)
 		{
-			if (points[i][j].x >= 0 && points[i][j].x < HEIGHT && points[i][j].y >= 0 && points[i][j].y < WIDTH)
-				mlx_put_pixel(image, points[i][j].y, points[i][j].x, points[i][j].rgba);
+			x = (points[i][j].x);
+			y = (points[i][j].y);
+			if (x > 0 && y > 0)
+				mlx_put_pixel(image, y, x, 0xFFFFFFFF);
 		}
 	}
 }
@@ -52,8 +56,8 @@ void	bresenham(mlx_image_t *image, point2d_t a, point2d_t b)
 
     int error = dx - dy;
 
-    while (1) {
-        // Draw pixel at (x1, y1)
+    while (1) 
+	{
 		mlx_put_pixel(image, a.y, a.x, a.rgba);
 
         if (a.x == b.x && a.y == b.y) {
@@ -95,6 +99,7 @@ void	draw_lines(mlx_image_t *image, map_t *map)
 
 void	draw_image(mlx_image_t *image, map_t *map)
 {
+	draw_reset(image);
 	draw_lines(image, map);
 	draw_grid(image, map);
 }

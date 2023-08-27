@@ -30,7 +30,7 @@ int32_t	main(int ac, char **av)
 		handle_error(mlx_strerror(mlx_errno));
 	}
 	iso_project(map);
-	draw_image(image, map);
+ 	draw_image(image, map);
 	if (mlx_image_to_window(mlx, image, 0, 0))
 	{
 		mlx_close_window(mlx);

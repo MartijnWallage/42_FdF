@@ -11,12 +11,17 @@
 # **************************************************************************** #
 
 CC		:= cc
-UNAME	:= $(shell uname)
 CFLAGS	:= -Wall -Wextra -Werror -Wunreachable-code -Ofast
 MLX_DIR	:= ./lib/MLX42
 LIBFT	:= ./lib/libft
 HEADERS	:= -I ./inc -I $(LIBMLX)/include -I $(LIBFT)/inc
-LIBS	:= -L$(LIBFT) -lft $(MLX_DIR)/build/libmlx42.a -ldl -lglfw -pthread -lm
+UNAME_S	:= $(shell uname -s)
+ifeq ($(UNAME_S),Linux)
+	LIBS	:= -L$(LIBFT) -lft $(MLX_DIR)/build/libmlx42.a -ldl -lglfw -pthread -lm
+endif
+ifeq ($(UNAME_S),Darwin)
+	LIBS	:= -L$(LIBFT) -lft $(MLX_DIR)/build/libmlx42.a -Iinclude -lglfw -L"/opt/homebrew/Cellar/glfw/3.3.8/lib/" -pthread -lm
+endif
 SRCDIR	:= src
 SRC		:= fdf_main.c \
 			fdf_draw.c \

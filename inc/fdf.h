@@ -19,21 +19,21 @@
 # include "../lib/MLX42/include/MLX42/MLX42.h"
 # include "../lib/libft/inc/libft.h"
 
-# define	WIDTH	720
-# define	HEIGHT	480
+# define	WIDTH	1024
+# define	HEIGHT	682
 
 typedef struct	point3d_s
 {
-	int32_t	x;
-	int32_t	y;
-	int32_t	z;
+	double	x;
+	double	y;
+	double	z;
 	int		rgba;
 }			point3d_t;
 
 typedef struct	point2d_s
 {
-	int32_t	x;
-	int32_t	y;
+	int	x;
+	int	y;
 	int		rgba;
 }			point2d_t;
 

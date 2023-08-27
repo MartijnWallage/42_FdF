@@ -75,11 +75,11 @@ static char	*init_buffer(char *buffer)
 
 char	*get_next_line(int fd)
 {
-	static char	*buffer[__FD_SETSIZE];
+	static char	*buffer[24];
 	char		*line;
 	ssize_t		bytes_read;
 
-	if (BUFFER_SIZE <= 0 || fd < 0 || fd >= __FD_SETSIZE)
+	if (BUFFER_SIZE <= 0 || fd < 0 || fd >= 24)
 		return (NULL);
 	buffer[fd] = init_buffer(buffer[fd]);
 	if (buffer[fd] == NULL)

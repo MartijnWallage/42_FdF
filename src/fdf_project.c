@@ -38,11 +38,11 @@ static point2d_t	**iso(map_t *map)
         j = -1;
         while (++j < map->cols)
         {
-            projection[i][j].y = source[i][j].y + cos(0.46373398) * source[i][j].z
+/*              projection[i][j].y = source[i][j].y + cos(0.46373398) * source[i][j].z
                 - cos(0.46373398) * (source[i][j].x);
-            projection[i][j].x = source[i][j].x * sin(0.46373398) - source[i][j].z * sin(0.46373398);
-            projection[i][j].x += HEIGHT / 2;
-            projection[i][j].y += WIDTH / 2;
+            projection[i][j].x = source[i][j].x * sin(0.46373398) - source[i][j].z * sin(0.26373398); */
+            projection[i][j].y = (int) (source[i][j].y * cos(0.46373398) - source[i][j].x * sin(0.46373398) + WIDTH / 3);
+            projection[i][j].x = (int) (source[i][j].y * sin(0.46373398) + source[i][j].x * cos(0.46373398) - source[i][j].z * sin(0.23186699) + HEIGHT / 3);
             projection[i][j].rgba = source[i][j].rgba;
         }
     }

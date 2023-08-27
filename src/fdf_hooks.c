@@ -12,7 +12,7 @@
 
 #include "../inc/fdf.h"
 
-void	zoom(map_t	*map, float zoom)
+void	zoom(map_t	*map, double zoom)
 {
 	int	i;
 	int	j;
@@ -23,8 +23,8 @@ void	zoom(map_t	*map, float zoom)
 		j = -1;
 		while (++j < map->cols)
 		{
-			map->map2d[i][j].x *= zoom;
-			map->map2d[i][j].y *= zoom;
+			map->map3d[i][j].x *= zoom;
+			map->map3d[i][j].y *= zoom;
 		}
 	}
 }
@@ -52,14 +52,14 @@ void ft_hook(void* param)
 		image->instances->y -= 5;
 	if (mlx_is_key_down(mlx, MLX_KEY_EQUAL))
 	{
-		zoom(map, 0.9);
-		draw_reset(image);
+		zoom(map, 1.02);
+		iso_project(map);
 		draw_image(image, map);
 	}
 	if (mlx_is_key_down(mlx, MLX_KEY_MINUS))
 	{
-		zoom(map, 1.1);
-		draw_reset(image);
+		zoom(map, 0.98);
+		iso_project(map);
 		draw_image(image, map);
 	}
 }
