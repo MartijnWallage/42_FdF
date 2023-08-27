@@ -33,8 +33,8 @@ void	parse_map(int fd, map_t *map)
 		{
 			if (!ft_isdigit(*tab[j]) && *tab[j] != '-')
 				error_map(fd, map, line);
-			points[i][j].y = (double) (j * (map->interval));
-			points[i][j].x = (double) (i * (map->interval));
+			points[i][j].x = (double) (j * (map->interval));
+			points[i][j].y = (double) (i * (map->interval));
 			points[i][j].z = (double) (ft_atoi(tab[j]) * (map->interval / 4));
 			points[i][j].rgba = 0xFFFFFF;
 		}
@@ -148,6 +148,8 @@ map_t	*parse_input(int ac, char **av)
 	close(fd);
 	malloc_map3d(map);
 	map->interval = ft_min(WIDTH / map->cols, HEIGHT / map->rows) / 2;
+	map->alpha = 0.46373398;
+	map->beta = 0.46373398 / 2;
 	fd = open(av[1], O_RDONLY, 0777);
 	parse_map(fd, map);
 	close(fd);

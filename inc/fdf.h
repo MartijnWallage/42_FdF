@@ -41,7 +41,9 @@ typedef struct map_s
 {
 	int				rows;
 	int				cols;
-	unsigned int	interval;
+	double			interval;
+	double			alpha;
+	double			beta;
 	point3d_t		**map3d;
 	point2d_t		**map2d;
 }					map_t;
