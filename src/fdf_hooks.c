@@ -6,7 +6,7 @@
 /*   By: mwallage <mwallage@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 15:56:53 by mwallage          #+#    #+#             */
-/*   Updated: 2023/08/26 18:14:47 by mwallage         ###   ########.fr       */
+/*   Updated: 2023/08/28 17:42:06 by mwallage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ void	zoom(map_t	*map, double zoom)
 		{
 			map->map3d[i][j].x *= zoom;
 			map->map3d[i][j].y *= zoom;
+			map->map3d[i][j].z *= zoom;
 		}
 	}
 }
@@ -61,5 +62,17 @@ void ft_hook(void* param)
 		zoom(map, 0.98);
 		iso_project(map);
 		draw_image(image, map);
+	}
+	if (mlx_is_key_down(mlx, MLX_KEY_R))
+	{
+		map->alpha += 0.1;
+		iso_project(map);
+		draw_image(image, map); 
+	}
+	if (mlx_is_key_down(mlx, MLX_KEY_T))
+	{
+		map->beta += 0.1;
+		iso_project(map);
+		draw_image(image, map); 
 	}
 }

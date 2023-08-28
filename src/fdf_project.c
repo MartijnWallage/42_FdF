@@ -6,7 +6,7 @@
 /*   By: mwallage <mwallage@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 14:59:34 by mwallage          #+#    #+#             */
-/*   Updated: 2023/08/26 17:30:45 by mwallage         ###   ########.fr       */
+/*   Updated: 2023/08/28 17:50:43 by mwallage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +38,8 @@ static point2d_t	**iso(map_t *map)
         j = -1;
         while (++j < map->cols)
         {
-/*              projection[i][j].y = source[i][j].y + cos(0.46373398) * source[i][j].z
-                - cos(0.46373398) * (source[i][j].x);
-            projection[i][j].x = source[i][j].x * sin(0.46373398) - source[i][j].z * sin(0.26373398); */
-            projection[i][j].x = (int) (source[i][j].x * cos(map->alpha) - source[i][j].y * sin(map->alpha) + WIDTH / 4);
-            projection[i][j].y = (int) (source[i][j].x * sin(map->alpha) + source[i][j].y * cos(map->alpha) - source[i][j].z * sin(map->beta) + HEIGHT / 4);
+            projection[i][j].x = (int)(source[i][j].x * cos(map->alpha) - source[i][j].y * sin(map->alpha) + WIDTH / 3);
+            projection[i][j].y = (int)(source[i][j].x * sin(map->alpha) + source[i][j].y * cos(map->alpha) - source[i][j].z * sin(map->beta) + HEIGHT / 3);
             projection[i][j].rgba = source[i][j].rgba;
         }
     }

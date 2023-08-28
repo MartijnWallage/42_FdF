@@ -6,7 +6,7 @@
 /*   By: mwallage <mwallage@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 14:38:25 by mwallage          #+#    #+#             */
-/*   Updated: 2023/08/26 18:20:36 by mwallage         ###   ########.fr       */
+/*   Updated: 2023/08/28 17:40:51 by mwallage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,8 @@ void	bresenham(mlx_image_t *image, point2d_t a, point2d_t b)
 
     while (1) 
 	{
-		mlx_put_pixel(image, a.x, a.y, a.rgba);
+		if ((uint32_t) a.x < image->width && (uint32_t) a.y < image->height)
+			mlx_put_pixel(image, a.x, a.y, a.rgba);
 
         if (a.y == b.y && a.x == b.x) {
             break;
@@ -94,7 +95,7 @@ void	draw_lines(mlx_image_t *image, map_t *map)
 			if (j + 1 < map->cols)
 				bresenham(image, map->map2d[i][j], map->map2d[i][j + 1]);
 		}
-	}	
+	}
 }
 
 void	draw_image(mlx_image_t *image, map_t *map)
@@ -106,16 +107,18 @@ void	draw_image(mlx_image_t *image, map_t *map)
 
 void	draw_reset(mlx_image_t *image)
 {
-	int32_t	i;
-	int32_t	j;
+	uint32_t	i;
+	uint32_t	j;
 
-	i = -1;
-	while (++i < HEIGHT)
+	i = 0;
+	while (i < image->height)
 	{
-		j = -1;
-		while (++j < WIDTH)
+		j = 0;
+		while (j < image->width)
 		{
 			mlx_put_pixel(image, j, i, 0x000000);
+			j++;
 		}
+		i++;
 	}
 }
