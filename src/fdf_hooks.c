@@ -65,13 +65,13 @@ void ft_hook(void* param)
 	}
 	if (mlx_is_key_down(mlx, MLX_KEY_R))
 	{
-		map->alpha += 0.1;
+		map->alpha += 0.05;
 		iso_project(map);
 		draw_image(image, map); 
 	}
 	if (mlx_is_key_down(mlx, MLX_KEY_T))
 	{
-		map->beta += 0.1;
+		map->beta += 0.05;
 		iso_project(map);
 		draw_image(image, map); 
 	}

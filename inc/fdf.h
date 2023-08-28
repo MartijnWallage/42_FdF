@@ -19,8 +19,8 @@
 # include "../lib/MLX42/include/MLX42/MLX42.h"
 # include "../lib/libft/inc/libft.h"
 
-# define	WIDTH	2048
-# define	HEIGHT	1080
+# define	WIDTH	800
+# define	HEIGHT	600
 
 typedef struct	point3d_s
 {

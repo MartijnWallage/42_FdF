@@ -38,8 +38,15 @@ static point2d_t	**iso(map_t *map)
         j = -1;
         while (++j < map->cols)
         {
-            projection[i][j].x = (int)(source[i][j].x * cos(map->alpha) - source[i][j].y * sin(map->alpha) + WIDTH / 3);
-            projection[i][j].y = (int)(source[i][j].x * sin(map->alpha) + source[i][j].y * cos(map->alpha) - source[i][j].z * sin(map->beta) + HEIGHT / 3);
+            projection[i][j].x = (int)(source[i][j].x * cos(map->alpha)
+                - source[i][j].y * sin(map->alpha))
+                + WIDTH / 2;
+            projection[i][j].y = (int)(source[i][j].x * sin(map->alpha)
+                + source[i][j].y * cos(map->alpha) 
+                - source[i][j].z * sin(map->beta))
+                + HEIGHT / 2;
+/*             projection[i][j].x = (int)(source[i][j].x + WIDTH / 2);
+            projection[i][j].y = (int)(source[i][j].y + HEIGHT / 2); */
             projection[i][j].rgba = source[i][j].rgba;
         }
     }

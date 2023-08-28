@@ -19,7 +19,11 @@ void	parse_map(int fd, map_t *map)
 	int			i;
 	int 		j;
 	point3d_t	**points;
+	double		offset_x;
+	double		offset_y;
 
+	offset_x = -(map->cols - 1) * map->interval / 2;
+	offset_y = -(map->rows - 1) * map->interval / 2;
 	points = map->map3d;
 	i = -1;
 	while (++i < map->rows)
@@ -33,9 +37,9 @@ void	parse_map(int fd, map_t *map)
 		{
 			if (!ft_isdigit(*tab[j]) && *tab[j] != '-')
 				error_map(fd, map, line);
-			points[i][j].x = (double) (j * (map->interval));
-			points[i][j].y = (double) (i * (map->interval));
-			points[i][j].z = (double) (ft_atoi(tab[j]) * (map->interval / 4));
+			points[i][j].x = (double) j * (map->interval) + offset_x;
+			points[i][j].y = (double) i * (map->interval) + offset_y;
+			points[i][j].z = (double) ft_atoi(tab[j]) * (map->interval / 4);
 			points[i][j].rgba = 0xFFFFFF;
 		}
 		ft_free_tab((void **)tab);
@@ -147,7 +151,7 @@ map_t	*parse_input(int ac, char **av)
 		error_map(fd, map, "mlx: map is empty");
 	close(fd);
 	malloc_map3d(map);
-	map->interval = ft_min(WIDTH / map->cols, HEIGHT / map->rows) / 2;
+	map->interval = ft_min(WIDTH / map->cols, HEIGHT / map->rows) / 4;
 	map->alpha = 0.46373398;
 	map->beta = 0.46373398 / 2;
 	fd = open(av[1], O_RDONLY, 0777);
