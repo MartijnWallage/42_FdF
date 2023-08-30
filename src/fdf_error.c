@@ -18,11 +18,10 @@ void	handle_error(const char *message)
 	exit(1);
 }
 
-void	error_map(int fd, map_t *map, char *line)
+void	error_map(int fd, map_t *map)
 {
 	close(fd);
-	free(map);
-	if (line)
-		free(line);
+	if (map)
+		free(map);
 	handle_error("mlx: invalid map.");
 }

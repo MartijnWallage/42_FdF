@@ -64,7 +64,7 @@ map_t		*parse_input(int, char **);
 
 /* fdf_error.c */
 void		handle_error(const char *);
-void		error_map(int, map_t *, char *);
+void		error_map(int, map_t *);
 
 /* fdf_draw.c */
 void		draw_grid(mlx_image_t *image, map_t *map);

@@ -18,6 +18,7 @@ void	parse_map(int fd, map_t *map)
 	char		**tab;
 	int			i;
 	int 		j;
+	int			k;
 	point3d_t	**points;
 	double		offset_x;
 	double		offset_y;
@@ -30,20 +31,32 @@ void	parse_map(int fd, map_t *map)
 	{
  		line = get_next_line(fd);
 		if (!line)
-			error_map(fd, map, NULL);
+			error_map(fd, map);
 		tab = ft_split(line, ' ');
+		free(line);
 		j = -1;
 		while (++j < map->cols)
 		{
 			if (!ft_isdigit(*tab[j]) && *tab[j] != '-')
-				error_map(fd, map, line);
+				error_map(fd, map);
 			points[i][j].x = (double) j * (map->interval) + offset_x;
 			points[i][j].y = (double) i * (map->interval) + offset_y;
 			points[i][j].z = (double) ft_atoi(tab[j]) * (map->interval / 4);
 			points[i][j].rgba = 0xFFFFFF;
+			k = 0;
+			while (tab[j][k] == '-')
+				k++;
+			while (ft_isdigit(tab[j][k]))
+				k++;
+			if (tab[j] && tab[j][k] == ',')
+			{
+				if (ft_strncmp(&(tab[j][k]), "0x", 2) || !tab[j][k + 2])
+					error_map(fd, map);
+				k += 2;
+				points[i][j].rgba = ft_atoi_base(&(tab[j][k]), "0123456789ABCDEF");
+			}
 		}
 		ft_free_tab((void **)tab);
-		free(line);
 	}
 }
 
@@ -61,32 +74,19 @@ int	valid_filename(const char *filename)
 void	get_cols(int fd, map_t *map)
 {
 	char	*line;
-	char	*current;
-	int		x;
+	char	**tab;
+	int		i;
 	
 	line = get_next_line(fd);
 	if (!line)
-		error_map(fd, map, NULL);
-	x = 0;
-	current = line;
-	while (ft_isdigit(*current) || *current == '-')
-	{
-		x++;
-		while (ft_isdigit(*current) || *current == '-')
-			current++;
-		if (*line == ',')
-		{
-			if (ft_strncmp(current, "0x", 2))
-				error_map(fd, map, line);
-			current += 2;
-			while (ft_isdigit(*current))
-				current++;
-		}
-		while (*current == ' ' || *current == '\t')
-			current++;
-	}
+		error_map(fd, map);
+	tab = ft_split(line, ' ');
 	free(line);
-	map->cols = x;
+	i = 0;
+	while (tab[i])
+		i++;
+	map->cols = i;
+	ft_free_tab((void *)tab);
 }
 
 void	get_rows(int fd, map_t *map)
@@ -148,7 +148,7 @@ map_t	*parse_input(int ac, char **av)
 	get_cols(fd, map);
 	get_rows(fd, map);
 	if (map->cols == 0 || map->rows == 0)
-		error_map(fd, map, "mlx: map is empty");
+		error_map(fd, map);
 	close(fd);
 	malloc_map3d(map);
 	map->interval = ft_min(WIDTH / map->cols, HEIGHT / map->rows) / 4;
