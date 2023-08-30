@@ -49,6 +49,7 @@ int		ft_memcmp(const void *s1, const void *s2, size_t n);
 void	*ft_calloc(size_t nmemb, size_t size);
 /* int str function */
 int		ft_atoi(const char *nptr);
+int		ft_atoi_base(const char *nptr, const char *base);
 char	*ft_itoa(int n);
 /* str functions */
 char	*ft_strchr(const char *s, int c);

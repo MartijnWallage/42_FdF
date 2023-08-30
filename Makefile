@@ -38,13 +38,15 @@ all: libmlx libft $(NAME)
 
 libmlx:
 	@if [ -d ${MLX_DIR} ]; then git -C ${MLX_DIR} pull; \
-    else git clone git@github.com:codam-coding-college/MLX42.git ${MLX_DIR}; fi
+    else git clone https://github.com/codam-coding-college/MLX42.git ${MLX_DIR}; fi
 	cmake $(MLX_DIR) -DDEBUG=ON -B $(MLX_DIR)/build && make -C $(MLX_DIR)/build -j4
 
 libft:
+	@if [ -d ${LIBFT} ]; then git -C ${LIBFT} pull; \
+    else git clone https://github.com/MartijnWallage/42_libft.git ${LIBFT}; fi
 	make -C$(LIBFT)
 
-$(NAME): $(OBJ)
+$(NAME): $(OBJ) inc/fdf.h
 	$(CC) -g $(OBJ) $(LIBS) $(HEADERS) -o $@
 
 %.o: %.c
