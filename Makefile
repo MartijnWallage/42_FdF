@@ -6,7 +6,7 @@
 #    By: mwallage <mwallage@student.42berlin.de>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/10 15:31:16 by mwallage          #+#    #+#              #
-#    Updated: 2023/08/28 15:19:30 by mwallage         ###   ########.fr        #
+#    Updated: 2023/08/31 12:08:58 by mwallage         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,7 +42,7 @@ libmlx:
 	cmake $(MLX_DIR) -DDEBUG=ON -B $(MLX_DIR)/build && make -C $(MLX_DIR)/build -j4
 
 libft:
-	@if [ -d ${LIBFT} ]; then git -C ${LIBFT} pull; \
+	@if [ -d ${LIBFT} ]; then echo "libft is there" \
     else git clone https://github.com/MartijnWallage/42_libft.git ${LIBFT}; fi
 	make -C$(LIBFT)
 

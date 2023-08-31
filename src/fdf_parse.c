@@ -6,19 +6,41 @@
 /*   By: mwallage <mwallage@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 14:37:23 by mwallage          #+#    #+#             */
-/*   Updated: 2023/08/26 17:15:54 by mwallage         ###   ########.fr       */
+/*   Updated: 2023/08/31 13:02:09 by mwallage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/fdf.h"
+
+void	make_upper(unsigned int i, char *c)
+{
+	i++;
+	*c = ft_toupper(*c);
+}
+
+int	parse_color(char *tabj)
+{
+	while (*tabj == '-')
+		tabj++;
+	while (ft_isdigit(*tabj))
+		tabj++;
+	if (*tabj == ',')
+		tabj++;
+	else
+		return (0xFF0000FF);
+	if ((ft_strncmp(tabj, "0X", 2) && ft_strncmp(tabj, "0x", 2)))
+		return (-1);
+	tabj += 2;
+	ft_striteri(tabj, &make_upper);
+	return (ft_atoi_base(tabj, "0123456789ABCDEF"));
+}
 
 void	parse_map(int fd, map_t *map)
 {
 	char		*line;
 	char		**tab;
 	int			i;
-	int 		j;
-	int			k;
+	int			j;
 	point3d_t	**points;
 	double		offset_x;
 	double		offset_y;
@@ -42,19 +64,9 @@ void	parse_map(int fd, map_t *map)
 			points[i][j].x = (double) j * (map->interval) + offset_x;
 			points[i][j].y = (double) i * (map->interval) + offset_y;
 			points[i][j].z = (double) ft_atoi(tab[j]) * (map->interval / 4);
-			points[i][j].rgba = 0xFFFFFF;
-			k = 0;
-			while (tab[j][k] == '-')
-				k++;
-			while (ft_isdigit(tab[j][k]))
-				k++;
-			if (tab[j] && tab[j][k] == ',')
-			{
-				if (ft_strncmp(&(tab[j][k]), "0x", 2) || !tab[j][k + 2])
-					error_map(fd, map);
-				k += 2;
-				points[i][j].rgba = ft_atoi_base(&(tab[j][k]), "0123456789ABCDEF");
-			}
+			points[i][j].rgba = parse_color(tab[j]);
+			if (points[i][j].rgba == -1)
+				error_map(fd, map);
 		}
 		ft_free_tab((void **)tab);
 	}
