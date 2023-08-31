@@ -6,7 +6,7 @@
 /*   By: mwallage <mwallage@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 14:59:34 by mwallage          #+#    #+#             */
-/*   Updated: 2023/08/28 17:50:43 by mwallage         ###   ########.fr       */
+/*   Updated: 2023/08/31 14:22:06 by mwallage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static point2d_t	**iso(map_t *map)
                 - source[i][j].y * sin(map->alpha))
                 + WIDTH / 2;
             projection[i][j].y = (int)(source[i][j].x * sin(map->alpha)
-                + source[i][j].y * cos(map->alpha) 
+                + source[i][j].y * cos(map->alpha)
                 - source[i][j].z * sin(map->beta))
                 + HEIGHT / 2;
 /*             projection[i][j].x = (int)(source[i][j].x + WIDTH / 2);

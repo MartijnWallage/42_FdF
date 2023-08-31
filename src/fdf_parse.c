@@ -6,7 +6,7 @@
 /*   By: mwallage <mwallage@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 14:37:23 by mwallage          #+#    #+#             */
-/*   Updated: 2023/08/31 14:03:22 by mwallage         ###   ########.fr       */
+/*   Updated: 2023/08/31 14:21:35 by mwallage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,6 +165,8 @@ map_t	*parse_input(int ac, char **av)
 	close(fd);
 	malloc_map3d(map);
 	map->interval = ft_min(WIDTH / map->cols, HEIGHT / map->rows) / 2;
+	if (map->interval < 2.0)
+		map->interval = 2.0;
 	map->alpha = 0.46373398;
 	map->beta = 0.46373398 / 2;
 	fd = open(av[1], O_RDONLY, 0777);
