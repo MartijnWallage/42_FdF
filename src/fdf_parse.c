@@ -6,7 +6,7 @@
 /*   By: mwallage <mwallage@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 14:37:23 by mwallage          #+#    #+#             */
-/*   Updated: 2023/08/31 13:17:30 by mwallage         ###   ########.fr       */
+/*   Updated: 2023/08/31 14:03:22 by mwallage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,7 @@ void	make_upper(unsigned int i, char *c)
 	*c = ft_toupper(*c);
 }
 
-#include <stdio.h>
-int	parse_color(char *tabj)
+long long	parse_color(char *tabj)
 {
 	while (*tabj == '-')
 		tabj++;
@@ -28,12 +27,12 @@ int	parse_color(char *tabj)
 	if (*tabj == ',')
 		tabj++;
 	else
-		return (0xFFFFFF);
+		return (0x00FFFFFF);
 	if ((ft_strncmp(tabj, "0X", 2) && ft_strncmp(tabj, "0x", 2)))
-		return (-1);
+		return (0);
 	tabj += 2;
 	ft_striteri(tabj, &make_upper);
-	return (ft_atoi_base(tabj, "0123456789ABCDEF"));
+	return ((ft_atoi_base(tabj, "0123456789ABCDEF") << 8) | 0xFF);
 }
 
 void	parse_map(int fd, map_t *map)
@@ -66,7 +65,7 @@ void	parse_map(int fd, map_t *map)
 			points[i][j].y = (double) i * (map->interval) + offset_y;
 			points[i][j].z = (double) ft_atoi(tab[j]) * (map->interval / 4);
 			points[i][j].rgba = parse_color(tab[j]);
-			if (points[i][j].rgba == -1)
+			if (!points[i][j].rgba)
 				error_map(fd, map);
 		}
 		ft_free_tab((void **)tab);
@@ -145,6 +144,7 @@ static void	malloc_map3d(map_t	*map)
 	}
 }
 
+#include <stdio.h>
 map_t	*parse_input(int ac, char **av)
 {
 	int		fd;
@@ -164,7 +164,7 @@ map_t	*parse_input(int ac, char **av)
 		error_map(fd, map);
 	close(fd);
 	malloc_map3d(map);
-	map->interval = ft_min(WIDTH / map->cols, HEIGHT / map->rows) / 4;
+	map->interval = ft_min(WIDTH / map->cols, HEIGHT / map->rows) / 2;
 	map->alpha = 0.46373398;
 	map->beta = 0.46373398 / 2;
 	fd = open(av[1], O_RDONLY, 0777);
