@@ -6,7 +6,7 @@
 /*   By: mwallage <mwallage@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 14:37:23 by mwallage          #+#    #+#             */
-/*   Updated: 2023/08/31 13:02:09 by mwallage         ###   ########.fr       */
+/*   Updated: 2023/08/31 13:17:30 by mwallage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void	make_upper(unsigned int i, char *c)
 	*c = ft_toupper(*c);
 }
 
+#include <stdio.h>
 int	parse_color(char *tabj)
 {
 	while (*tabj == '-')
@@ -27,7 +28,7 @@ int	parse_color(char *tabj)
 	if (*tabj == ',')
 		tabj++;
 	else
-		return (0xFF0000FF);
+		return (0xFFFFFF);
 	if ((ft_strncmp(tabj, "0X", 2) && ft_strncmp(tabj, "0x", 2)))
 		return (-1);
 	tabj += 2;
