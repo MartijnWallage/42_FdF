@@ -6,7 +6,7 @@
 /*   By: mwallage <mwallage@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 14:37:23 by mwallage          #+#    #+#             */
-/*   Updated: 2023/09/01 16:21:22 by mwallage         ###   ########.fr       */
+/*   Updated: 2023/09/01 16:50:11 by mwallage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,9 @@ long long	parse_color(char *tabj)
 	if (*tabj == ',')
 		tabj++;
 	else
-		return (0x00FFFFFF);
+		return (0xFFFFFFFF);
 	if ((ft_strncmp(tabj, "0X", 2) && ft_strncmp(tabj, "0x", 2)))
-		return (0x00FFFFFF);
+		return (0xFFFFFFFF);
 	tabj += 2;
 	ft_striteri(tabj, &make_upper);
 	return ((ft_atoi_base(tabj, "0123456789ABCDEF") << 8) | 0xFF);
@@ -161,6 +161,7 @@ void	map_init(map_t *map)
 	map->beta = 0.46373398 / 2;
 	map->x_offset = 0;
 	map->y_offset = 0;
+	map->z_color = false;
 }
 map_t	*parse_input(int ac, char **av)
 {

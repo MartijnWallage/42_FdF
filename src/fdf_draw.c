@@ -6,7 +6,7 @@
 /*   By: mwallage <mwallage@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 14:38:25 by mwallage          #+#    #+#             */
-/*   Updated: 2023/08/31 13:54:29 by mwallage         ###   ########.fr       */
+/*   Updated: 2023/09/01 17:10:01 by mwallage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	bresenham(mlx_image_t *image, point2d_t a, point2d_t b)
     int sy = (a.x < b.x) ? 1 : -1;
 
     int error = dx - dy;
-
+	
     while (1) 
 	{
 		if ((uint32_t) a.x < image->width && (uint32_t) a.y < image->height)

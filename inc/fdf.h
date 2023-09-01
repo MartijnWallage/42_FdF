@@ -6,7 +6,7 @@
 /*   By: mwallage <mwallage@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/10 15:30:52 by mwallage          #+#    #+#             */
-/*   Updated: 2023/09/01 15:29:13 by mwallage         ###   ########.fr       */
+/*   Updated: 2023/09/01 16:42:27 by mwallage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ typedef struct map_s
 {
 	int				rows;
 	int				cols;
+	bool			z_color;
 	double			x_offset;
 	double			y_offset;
 	double			interval;

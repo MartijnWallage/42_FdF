@@ -6,7 +6,7 @@
 /*   By: mwallage <mwallage@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 14:59:34 by mwallage          #+#    #+#             */
-/*   Updated: 2023/09/01 15:17:24 by mwallage         ###   ########.fr       */
+/*   Updated: 2023/09/01 17:00:20 by mwallage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,8 @@ static point2d_t	**iso(map_t *map)
         j = -1;
         while (++j < map->cols)
         {
-            projection[i][j].x = (int)(source[i][j].x * cos(map->alpha)
+            // 2:1 dimetric:
+/*             projection[i][j].x = (int)(source[i][j].x * cos(map->alpha)
                 - source[i][j].y * sin(map->alpha))
                 + WIDTH / 2
                 + map->x_offset;
@@ -46,10 +47,25 @@ static point2d_t	**iso(map_t *map)
                 + source[i][j].y * cos(map->alpha)
                 - source[i][j].z * sin(map->beta))
                 + HEIGHT / 2
+                + map->y_offset; */
+            // true isometric?
+            projection[i][j].x = (source[i][j].x - source[i][j].y) * cos(map->beta)
+                + WIDTH / 2
+                + map->x_offset;
+            projection[i][j].y = -(source[i][j].z) + (source[i][j].x + source[i][j].y) * sin(map->alpha)
+                + HEIGHT / 2
                 + map->y_offset;
-/*             projection[i][j].x = (int)(source[i][j].x + WIDTH / 2);
-            projection[i][j].y = (int)(source[i][j].y + HEIGHT / 2); */
-            projection[i][j].rgba = source[i][j].rgba;
+            // parallel:
+/*             projection[i][j].x = source[i][j].x - source[i][j].z * cos(map->alpha)
+                + WIDTH / 2
+                + map->x_offset;
+            projection[i][j].y = source[i][j].y - source[i][j].z * sin(map->alpha)
+                + HEIGHT / 2
+                + map->y_offset; */
+            if (map->z_color)
+                projection[i][j].rgba = ((long long) (source[i][j].z) << 8) | ((long long) (source[i][j].z) << 16) | 0xFF;
+            else
+                projection[i][j].rgba = source[i][j].rgba;
         }
     }
     return (projection);
