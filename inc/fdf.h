@@ -6,7 +6,7 @@
 /*   By: mwallage <mwallage@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/10 15:30:52 by mwallage          #+#    #+#             */
-/*   Updated: 2023/08/31 14:22:22 by mwallage         ###   ########.fr       */
+/*   Updated: 2023/09/01 15:29:13 by mwallage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@
 # include "../lib/MLX42/include/MLX42/MLX42.h"
 # include "../lib/libft/inc/libft.h"
 
-# define	WIDTH	800
-# define	HEIGHT	600
+# define	WIDTH	1920
+# define	HEIGHT	1080
 
 typedef struct	point3d_s
 {
@@ -41,6 +41,8 @@ typedef struct map_s
 {
 	int				rows;
 	int				cols;
+	double			x_offset;
+	double			y_offset;
 	double			interval;
 	double			alpha;
 	double			beta;

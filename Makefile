@@ -6,7 +6,7 @@
 #    By: mwallage <mwallage@student.42berlin.de>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/10 15:31:16 by mwallage          #+#    #+#              #
-#    Updated: 2023/08/31 12:08:58 by mwallage         ###   ########.fr        #
+#    Updated: 2023/09/01 15:22:43 by mwallage         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,10 +46,10 @@ libft:
     else git clone https://github.com/MartijnWallage/42_libft.git ${LIBFT}; fi
 	make -C$(LIBFT)
 
-$(NAME): $(OBJ) inc/fdf.h
+$(NAME): $(OBJ)
 	$(CC) -g $(OBJ) $(LIBS) $(HEADERS) -o $@
 
-%.o: %.c
+%.o: %.c inc/fdf.h
 	$(CC) -g $(CFLAGS) -o $@ -c $< $(HEADERS)
 
 clean:

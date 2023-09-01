@@ -6,7 +6,7 @@
 /*   By: mwallage <mwallage@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 14:37:23 by mwallage          #+#    #+#             */
-/*   Updated: 2023/08/31 14:21:35 by mwallage         ###   ########.fr       */
+/*   Updated: 2023/09/01 16:21:22 by mwallage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ long long	parse_color(char *tabj)
 	else
 		return (0x00FFFFFF);
 	if ((ft_strncmp(tabj, "0X", 2) && ft_strncmp(tabj, "0x", 2)))
-		return (0);
+		return (0x00FFFFFF);
 	tabj += 2;
 	ft_striteri(tabj, &make_upper);
 	return ((ft_atoi_base(tabj, "0123456789ABCDEF") << 8) | 0xFF);
@@ -45,8 +45,8 @@ void	parse_map(int fd, map_t *map)
 	double		offset_x;
 	double		offset_y;
 
-	offset_x = -(map->cols - 1) * map->interval / 2;
-	offset_y = -(map->rows - 1) * map->interval / 2;
+	offset_x = (map->cols - 1) * map->interval / 2;
+	offset_y = (map->rows - 1) * map->interval / 2;
 	points = map->map3d;
 	i = -1;
 	while (++i < map->rows)
@@ -61,9 +61,9 @@ void	parse_map(int fd, map_t *map)
 		{
 			if (!ft_isdigit(*tab[j]) && *tab[j] != '-')
 				error_map(fd, map);
-			points[i][j].x = (double) j * (map->interval) + offset_x;
-			points[i][j].y = (double) i * (map->interval) + offset_y;
-			points[i][j].z = (double) ft_atoi(tab[j]) * (map->interval / 4);
+			points[i][j].x = (double) j * (map->interval) - offset_x;
+			points[i][j].y = (double) i * (map->interval) - offset_y;
+			points[i][j].z = (double) ft_atoi(tab[j]) * (map->interval);
 			points[i][j].rgba = parse_color(tab[j]);
 			if (!points[i][j].rgba)
 				error_map(fd, map);
@@ -88,6 +88,7 @@ void	get_cols(int fd, map_t *map)
 	char	*line;
 	char	**tab;
 	int		i;
+	int		j;
 	
 	line = get_next_line(fd);
 	if (!line)
@@ -96,7 +97,14 @@ void	get_cols(int fd, map_t *map)
 	free(line);
 	i = 0;
 	while (tab[i])
+	{
+		j = 0;
+		while (tab[i][j] == ' ')
+			j++;
+		if (tab[i][j] == '\n')
+			break ;	
 		i++;
+	}
 	map->cols = i;
 	ft_free_tab((void *)tab);
 }
@@ -144,7 +152,16 @@ static void	malloc_map3d(map_t	*map)
 	}
 }
 
-#include <stdio.h>
+void	map_init(map_t *map)
+{
+	malloc_map3d(map);
+	map->interval = ft_min(WIDTH / map->cols, HEIGHT / map->rows) / 2;
+	map->interval = ft_max(2.0, map->interval);
+	map->alpha = 0.46373398;
+	map->beta = 0.46373398 / 2;
+	map->x_offset = 0;
+	map->y_offset = 0;
+}
 map_t	*parse_input(int ac, char **av)
 {
 	int		fd;
@@ -163,12 +180,7 @@ map_t	*parse_input(int ac, char **av)
 	if (map->cols == 0 || map->rows == 0)
 		error_map(fd, map);
 	close(fd);
-	malloc_map3d(map);
-	map->interval = ft_min(WIDTH / map->cols, HEIGHT / map->rows) / 2;
-	if (map->interval < 2.0)
-		map->interval = 2.0;
-	map->alpha = 0.46373398;
-	map->beta = 0.46373398 / 2;
+	map_init(map);
 	fd = open(av[1], O_RDONLY, 0777);
 	parse_map(fd, map);
 	close(fd);
