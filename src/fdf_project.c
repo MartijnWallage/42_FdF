@@ -6,11 +6,29 @@
 /*   By: mwallage <mwallage@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 14:59:34 by mwallage          #+#    #+#             */
-/*   Updated: 2023/09/01 17:00:20 by mwallage         ###   ########.fr       */
+/*   Updated: 2023/09/02 16:21:42 by mwallage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/fdf.h"
+
+unsigned int    project_color(map_t *map, int i, int j)
+{
+    point3d_t       *point;
+    unsigned int    rgba;
+
+    point = &(map->map3d[i][j]);
+    if (!map->z_color)
+        return (point->rgba);
+    rgba = 0xFF;
+    if (point->z_unparsed < 0)
+        rgba += (map->low / point->z_unparsed * 255) << 16;
+    if (point->z_unparsed == 0)
+        rgba += 255 << 8;
+    if (point->z_unparsed > 0)
+        rgba += (map->high / point->z_unparsed * 255) << 24;
+    return (rgba);
+}
 
 static point2d_t	**iso(map_t *map)
 {
@@ -62,10 +80,7 @@ static point2d_t	**iso(map_t *map)
             projection[i][j].y = source[i][j].y - source[i][j].z * sin(map->alpha)
                 + HEIGHT / 2
                 + map->y_offset; */
-            if (map->z_color)
-                projection[i][j].rgba = ((long long) (source[i][j].z) << 8) | ((long long) (source[i][j].z) << 16) | 0xFF;
-            else
-                projection[i][j].rgba = source[i][j].rgba;
+            projection[i][j].rgba = project_color(map, i, j);
         }
     }
     return (projection);

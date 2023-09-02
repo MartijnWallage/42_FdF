@@ -6,7 +6,7 @@
 /*   By: mwallage <mwallage@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/10 15:30:52 by mwallage          #+#    #+#             */
-/*   Updated: 2023/09/01 16:42:27 by mwallage         ###   ########.fr       */
+/*   Updated: 2023/09/02 15:46:49 by mwallage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,23 +24,26 @@
 
 typedef struct	point3d_s
 {
-	double		x;
-	double		y;
-	double		z;
-	long long	rgba;
+	double			x;
+	double			y;
+	double			z;
+	int				z_unparsed;
+	unsigned int	rgba;
 }				point3d_t;
 
 typedef struct	point2d_s
 {
-	int			x;
-	int			y;
-	long long	rgba;
+	int				x;
+	int				y;
+	unsigned int	rgba;
 }				point2d_t;
 
 typedef struct map_s
 {
 	int				rows;
 	int				cols;
+	int				high;
+	int				low;
 	bool			z_color;
 	double			x_offset;
 	double			y_offset;

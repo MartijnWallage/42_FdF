@@ -6,7 +6,7 @@
 /*   By: mwallage <mwallage@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 15:56:53 by mwallage          #+#    #+#             */
-/*   Updated: 2023/09/01 16:47:08 by mwallage         ###   ########.fr       */
+/*   Updated: 2023/09/02 15:37:43 by mwallage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ void ft_hook(void* param)
 	}
 	if (mlx_is_key_down(mlx, MLX_KEY_C))
 	{
-		map->z_color = true;
+		map->z_color = !(map->z_color);
 		iso_project(map);
 		draw_image(image, map);
 	}

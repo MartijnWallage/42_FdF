@@ -6,7 +6,7 @@
 /*   By: mwallage <mwallage@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 14:37:23 by mwallage          #+#    #+#             */
-/*   Updated: 2023/09/01 16:50:11 by mwallage         ###   ########.fr       */
+/*   Updated: 2023/09/02 15:48:15 by mwallage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	make_upper(unsigned int i, char *c)
 	*c = ft_toupper(*c);
 }
 
-long long	parse_color(char *tabj)
+unsigned int	parse_color(char *tabj)
 {
 	while (*tabj == '-')
 		tabj++;
@@ -64,6 +64,9 @@ void	parse_map(int fd, map_t *map)
 			points[i][j].x = (double) j * (map->interval) - offset_x;
 			points[i][j].y = (double) i * (map->interval) - offset_y;
 			points[i][j].z = (double) ft_atoi(tab[j]) * (map->interval);
+			points[i][j].z_unparsed = ft_atoi(tab[j]);
+			map->low = ft_min(map->low, points[i][j].z_unparsed);
+			map->high = ft_max(map->high, points[i][j].z_unparsed);
 			points[i][j].rgba = parse_color(tab[j]);
 			if (!points[i][j].rgba)
 				error_map(fd, map);
@@ -162,6 +165,8 @@ void	map_init(map_t *map)
 	map->x_offset = 0;
 	map->y_offset = 0;
 	map->z_color = false;
+	map->low = 0;
+	map->high = 0;
 }
 map_t	*parse_input(int ac, char **av)
 {
