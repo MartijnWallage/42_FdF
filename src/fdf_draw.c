@@ -6,7 +6,7 @@
 /*   By: mwallage <mwallage@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 14:38:25 by mwallage          #+#    #+#             */
-/*   Updated: 2023/09/02 16:13:20 by mwallage         ###   ########.fr       */
+/*   Updated: 2023/09/02 16:54:14 by mwallage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,8 +101,8 @@ void	draw_lines(mlx_image_t *image, map_t *map)
 void	draw_image(mlx_image_t *image, map_t *map)
 {
 	draw_reset(image);
-//	draw_lines(image, map);
-	draw_grid(image, map);
+	draw_lines(image, map);
+//	draw_grid(image, map);
 }
 
 void	draw_reset(mlx_image_t *image)

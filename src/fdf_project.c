@@ -6,7 +6,7 @@
 /*   By: mwallage <mwallage@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 14:59:34 by mwallage          #+#    #+#             */
-/*   Updated: 2023/09/02 16:21:42 by mwallage         ###   ########.fr       */
+/*   Updated: 2023/09/02 17:03:20 by mwallage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,15 @@ unsigned int    project_color(map_t *map, int i, int j)
     unsigned int    rgba;
 
     point = &(map->map3d[i][j]);
-    if (!map->z_color)
+    if (!map->z_color || point->z_unparsed + map->low == 0)
         return (point->rgba);
     rgba = 0xFF;
-    if (point->z_unparsed < 0)
-        rgba += (map->low / point->z_unparsed * 255) << 16;
-    if (point->z_unparsed == 0)
-        rgba += 255 << 8;
-    if (point->z_unparsed > 0)
-        rgba += (map->high / point->z_unparsed * 255) << 24;
+    if (point->z_unparsed + map->low < (map->high + map->low) / 3)
+        rgba += (255 / (map->high + map->low) * (point->z_unparsed + map->low)) << 8;
+    else if (point->z_unparsed + map->low < (map->high + map->low) / 2)
+        rgba += (255 / (map->high + map->low) * (point->z_unparsed + map->low)) << 16;
+    else
+        rgba += (255 / (map->high + map->low) * (point->z_unparsed + map->low)) << 24;
     return (rgba);
 }
 
