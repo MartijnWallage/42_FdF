@@ -6,28 +6,34 @@
 /*   By: mwallage <mwallage@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 14:59:34 by mwallage          #+#    #+#             */
-/*   Updated: 2023/09/07 17:56:41 by mwallage         ###   ########.fr       */
+/*   Updated: 2023/09/07 18:19:26 by mwallage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/fdf.h"
 
+
+
+#include <stdio.h>
 int    project_color(map_t *map, int i, int j)
 {
     point3d_t   *point;
-    int         rgba;
-
+    double      perc;
+    
     point = &(map->map3d[i][j]);
-    if (!map->z_color || (map->high - map->low) == 0 || (point->z_unparsed - map->low) == 0)
+    if (!map->z_color)
         return (point->rgba);
-    rgba = 0xFF;
-    if (point->z_unparsed - map->low < (map->high - map->low) / 3)
-        rgba += (255 / (map->high - map->low) * (point->z_unparsed - map->low)) << 8;
-    else if (point->z_unparsed - map->low < (map->high - map->low) / 2)
-        rgba += (255 / (map->high - map->low) * (point->z_unparsed - map->low)) << 16;
-    else
-        rgba += (255 / (map->high - map->low) * (point->z_unparsed - map->low)) << 24;
-    return (rgba);
+    perc = percent(map->low, map->high, point->z_unparsed);
+    if (perc < 0.2)
+		return (COLOR_DISCO);
+	else if (perc < 0.4)
+		return (COLOR_BRICK_RED);
+	else if (perc < 0.6)
+		return (COLOR_FLAMINGO);
+	else if (perc < 0.8)
+		return (COLOR_JAFFA);
+	else
+		return (COLOR_SAFFRON); 
 }
 
 static point2d_t	**iso(map_t *map)

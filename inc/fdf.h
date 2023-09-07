@@ -6,7 +6,7 @@
 /*   By: mwallage <mwallage@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/10 15:30:52 by mwallage          #+#    #+#             */
-/*   Updated: 2023/09/07 17:47:35 by mwallage         ###   ########.fr       */
+/*   Updated: 2023/09/07 18:20:01 by mwallage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,16 @@
 
 # define	WIDTH	1920
 # define	HEIGHT	1080
+
+# define TEXT_COLOR			0xEAEAEAFF
+# define BACKGROUND			0x222222FF
+# define MENU_BACKGROUND	0x1E1E1E00
+
+# define COLOR_DISCO		0x9A1F6AFF
+# define COLOR_BRICK_RED	0xC2294EFF
+# define COLOR_FLAMINGO		0xEC4B27FF
+# define COLOR_JAFFA		0xEF8633FF
+# define COLOR_SAFFRON		0xF3AF3DFF
 
 typedef struct	point3d_s
 {
@@ -87,12 +97,13 @@ void		ft_hook(void* param);
 
 /* fdf_utils.c*/
 void		ft_free_tab(void **ptr);
+double		percent(int start, int end, int current);
 
 /* fdf_color.c */
-int get_rgba(int r, int g, int b, int a);
-int get_r(int rgba);
-int get_g(int rgba);
-int get_b(int rgba);
-int get_a(int rgba);
+int 		get_rgba(int r, int g, int b, int a);
+int 		get_r(int rgba);
+int 		get_g(int rgba);
+int 		get_b(int rgba);
+int 		get_a(int rgba);
 
 #endif

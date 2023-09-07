@@ -6,7 +6,7 @@
 /*   By: mwallage <mwallage@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 14:38:25 by mwallage          #+#    #+#             */
-/*   Updated: 2023/09/07 17:57:54 by mwallage         ###   ########.fr       */
+/*   Updated: 2023/09/07 18:21:27 by mwallage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,7 +132,7 @@ void	draw_reset(mlx_image_t *image)
 		j = 0;
 		while (j < image->width)
 		{
-			mlx_put_pixel(image, j, i, 0x00000000);
+			mlx_put_pixel(image, j, i, BACKGROUND);
 			j++;
 		}
 		i++;
