@@ -6,7 +6,7 @@
 /*   By: mwallage <mwallage@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/10 15:30:52 by mwallage          #+#    #+#             */
-/*   Updated: 2023/09/07 18:20:01 by mwallage         ###   ########.fr       */
+/*   Updated: 2023/09/07 18:40:40 by mwallage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,5 +105,6 @@ int 		get_r(int rgba);
 int 		get_g(int rgba);
 int 		get_b(int rgba);
 int 		get_a(int rgba);
+int			project_color(map_t *map, int i, int j);
 
 #endif

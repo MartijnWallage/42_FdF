@@ -6,7 +6,7 @@
 /*   By: mwallage <mwallage@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 14:38:25 by mwallage          #+#    #+#             */
-/*   Updated: 2023/09/07 18:21:27 by mwallage         ###   ########.fr       */
+/*   Updated: 2023/09/07 18:36:48 by mwallage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,9 @@ void	bresenham(mlx_image_t *image, point2d_t a, point2d_t b)
 	int	green_inc;
 	int	red_inc;
 	int	rgb_inc;
+	int	rgba_origin;
+
+	rgba_origin = a.rgba;
 
 	dx = abs(b.x - a.x);
 	dy = abs(b.y - a.y);
@@ -69,10 +72,10 @@ void	bresenham(mlx_image_t *image, point2d_t a, point2d_t b)
 		rgb_inc = 0;
 	else
 	{
-		blue_inc = (get_b(b.rgba) - get_b(a.rgba)) / ft_max(dx, dy);
-		green_inc = (get_g(b.rgba) - get_g(a.rgba)) / ft_max(dx, dy);
-		red_inc = (get_r(b.rgba) - get_r(a.rgba)) / ft_max(dx, dy);
-		rgb_inc = (blue_inc << 8) | (green_inc << 16) | (red_inc << 24);
+		blue_inc = ((get_b(b.rgba) - get_b(a.rgba)) / ft_max(dx, dy)) << 8;
+		green_inc = ((get_g(b.rgba) - get_g(a.rgba)) / ft_max(dx, dy)) << 16;
+		red_inc = ((get_r(b.rgba) - get_r(a.rgba)) / ft_max(dx, dy)) << 24;
+		rgb_inc = blue_inc | green_inc | red_inc;
 	}
     while (a.y != b.y || a.x != b.x)
 	{
@@ -93,6 +96,7 @@ void	bresenham(mlx_image_t *image, point2d_t a, point2d_t b)
         }
 		a.rgba += rgb_inc;
 	}
+	a.rgba = rgba_origin;
 }
 
 void	draw_lines(mlx_image_t *image, map_t *map)
