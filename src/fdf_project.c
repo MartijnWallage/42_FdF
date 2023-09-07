@@ -6,27 +6,27 @@
 /*   By: mwallage <mwallage@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 14:59:34 by mwallage          #+#    #+#             */
-/*   Updated: 2023/09/02 17:03:20 by mwallage         ###   ########.fr       */
+/*   Updated: 2023/09/07 17:56:41 by mwallage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/fdf.h"
 
-unsigned int    project_color(map_t *map, int i, int j)
+int    project_color(map_t *map, int i, int j)
 {
-    point3d_t       *point;
-    unsigned int    rgba;
+    point3d_t   *point;
+    int         rgba;
 
     point = &(map->map3d[i][j]);
-    if (!map->z_color || point->z_unparsed + map->low == 0)
+    if (!map->z_color || (map->high - map->low) == 0 || (point->z_unparsed - map->low) == 0)
         return (point->rgba);
     rgba = 0xFF;
-    if (point->z_unparsed + map->low < (map->high + map->low) / 3)
-        rgba += (255 / (map->high + map->low) * (point->z_unparsed + map->low)) << 8;
-    else if (point->z_unparsed + map->low < (map->high + map->low) / 2)
-        rgba += (255 / (map->high + map->low) * (point->z_unparsed + map->low)) << 16;
+    if (point->z_unparsed - map->low < (map->high - map->low) / 3)
+        rgba += (255 / (map->high - map->low) * (point->z_unparsed - map->low)) << 8;
+    else if (point->z_unparsed - map->low < (map->high - map->low) / 2)
+        rgba += (255 / (map->high - map->low) * (point->z_unparsed - map->low)) << 16;
     else
-        rgba += (255 / (map->high + map->low) * (point->z_unparsed + map->low)) << 24;
+        rgba += (255 / (map->high - map->low) * (point->z_unparsed - map->low)) << 24;
     return (rgba);
 }
 
@@ -81,6 +81,7 @@ static point2d_t	**iso(map_t *map)
                 + HEIGHT / 2
                 + map->y_offset; */
             projection[i][j].rgba = project_color(map, i, j);
+            projection[i][j].z = source[i][j].z;
         }
     }
     return (projection);

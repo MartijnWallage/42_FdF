@@ -6,7 +6,7 @@
 /*   By: mwallage <mwallage@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/10 15:30:52 by mwallage          #+#    #+#             */
-/*   Updated: 2023/09/02 15:46:49 by mwallage         ###   ########.fr       */
+/*   Updated: 2023/09/07 17:47:35 by mwallage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,19 +24,20 @@
 
 typedef struct	point3d_s
 {
-	double			x;
-	double			y;
-	double			z;
-	int				z_unparsed;
-	unsigned int	rgba;
+	double	x;
+	double	y;
+	double	z;
+	int		z_unparsed;
+	int		rgba;
 }				point3d_t;
 
 typedef struct	point2d_s
 {
-	int				x;
-	int				y;
-	unsigned int	rgba;
-}				point2d_t;
+	int		x;
+	int		y;
+	double	z;
+	int		rgba;
+}			point2d_t;
 
 typedef struct map_s
 {
@@ -86,5 +87,12 @@ void		ft_hook(void* param);
 
 /* fdf_utils.c*/
 void		ft_free_tab(void **ptr);
+
+/* fdf_color.c */
+int get_rgba(int r, int g, int b, int a);
+int get_r(int rgba);
+int get_g(int rgba);
+int get_b(int rgba);
+int get_a(int rgba);
 
 #endif
