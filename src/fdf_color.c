@@ -15,23 +15,13 @@
 int    project_color(map_t *map, int i, int j)
 {
     point3d_t   *point;
-    double      perc;
     
     point = &(map->map3d[i][j]);
-    if (!map->z_color)
-        return (point->rgba);
-    perc = percent(map->low, map->high, point->z_unparsed);
-    if (perc < 0.2)
-		return (COLOR_DISCO);
-	else if (perc < 0.4)
-		return (COLOR_BRICK_RED);
-	else if (perc < 0.6)
-		return (COLOR_FLAMINGO);
-	else if (perc < 0.8)
-		return (COLOR_JAFFA);
-	else
-		return (COLOR_SAFFRON); 
+    if (!map->use_zcolor)
+        return (point->mapcolor);
+	return (point->zcolor);
 }
+
 
 int	get_light(int start, int end, double percentage)
 {
@@ -78,4 +68,46 @@ int	parse_color(char *tabj)
 	tabj += 2;
 	ft_striteri(tabj, &make_upper);
 	return ((ft_atoi_base(tabj, "0123456789ABCDEF") << 8) | 0xFF);
+}
+
+static int	zcolor(double perc)
+{
+    if (perc < 0.1)
+		return (COLOR_ONE);
+	else if (perc < 0.2)
+		return (COLOR_TWO);
+	else if (perc < 0.3)
+		return (COLOR_THREE);
+	else if (perc < 0.4)
+		return (COLOR_FOUR);
+	else if (perc < 0.5)
+		return (COLOR_FIVE);
+	else if (perc < 0.6)
+		return (COLOR_SIX);
+	else if (perc < 0.7)
+		return (COLOR_SEVEN);
+	else if (perc < 0.8)
+		return (COLOR_EIGHT);
+	else if (perc < 0.9)
+		return (COLOR_NINE);
+	else
+		return (COLOR_TEN); 
+}
+
+void	set_zcolor(map_t *map)
+{
+	int		i;
+	int		j;
+	double	perc;
+
+	i = -1;
+	while (++i < map->rows)
+	{
+		j = -1;
+		while (++j < map->cols)
+		{
+			perc = percent(map->low, map->high, map->map3d[i][j].z);
+			map->map3d[i][j].zcolor = zcolor(perc);
+		}
+	}
 }

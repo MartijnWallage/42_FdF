@@ -87,7 +87,7 @@ void ft_hook(void* param)
 	}
 	if (mlx_is_key_down(mlx, MLX_KEY_C))
 	{
-		map->z_color = !(map->z_color);
+		map->use_zcolor = !(map->use_zcolor);
 		iso_project(map);
 		draw_image(image, map);
 	}

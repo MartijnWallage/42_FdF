@@ -26,26 +26,30 @@
 # define BACKGROUND			0x222222FF
 # define MENU_BACKGROUND	0x1E1E1E00
 
-# define COLOR_DISCO		0x9A1F6AFF
-# define COLOR_BRICK_RED	0xC2294EFF
-# define COLOR_FLAMINGO		0xEC4B27FF
-# define COLOR_JAFFA		0xEF8633FF
-# define COLOR_SAFFRON		0xF3AF3DFF
+# define COLOR_TEN			0xFFFFFFFF
+# define COLOR_NINE			0xfff7fbFF
+# define COLOR_EIGHT		0xece2f0FF
+# define COLOR_SEVEN		0xd0d1e6FF
+# define COLOR_SIX			0xa6bddbFF
+# define COLOR_FIVE			0x67a9cfFF
+# define COLOR_FOUR			0x3690c0FF
+# define COLOR_THREE		0x02818aFF
+# define COLOR_TWO			0x016c59FF
+# define COLOR_ONE			0x014636FF
 
 typedef struct	point3d_s
 {
 	double	x;
 	double	y;
 	double	z;
-	int		z_unparsed;
-	int		rgba;
+	int		mapcolor;
+	int		zcolor;
 }				point3d_t;
 
 typedef struct	point2d_s
 {
 	int		x;
 	int		y;
-	double	z;
 	int		rgba;
 }			point2d_t;
 
@@ -55,7 +59,7 @@ typedef struct map_s
 	int				cols;
 	int				high;
 	int				low;
-	bool			z_color;
+	bool			use_zcolor;
 	double			x_offset;
 	double			y_offset;
 	double			interval;
@@ -105,5 +109,6 @@ int			project_color(map_t *map, int i, int j);
 int			get_light(int start, int end, double percentage);
 int			get_color(point2d_t current, point2d_t a, point2d_t b, int dx, int dy);
 int			parse_color(char *tabj);
+void		set_zcolor(map_t *map);
 
 #endif

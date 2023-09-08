@@ -63,7 +63,6 @@ static point2d_t	**iso(map_t *map)
                 + HEIGHT / 2
                 + map->y_offset; */
             projection[i][j].rgba = project_color(map, i, j);
-            projection[i][j].z = source[i][j].z;
         }
     }
     return (projection);
