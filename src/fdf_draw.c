@@ -29,74 +29,73 @@ void	draw_grid(mlx_image_t *image, map_t *map)
 		{
 			x = (points[i][j].x);
 			y = (points[i][j].y);
-			if (x >= 0 && x < image->width && y >= 0 && y < image->height)
+			if (x < image->width && y < image->height)
 				mlx_put_pixel(image, x, y, points[i][j].rgba);
 		}
 	}
 }
 
 
-/* unsigned int	get_color(int dx, int dy, point2d_t a, point2d_t b, unsigned int a_color, unsigned int b_color)
+int	get_light(int start, int end, double percentage)
 {
-	float	ax;
-	float	ay;
-	unsigned int	blue;
-	unsigned int	red;
-	unsigned int	green;
-		
-	if (a_color == b_color)
-		return (a_color);
-	ax = abs(b.x - a.x) / dx;
-	ay = abs(b.y - a.y) / dy;
-	//	THe basic idea is: say there are ten steps from a to b. Then each step, the color in each channel should be increased or descreased 1/10th. 
-} */
+	return ((int)((1 - percentage) * start + percentage * end));
+}
+
+/*
+** Get color. Result depends on point position.
+** This function is needed to create linear gradient.
+*/
+
+int	get_color(point2d_t current, point2d_t a, point2d_t b, int dx, int dy)
+{
+	int		red;
+	int		green;
+	int		blue;
+	double	percentage;
+
+	if (current.rgba == b.rgba)
+		return (current.rgba);
+	if (dx > dy)
+		percentage = percent(a.x, b.x, current.x);
+	else
+		percentage = percent(a.y, b.y, current.y);
+	red = get_light(get_r(a.rgba), get_r(b.rgba), percentage);
+	green = get_light(get_g(a.rgba), get_g(b.rgba), percentage);
+	blue = get_light(get_b(a.rgba), get_b(b.rgba), percentage);
+	return ((red << 24) | (green << 16) | blue << 8 | 0xFF);
+}
 
 void	bresenham(mlx_image_t *image, point2d_t a, point2d_t b)
 {
     int dx;
     int dy;
-    int error;
-	int	error2;
-	int	blue_inc;
-	int	green_inc;
-	int	red_inc;
-	int	rgb_inc;
-	int	rgba_origin;
+    int error[2];
+	point2d_t	current;
 
-	rgba_origin = a.rgba;
-
+	current.x = a.x;
+	current.y = a.y;
+	current.rgba = a.rgba;	
 	dx = abs(b.x - a.x);
 	dy = abs(b.y - a.y);
-	error = dx - dy;
-	if (ft_max(dx, dy) == 0)
-		rgb_inc = 0;
-	else
+	error[0] = dx - dy;
+    while (current.x != b.x || current.y != b.y)
 	{
-		blue_inc = ((get_b(b.rgba) - get_b(a.rgba)) / ft_max(dx, dy)) << 8;
-		green_inc = ((get_g(b.rgba) - get_g(a.rgba)) / ft_max(dx, dy)) << 16;
-		red_inc = ((get_r(b.rgba) - get_r(a.rgba)) / ft_max(dx, dy)) << 24;
-		rgb_inc = blue_inc | green_inc | red_inc;
-	}
-    while (a.y != b.y || a.x != b.x)
-	{
-		if ((uint32_t)(a.x) < image->width && (uint32_t)(a.y) < image->height)
-			mlx_put_pixel(image, a.x, a.y, a.rgba);
-		error2 = 2 * error;
-        if (error2 > -dy)
+		if ((uint32_t)(current.x) < image->width && (uint32_t)(current.y) < image->height)
+			mlx_put_pixel(image, current.x, current.y, get_color(current, a, b, dx, dy));
+		error[1] = 2 * error[0];
+        if (error[1] > -dy)
 		{
-            error -= dy;
-			a.x += (a.x < b.x);
-			a.x -= (b.x < a.x);
+            error[0] -= dy;
+			current.x += (a.x < b.x);
+			current.x -= (b.x < a.x);
         }
-        if (error2 < dx)
+        if (error[1] < dx)
 		{
-            error += dx;
-			a.y += (a.y < b.y);
-			a.y -= (b.y < a.y);
+            error[0] += dx;
+			current.y += (a.y < b.y);
+			current.y -= (b.y < a.y);
         }
-		a.rgba += rgb_inc;
 	}
-	a.rgba = rgba_origin;
 }
 
 void	draw_lines(mlx_image_t *image, map_t *map)
