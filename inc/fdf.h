@@ -98,13 +98,12 @@ void		ft_hook(void* param);
 /* fdf_utils.c*/
 void		ft_free_tab(void **ptr);
 double		percent(int start, int end, int current);
+void		make_upper(unsigned int i, char *c);
 
 /* fdf_color.c */
-int 		get_rgba(int r, int g, int b, int a);
-int 		get_r(int rgba);
-int 		get_g(int rgba);
-int 		get_b(int rgba);
-int 		get_a(int rgba);
 int			project_color(map_t *map, int i, int j);
+int			get_light(int start, int end, double percentage);
+int			get_color(point2d_t current, point2d_t a, point2d_t b, int dx, int dy);
+int			parse_color(char *tabj);
 
 #endif

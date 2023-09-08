@@ -34,3 +34,9 @@ double	percent(int start, int end, int current)
 	distance = end - start;
 	return ((distance == 0) ? 1.0 : (placement / distance));
 }
+
+void	make_upper(unsigned int i, char *c)
+{
+	i++;
+	*c = ft_toupper(*c);
+}

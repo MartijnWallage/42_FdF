@@ -12,35 +12,6 @@
 
 #include "../inc/fdf.h"
 
-int get_rgba(int r, int g, int b, int a)
-{
-    return (r << 24 | g << 16 | b << 8 | a);
-}
-
-// get the red channel
-int get_r(int rgba)
-{
-    return ((rgba >> 24) & 0xFF);
-}
-
-// Get the green channel.
-int get_g(int rgba)
-{
-    return ((rgba >> 16) & 0xFF);
-}
-
-// Get the blue channel.
-int get_b(int rgba)
-{
-    return ((rgba >> 8) & 0xFF);
-}
-
-// Get the alpha channel.
-int get_a(int rgba)
-{
-    return (rgba & 0xFF);
-}
-
 int    project_color(map_t *map, int i, int j)
 {
     point3d_t   *point;
@@ -60,4 +31,51 @@ int    project_color(map_t *map, int i, int j)
 		return (COLOR_JAFFA);
 	else
 		return (COLOR_SAFFRON); 
+}
+
+int	get_light(int start, int end, double percentage)
+{
+	return ((int)((1 - percentage) * start + percentage * end));
+}
+
+int	get_color(point2d_t current, point2d_t a, point2d_t b, int dx, int dy)
+{
+	int		red;
+	int		green;
+	int		blue;
+	double	percentage;
+
+	if (current.rgba == b.rgba)
+		return (current.rgba);
+	if (dx > dy)
+		percentage = percent(a.x, b.x, current.x);
+	else
+		percentage = percent(a.y, b.y, current.y);
+	red = get_light((a.rgba >> 24) & 0xFF,
+                    (b.rgba >> 24) & 0xFF,
+                    percentage);
+	green = get_light((a.rgba >> 16) & 0xFF,
+                    (b.rgba >> 16) & 0xFF,
+                    percentage);
+	blue = get_light((a.rgba >> 8) & 0xFF,
+                    (b.rgba >> 8) & 0xFF,
+                    percentage);
+	return ((red << 24) | (green << 16) | blue << 8 | 0xFF);
+}
+
+int	parse_color(char *tabj)
+{
+	while (*tabj == '-')
+		tabj++;
+	while (ft_isdigit(*tabj))
+		tabj++;
+	if (*tabj == ',')
+		tabj++;
+	else
+		return (0xFFFFFFFF);
+	if ((ft_strncmp(tabj, "0X", 2) && ft_strncmp(tabj, "0x", 2)))
+		return (0xFFFFFFFF);
+	tabj += 2;
+	ft_striteri(tabj, &make_upper);
+	return ((ft_atoi_base(tabj, "0123456789ABCDEF") << 8) | 0xFF);
 }

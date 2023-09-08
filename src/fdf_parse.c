@@ -12,29 +12,6 @@
 
 #include "../inc/fdf.h"
 
-void	make_upper(unsigned int i, char *c)
-{
-	i++;
-	*c = ft_toupper(*c);
-}
-
-unsigned int	parse_color(char *tabj)
-{
-	while (*tabj == '-')
-		tabj++;
-	while (ft_isdigit(*tabj))
-		tabj++;
-	if (*tabj == ',')
-		tabj++;
-	else
-		return (0xFFFFFFFF);
-	if ((ft_strncmp(tabj, "0X", 2) && ft_strncmp(tabj, "0x", 2)))
-		return (0xFFFFFFFF);
-	tabj += 2;
-	ft_striteri(tabj, &make_upper);
-	return ((ft_atoi_base(tabj, "0123456789ABCDEF") << 8) | 0xFF);
-}
-
 void	parse_map(int fd, map_t *map)
 {
 	char		*line;
@@ -168,6 +145,7 @@ void	map_init(map_t *map)
 	map->low = 0;
 	map->high = 0;
 }
+
 map_t	*parse_input(int ac, char **av)
 {
 	int		fd;
