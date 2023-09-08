@@ -56,27 +56,26 @@ void	bresenham(mlx_image_t *image, point2d_t a, point2d_t b)
     int dx;
     int dy;
     int error;
-	int	error2;
+	int	error2;/* 
 	int	blue_inc;
 	int	green_inc;
-	int	red_inc;
-	int	rgb_inc;
-	int	rgba_origin;
-
-	rgba_origin = a.rgba;
+	int	red_inc; */
 
 	dx = abs(b.x - a.x);
 	dy = abs(b.y - a.y);
-	error = dx - dy;
+	error = dx - dy;/* 
 	if (ft_max(dx, dy) == 0)
-		rgb_inc = 0;
+	{
+		blue_inc = 0;
+		green_inc = 0;
+		red_inc = 0;
+	}
 	else
 	{
-		blue_inc = ((get_b(b.rgba) - get_b(a.rgba)) / ft_max(dx, dy)) << 8;
-		green_inc = ((get_g(b.rgba) - get_g(a.rgba)) / ft_max(dx, dy)) << 16;
-		red_inc = ((get_r(b.rgba) - get_r(a.rgba)) / ft_max(dx, dy)) << 24;
-		rgb_inc = blue_inc | green_inc | red_inc;
-	}
+		blue_inc = ((get_b(b.rgba) - get_b(a.rgba)) / ft_max(dx, dy));
+		green_inc = ((get_g(b.rgba) - get_g(a.rgba)) / ft_max(dx, dy));
+		red_inc = ((get_r(b.rgba) - get_r(a.rgba)) / ft_max(dx, dy));
+	} */
     while (a.y != b.y || a.x != b.x)
 	{
 		if ((uint32_t)(a.x) < image->width && (uint32_t)(a.y) < image->height)
@@ -94,9 +93,8 @@ void	bresenham(mlx_image_t *image, point2d_t a, point2d_t b)
 			a.y += (a.y < b.y);
 			a.y -= (b.y < a.y);
         }
-		a.rgba += rgb_inc;
+		a.rgba = get_rgba(get_r(a.rgba) + 1, get_g(a.rgba) + 1, get_b(a.rgba) + 1, 0xFF);
 	}
-	a.rgba = rgba_origin;
 }
 
 void	draw_lines(mlx_image_t *image, map_t *map)
