@@ -6,7 +6,7 @@
 /*   By: mwallage <mwallage@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 14:59:34 by mwallage          #+#    #+#             */
-/*   Updated: 2023/09/07 18:40:24 by mwallage         ###   ########.fr       */
+/*   Updated: 2023/09/09 16:47:38 by mwallage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,10 @@ static point2d_t	**iso(map_t *map)
             projection[i][j].y = source[i][j].y - source[i][j].z * sin(map->alpha)
                 + HEIGHT / 2
                 + map->y_offset; */
-            projection[i][j].rgba = project_color(map, i, j);
+            if (map->use_zcolor)
+                projection[i][j].rgba = source[i][j].zcolor;
+            else
+                projection[i][j].rgba = source[i][j].mapcolor;
         }
     }
     return (projection);
@@ -72,3 +75,9 @@ void	iso_project(map_t *map)
 {
     map->map2d = iso(map);
 }
+
+/* void    project(point3d_t *previous, point2d_t *new)
+{
+    if (map->)
+    new->x = 
+} */

@@ -6,7 +6,7 @@
 /*   By: mwallage <mwallage@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/10 15:30:52 by mwallage          #+#    #+#             */
-/*   Updated: 2023/09/07 18:40:40 by mwallage         ###   ########.fr       */
+/*   Updated: 2023/09/09 15:45:42 by mwallage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,19 +23,19 @@
 # define	HEIGHT	1080
 
 # define TEXT_COLOR			0xEAEAEAFF
-# define BACKGROUND			0x222222FF
-# define MENU_BACKGROUND	0x1E1E1E00
+# define BACKGROUND			0x22222200
+# define MENU_BACKGROUND	0x1E1E1EFF
 
-# define COLOR_TEN			0xFFFFFFFF
-# define COLOR_NINE			0xfff7fbFF
-# define COLOR_EIGHT		0xece2f0FF
-# define COLOR_SEVEN		0xd0d1e6FF
-# define COLOR_SIX			0xa6bddbFF
-# define COLOR_FIVE			0x67a9cfFF
-# define COLOR_FOUR			0x3690c0FF
-# define COLOR_THREE		0x02818aFF
-# define COLOR_TWO			0x016c59FF
-# define COLOR_ONE			0x014636FF
+# define COLOR_TEN			0x9e0142ff
+# define COLOR_NINE			0xd53e4fff
+# define COLOR_EIGHT		0xf46d43ff
+# define COLOR_SEVEN		0xfdae61ff
+# define COLOR_SIX			0xfee08bff
+# define COLOR_FIVE			0xe6f598ff
+# define COLOR_FOUR			0xabdda4ff
+# define COLOR_THREE		0x66c2a5ff
+# define COLOR_TWO			0x3288bdff
+# define COLOR_ONE			0x5e4fa2ff
 
 typedef struct	point3d_s
 {
@@ -98,6 +98,7 @@ void		iso_project(map_t *map);
 
 /* fdf_hooks.c */
 void		ft_hook(void* param);
+void		my_scrollhook(double xdelta, double ydelta, void* param);
 
 /* fdf_utils.c*/
 void		ft_free_tab(void **ptr);
@@ -105,10 +106,12 @@ double		percent(int start, int end, int current);
 void		make_upper(unsigned int i, char *c);
 
 /* fdf_color.c */
-int			project_color(map_t *map, int i, int j);
 int			get_light(int start, int end, double percentage);
 int			get_color(point2d_t current, point2d_t a, point2d_t b, int dx, int dy);
 int			parse_color(char *tabj);
 void		set_zcolor(map_t *map);
+
+/* fdf_menu.c */
+void		display_menu(mlx_t *mlx);
 
 #endif

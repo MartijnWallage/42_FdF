@@ -6,22 +6,11 @@
 /*   By: mwallage <mwallage@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 10:25:01 by mwallage          #+#    #+#             */
-/*   Updated: 2023/09/09 14:52:18 by mwallage         ###   ########.fr       */
+/*   Updated: 2023/09/09 15:07:21 by mwallage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/fdf.h"
-
-int    project_color(map_t *map, int i, int j)
-{
-    point3d_t   *point;
-    
-    point = &(map->map3d[i][j]);
-    if (!map->use_zcolor)
-		return (point->mapcolor);
-	else
-		return (point->zcolor);
-}
 
 int	get_light(int start, int end, double percentage)
 {

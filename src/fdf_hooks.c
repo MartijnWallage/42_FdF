@@ -6,7 +6,7 @@
 /*   By: mwallage <mwallage@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 15:56:53 by mwallage          #+#    #+#             */
-/*   Updated: 2023/09/02 15:37:43 by mwallage         ###   ########.fr       */
+/*   Updated: 2023/09/09 16:26:39 by mwallage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,22 @@ void	zoom(map_t	*map, mlx_image_t *image, double zoom)
 	}
 	iso_project(map);
 	draw_image(image, map);
+}
+
+void my_scrollhook(double xdelta, double ydelta, void* param)
+{
+	ft_hook_t	*hook;
+	map_t		*map;
+	mlx_image_t	*image;
+
+	hook = (ft_hook_t *)param;
+	map = hook->map;
+	image = hook->image;
+	if (ydelta > 0)
+		zoom(map, image, 1.02);
+	else if (ydelta < 0)
+		zoom(map, image, 0.98);
+	xdelta++;
 }
 
 void ft_hook(void* param)
