@@ -6,7 +6,7 @@
 /*   By: mwallage <mwallage@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 15:56:53 by mwallage          #+#    #+#             */
-/*   Updated: 2023/09/09 17:57:48 by mwallage         ###   ########.fr       */
+/*   Updated: 2023/09/09 20:49:37 by mwallage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,17 +116,17 @@ void ft_hook(void* param)
 	}
 	if (mlx_is_key_down(mlx, MLX_KEY_X))
 	{
-		map->rotate_x += 0.01;
+		rotate_all(map, 'x');
 		draw_image(image, map);
 	}
 	if (mlx_is_key_down(mlx, MLX_KEY_Y))
 	{
-		map->rotate_y += 0.01;
+		rotate_all(map, 'y');
 		draw_image(image, map);
 	}
 	if (mlx_is_key_down(mlx, MLX_KEY_Z))
 	{
-		map->rotate_z += 0.01;
+		rotate_all(map, 'z');
 		draw_image(image, map);
 	}
 }

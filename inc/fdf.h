@@ -6,7 +6,7 @@
 /*   By: mwallage <mwallage@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/10 15:30:52 by mwallage          #+#    #+#             */
-/*   Updated: 2023/09/09 18:16:53 by mwallage         ###   ########.fr       */
+/*   Updated: 2023/09/09 20:49:00 by mwallage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,9 +105,10 @@ void		iso_project(map_t *map, int i, int j);
 void		project(map_t *map, int i, int j);
 
 /* fdf_rotate.c */
-void		rotate_x(int *y, int *z, double alpha);
-void		rotate_y(int *x, int *z, double beta);
-point3d_t	*rotate_z(point3d_t *point, double gamma);
+void		rotate_x(double *y, double *z, double alpha);
+void		rotate_y(double *x, double *z, double beta);
+void		rotate_z(double *x, double *y, double gamma);
+void		rotate_all(map_t *map, char axis);
 
 /* fdf_hooks.c */
 void		ft_hook(void* param);

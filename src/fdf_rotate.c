@@ -6,15 +6,15 @@
 /*   By: mwallage <mwallage@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/09 17:38:43 by mwallage          #+#    #+#             */
-/*   Updated: 2023/09/09 18:16:42 by mwallage         ###   ########.fr       */
+/*   Updated: 2023/09/09 21:51:48 by mwallage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/fdf.h"
 
-void	rotate_x(int *y, int *z, double alpha)
+void	rotate_x(double *y, double *z, double alpha)
 {
-	int previous_y;
+	double previous_y;
 
 	previous_y = *y;
 	*y = previous_y * cos(alpha) + *z * sin(alpha);
@@ -25,9 +25,9 @@ void	rotate_x(int *y, int *z, double alpha)
 ** Rotate coordinate by y axis
 */
 
-void	rotate_y(int *x, int *z, double beta)
+void	rotate_y(double *x, double *z, double beta)
 {
-	int previous_x;
+	double previous_x;
 
 	previous_x = *x;
 	*x = previous_x * cos(beta) + *z * sin(beta);
@@ -38,18 +38,34 @@ void	rotate_y(int *x, int *z, double beta)
 ** Rotate coordinate by z axis
 */
 
-point3d_t	*rotate_z(point3d_t *point, double gamma)
+void	rotate_z(double *x, double *y, double gamma)
 {
-	point3d_t	*new_point;
 	double previous_x;
 	double previous_y;
 
-	new_point = malloc(sizeof(point3d_t));
-	if (!new_point)
-		handle_error(strerror(errno));
-	previous_x = point->x;
-	previous_y = point->y;
-	new_point->x = previous_x * cos(gamma) - previous_y * sin(gamma);
-	new_point->y = previous_x * sin(gamma) + previous_y * cos(gamma);
-	return (new_point);
+	previous_x = *x;
+	previous_y = *y;
+	*x = previous_x * cos(gamma) - previous_y * sin(gamma);
+	*y = previous_x * sin(gamma) + previous_y * cos(gamma);
+}
+
+void	rotate_all(map_t *map, char axis)
+{
+	int i;
+	int j;
+
+	i = -1;
+	while (++i < map->rows)
+	{
+		j = -1;
+		while (++j < map->cols)
+		{
+			if (axis == 'x')
+				rotate_x(&(map->map3d[i][j].y), &(map->map3d[i][j].z), 0.01);
+			else if (axis == 'y')
+				rotate_y(&(map->map3d[i][j].x), &(map->map3d[i][j].z), 0.01);
+			else if (axis == 'z')
+				rotate_x(&(map->map3d[i][j].x), &(map->map3d[i][j].y), 0.01);
+		}
+	}
 }
