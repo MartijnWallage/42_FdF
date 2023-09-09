@@ -6,7 +6,7 @@
 /*   By: mwallage <mwallage@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 14:38:25 by mwallage          #+#    #+#             */
-/*   Updated: 2023/09/09 16:39:59 by mwallage         ###   ########.fr       */
+/*   Updated: 2023/09/09 17:34:24 by mwallage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,9 +80,18 @@ void	draw_lines(mlx_image_t *image, map_t *map)
 		while (++j < map->cols)
 		{
 			if (i + 1 < map->rows)
+			{
+				if (i == 0 && j == 0)
+					project(map, i, j);
+				project(map, i + 1, j);
 				bresenham(image, map->map2d[i][j], map->map2d[i + 1][j]);
+			}
 			if (j + 1 < map->cols)
+			{
+				if (i == 0)
+					project(map, i, j + 1);
 				bresenham(image, map->map2d[i][j], map->map2d[i][j + 1]);
+			}
 		}
 	}
 }

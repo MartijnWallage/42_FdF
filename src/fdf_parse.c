@@ -6,7 +6,7 @@
 /*   By: mwallage <mwallage@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 14:37:23 by mwallage          #+#    #+#             */
-/*   Updated: 2023/09/07 18:40:06 by mwallage         ###   ########.fr       */
+/*   Updated: 2023/09/09 17:56:32 by mwallage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ void	get_rows(int fd, map_t *map)
 	map->rows = y;
 }
 
-static void	malloc_map3d(map_t	*map)
+static void	malloc_map(map_t	*map)
 {
 	int	i;
 	int j;
@@ -114,7 +114,13 @@ static void	malloc_map3d(map_t	*map)
 	if (!(map->map3d))
 	{
 		free(map);
-		handle_error("malloc error");
+		handle_error(strerror(errno));
+	}
+	map->map2d = malloc(sizeof(point2d_t *) * map->rows);
+	if (!(map->map2d))
+	{
+		free(map);
+		handle_error(strerror(errno));
 	}
 	i = -1;
 	while (++i < map->rows)
@@ -124,20 +130,44 @@ static void	malloc_map3d(map_t	*map)
 		{
 			j = -1;
 			while (++j < i)
+			{
 				free(map->map3d[j]);
+				free(map->map2d[j]);
+			}
+			free(map->map2d);
+			free(map->map3d);
 			free(map);
-			handle_error("malloc error");
+			handle_error(strerror(errno));
+		}
+		map->map2d[i] = malloc(sizeof(point2d_t) * map->cols);
+		if (!(map->map2d[i]))
+		{
+			j = -1;
+			while (++j < i)
+			{
+				free(map->map2d[j]);
+				free(map->map3d[j]);
+			}
+			free(map->map3d[i]);
+			free(map->map2d);
+			free(map->map3d);
+			free(map);
+			handle_error(strerror(errno));
 		}
 	}
 }
 
-void	map_init(map_t *map)
+void	init_map(map_t *map)
 {
-	malloc_map3d(map);
+	malloc_map(map);
 	map->interval = ft_min(WIDTH / map->cols, HEIGHT / map->rows) / 2;
 	map->interval = ft_max(2.0, map->interval);
+	map->projection = 'i';
 	map->alpha = 0.46373398;
 	map->beta = 0.46373398 / 2;
+	map->rotate_x = 0;
+	map->rotate_y = 0;
+	map->rotate_z = 0;
 	map->x_offset = 0;
 	map->y_offset = 0;
 	map->use_zcolor = false;
@@ -163,7 +193,7 @@ map_t	*parse_input(int ac, char **av)
 	if (map->cols == 0 || map->rows == 0)
 		error_map(fd, map);
 	close(fd);
-	map_init(map);
+	init_map(map);
 	fd = open(av[1], O_RDONLY, 0777);
 	parse_map(fd, map);
 	close(fd);

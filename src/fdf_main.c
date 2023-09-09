@@ -6,7 +6,7 @@
 /*   By: mwallage <mwallage@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/10 15:31:03 by mwallage          #+#    #+#             */
-/*   Updated: 2023/09/09 15:51:03 by mwallage         ###   ########.fr       */
+/*   Updated: 2023/09/09 17:24:05 by mwallage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ int32_t	main(int ac, char **av)
 		handle_error(mlx_strerror(mlx_errno));
 	}
 	display_menu(mlx);
-	iso_project(map);
  	draw_image(image, map);
 	if (mlx_image_to_window(mlx, image, 0, 0))
 	{

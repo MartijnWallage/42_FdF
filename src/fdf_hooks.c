@@ -6,7 +6,7 @@
 /*   By: mwallage <mwallage@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 15:56:53 by mwallage          #+#    #+#             */
-/*   Updated: 2023/09/09 16:26:39 by mwallage         ###   ########.fr       */
+/*   Updated: 2023/09/09 17:57:48 by mwallage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ void	zoom(map_t	*map, mlx_image_t *image, double zoom)
 			map->map3d[i][j].z *= zoom;
 		}
 	}
-	iso_project(map);
 	draw_image(image, map);
 }
 
@@ -64,25 +63,21 @@ void ft_hook(void* param)
 	if (mlx_is_key_down(mlx, MLX_KEY_LEFT))
 	{
 		map->x_offset += 5;
-		iso_project(map);
 		draw_image(image, map);
 	}
 	if (mlx_is_key_down(mlx, MLX_KEY_RIGHT))
 	{
 		map->x_offset -= 5;
-		iso_project(map);
 		draw_image(image, map);
 	}
 	if (mlx_is_key_down(mlx, MLX_KEY_DOWN))
 	{
 		map->y_offset -= 5;
-		iso_project(map);
 		draw_image(image, map);
 	}
 	if (mlx_is_key_down(mlx, MLX_KEY_UP))
 	{
 		map->y_offset += 5;
-		iso_project(map);
 		draw_image(image, map);
 	}
 	if (mlx_is_key_down(mlx, MLX_KEY_EQUAL))
@@ -92,19 +87,46 @@ void ft_hook(void* param)
 	if (mlx_is_key_down(mlx, MLX_KEY_R))
 	{
 		map->alpha += 0.05;
-		iso_project(map);
 		draw_image(image, map); 
 	}
 	if (mlx_is_key_down(mlx, MLX_KEY_T))
 	{
 		map->beta += 0.05;
-		iso_project(map);
 		draw_image(image, map); 
 	}
 	if (mlx_is_key_down(mlx, MLX_KEY_C))
 	{
 		map->use_zcolor = !(map->use_zcolor);
-		iso_project(map);
+		draw_image(image, map);
+	}
+	if (mlx_is_key_down(mlx, MLX_KEY_I))
+	{
+		map->projection = 'i';
+		draw_image(image, map);
+	}
+	if (mlx_is_key_down(mlx, MLX_KEY_P))
+	{
+		map->projection = 'p';
+		draw_image(image, map);
+	}
+	if (mlx_is_key_down(mlx, MLX_KEY_D))
+	{
+		map->projection = 'd';
+		draw_image(image, map);
+	}
+	if (mlx_is_key_down(mlx, MLX_KEY_X))
+	{
+		map->rotate_x += 0.01;
+		draw_image(image, map);
+	}
+	if (mlx_is_key_down(mlx, MLX_KEY_Y))
+	{
+		map->rotate_y += 0.01;
+		draw_image(image, map);
+	}
+	if (mlx_is_key_down(mlx, MLX_KEY_Z))
+	{
+		map->rotate_z += 0.01;
 		draw_image(image, map);
 	}
 }

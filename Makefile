@@ -6,7 +6,7 @@
 #    By: mwallage <mwallage@student.42berlin.de>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/10 15:31:16 by mwallage          #+#    #+#              #
-#    Updated: 2023/09/09 15:21:40 by mwallage         ###   ########.fr        #
+#    Updated: 2023/09/09 17:46:02 by mwallage         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,8 @@ SRC		:= fdf_main.c \
 			fdf_project.c \
 			fdf_hooks.c \
 			fdf_color.c \
-			fdf_menu.c
+			fdf_menu.c \
+			fdf_rotate.c
 SRCS	:= $(addprefix $(SRCDIR)/, $(SRC))
 OBJ		:= ${SRCS:.c=.o}
 NAME	:= fdf

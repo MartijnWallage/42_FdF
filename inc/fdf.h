@@ -6,7 +6,7 @@
 /*   By: mwallage <mwallage@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/10 15:30:52 by mwallage          #+#    #+#             */
-/*   Updated: 2023/09/09 15:45:42 by mwallage         ###   ########.fr       */
+/*   Updated: 2023/09/09 18:16:53 by mwallage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 # include <fcntl.h>
 # include <stdlib.h>
 # include <math.h>
+# include <errno.h>
+# include <string.h>
 # include "../lib/MLX42/include/MLX42/MLX42.h"
 # include "../lib/libft/inc/libft.h"
 
@@ -50,6 +52,7 @@ typedef struct	point2d_s
 {
 	int		x;
 	int		y;
+	int		z;
 	int		rgba;
 }			point2d_t;
 
@@ -65,6 +68,10 @@ typedef struct map_s
 	double			interval;
 	double			alpha;
 	double			beta;
+	double			rotate_x;
+	double			rotate_y;
+	double			rotate_z;
+	char			projection;
 	point3d_t		**map3d;
 	point2d_t		**map2d;
 }					map_t;
@@ -94,7 +101,13 @@ void		draw_image(mlx_image_t *image, map_t *map);
 void		draw_reset(mlx_image_t *image);
 
 /* fdf_project.c */
-void		iso_project(map_t *map);
+void		iso_project(map_t *map, int i, int j);
+void		project(map_t *map, int i, int j);
+
+/* fdf_rotate.c */
+void		rotate_x(int *y, int *z, double alpha);
+void		rotate_y(int *x, int *z, double beta);
+point3d_t	*rotate_z(point3d_t *point, double gamma);
 
 /* fdf_hooks.c */
 void		ft_hook(void* param);
