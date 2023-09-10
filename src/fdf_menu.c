@@ -6,7 +6,7 @@
 /*   By: mwallage <mwallage@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/09 15:17:35 by mwallage          #+#    #+#             */
-/*   Updated: 2023/09/10 10:49:40 by mwallage         ###   ########.fr       */
+/*   Updated: 2023/09/10 12:31:29 by mwallage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,16 +20,16 @@ void	display_menu(mlx_t *mlx)
 	x = 20;
 	y = 20;
 	mlx_put_string(mlx, "CONTROLS", x, y);
-	mlx_put_string(mlx, "Zoom:\t\t\t\t\t\t\t\t\t\tmouse scroll or -+", x, y += 30);
+	mlx_put_string(mlx, "Switch colour:\tc", x, y += 30);
+	mlx_put_string(mlx, "Zoom:\t\t\t\t\t\t\t\t\t\tmouse scroll or -+", x, y += 20);
 	mlx_put_string(mlx, "Translate:\t\t\t\t\tarrow keys", x, y+=20);
-	mlx_put_string(mlx, "Rotate:\t\t\t\t\t\t\t\tr", x, y += 20);
-	mlx_put_string(mlx, "Mirror:\t\t\t\t\t\t\t\tt", x, y += 20);
-	mlx_put_string(mlx, "Switch colour:\tc", x, y += 20);
-	mlx_put_string(mlx, "Rotate x-axis:\tx + < or x + >", x, y += 20);
-	mlx_put_string(mlx, "Rotate y-axis:\ty + < or y + >", x, y += 20);
-	mlx_put_string(mlx, "Rotate z-axis:\tz + < or z + >", x, y += 20);
+	mlx_put_string(mlx, "Angle x:\t\t\t\t\t\t\tr", x, y += 20);
+	mlx_put_string(mlx, "Angle y:\t\t\t\t\t\t\tt", x, y += 20);
+	mlx_put_string(mlx, "Rotate x:\t\t\t\t\t\tx + < or x + >", x, y += 20);
+	mlx_put_string(mlx, "Rotate y:\t\t\t\t\t\ty + < or y + >", x, y += 20);
+	mlx_put_string(mlx, "Rotate z:\t\t\t\t\t\tz + < or z + >", x, y += 20);
 	mlx_put_string(mlx, "PROJECTION", x, y += 35);
-	mlx_put_string(mlx, "Isometric:\t\t\t\t\ti", x, y += 30);
-	mlx_put_string(mlx, "Dimetric:\t\t\t\t\t\td", x, y += 20);
-	mlx_put_string(mlx, "Parallel:\t\t\t\t\t\tp", x, y += 20);
+	mlx_put_string(mlx, "Isometric:\t\t\t\t\t1", x, y += 30);
+	mlx_put_string(mlx, "Dimetric:\t\t\t\t\t\t2", x, y += 20);
+	mlx_put_string(mlx, "Parallel:\t\t\t\t\t\t3", x, y += 20);
 }

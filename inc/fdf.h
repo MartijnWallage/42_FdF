@@ -6,7 +6,7 @@
 /*   By: mwallage <mwallage@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/10 15:30:52 by mwallage          #+#    #+#             */
-/*   Updated: 2023/09/10 10:44:00 by mwallage         ###   ########.fr       */
+/*   Updated: 2023/09/10 12:19:36 by mwallage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,13 +65,13 @@ typedef struct map_s
 	bool			use_zcolor;
 	double			x_offset;
 	double			y_offset;
+	double			z_divisor;
 	double			interval;
 	double			alpha;
 	double			beta;
 	double			rotate_x;
 	double			rotate_y;
 	double			rotate_z;
-	char			projection;
 	point3d_t		**map3d;
 	point2d_t		**map2d;
 }					map_t;

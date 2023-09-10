@@ -6,7 +6,7 @@
 /*   By: mwallage <mwallage@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 14:37:23 by mwallage          #+#    #+#             */
-/*   Updated: 2023/09/09 17:56:32 by mwallage         ###   ########.fr       */
+/*   Updated: 2023/09/10 12:20:01 by mwallage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,7 +162,6 @@ void	init_map(map_t *map)
 	malloc_map(map);
 	map->interval = ft_min(WIDTH / map->cols, HEIGHT / map->rows) / 2;
 	map->interval = ft_max(2.0, map->interval);
-	map->projection = 'i';
 	map->alpha = 0.46373398;
 	map->beta = 0.46373398 / 2;
 	map->rotate_x = 0;
@@ -170,6 +169,7 @@ void	init_map(map_t *map)
 	map->rotate_z = 0;
 	map->x_offset = 0;
 	map->y_offset = 0;
+	map->z_divisor = 1;
 	map->use_zcolor = false;
 	map->low = 0;
 	map->high = 0;
