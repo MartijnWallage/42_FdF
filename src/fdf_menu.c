@@ -6,7 +6,7 @@
 /*   By: mwallage <mwallage@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/09 15:17:35 by mwallage          #+#    #+#             */
-/*   Updated: 2023/09/10 12:31:29 by mwallage         ###   ########.fr       */
+/*   Updated: 2023/09/10 19:45:23 by mwallage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,5 +31,5 @@ void	display_menu(mlx_t *mlx)
 	mlx_put_string(mlx, "PROJECTION", x, y += 35);
 	mlx_put_string(mlx, "Isometric:\t\t\t\t\t1", x, y += 30);
 	mlx_put_string(mlx, "Dimetric:\t\t\t\t\t\t2", x, y += 20);
-	mlx_put_string(mlx, "Parallel:\t\t\t\t\t\t3", x, y += 20);
+	mlx_put_string(mlx, "Trimetric:\t\t\t\t\t3", x, y += 20);
 }

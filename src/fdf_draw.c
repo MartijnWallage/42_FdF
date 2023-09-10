@@ -6,34 +6,11 @@
 /*   By: mwallage <mwallage@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 14:38:25 by mwallage          #+#    #+#             */
-/*   Updated: 2023/09/09 17:34:24 by mwallage         ###   ########.fr       */
+/*   Updated: 2023/09/10 19:42:38 by mwallage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/fdf.h"
-
-void	draw_grid(mlx_image_t *image, map_t *map)
-{
- 	point2d_t	**points;
-	int	i;
-	int	j;
- 	uint32_t x;
-	uint32_t y;
-
-	points = map->map2d;
- 	i = -1;
-	while (++i < map->rows)
-	{
-		j = -1;
-		while (++j < map->cols)
-		{
-			x = (points[i][j].x);
-			y = (points[i][j].y);
-			if (x < image->width && y < image->height)
-				mlx_put_pixel(image, x, y, points[i][j].rgba);
-		}
-	}
-}
 
 void	bresenham(mlx_image_t *image, point2d_t a, point2d_t b)
 {
@@ -118,5 +95,4 @@ void	draw_image(mlx_image_t *image, map_t *map)
 {
 	draw_reset(image);
 	draw_lines(image, map);
-//	draw_grid(image, map);
 }

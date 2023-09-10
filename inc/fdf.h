@@ -6,7 +6,7 @@
 /*   By: mwallage <mwallage@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/10 15:30:52 by mwallage          #+#    #+#             */
-/*   Updated: 2023/09/10 12:19:36 by mwallage         ###   ########.fr       */
+/*   Updated: 2023/09/10 19:42:47 by mwallage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,6 @@ void		handle_error(const char *);
 void		error_map(int, map_t *);
 
 /* fdf_draw.c */
-void		draw_grid(mlx_image_t *image, map_t *map);
 void		draw_lines(mlx_image_t *image, map_t *map);
 void		draw_image(mlx_image_t *image, map_t *map);
 void		draw_reset(mlx_image_t *image);
