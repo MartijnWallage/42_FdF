@@ -6,7 +6,7 @@
 /*   By: mwallage <mwallage@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/09 17:38:43 by mwallage          #+#    #+#             */
-/*   Updated: 2023/09/09 21:51:48 by mwallage         ###   ########.fr       */
+/*   Updated: 2023/09/10 10:43:48 by mwallage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	rotate_z(double *x, double *y, double gamma)
 	*y = previous_x * sin(gamma) + previous_y * cos(gamma);
 }
 
-void	rotate_all(map_t *map, char axis)
+void	rotate_all(map_t *map, char axis, double alpha)
 {
 	int i;
 	int j;
@@ -61,11 +61,11 @@ void	rotate_all(map_t *map, char axis)
 		while (++j < map->cols)
 		{
 			if (axis == 'x')
-				rotate_x(&(map->map3d[i][j].y), &(map->map3d[i][j].z), 0.01);
+				rotate_x(&(map->map3d[i][j].y), &(map->map3d[i][j].z), alpha);
 			else if (axis == 'y')
-				rotate_y(&(map->map3d[i][j].x), &(map->map3d[i][j].z), 0.01);
+				rotate_y(&(map->map3d[i][j].x), &(map->map3d[i][j].z), alpha);
 			else if (axis == 'z')
-				rotate_x(&(map->map3d[i][j].x), &(map->map3d[i][j].y), 0.01);
+				rotate_x(&(map->map3d[i][j].x), &(map->map3d[i][j].y), alpha);
 		}
 	}
 }

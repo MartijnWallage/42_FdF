@@ -6,7 +6,7 @@
 /*   By: mwallage <mwallage@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 15:56:53 by mwallage          #+#    #+#             */
-/*   Updated: 2023/09/09 20:49:37 by mwallage         ###   ########.fr       */
+/*   Updated: 2023/09/10 10:48:03 by mwallage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,22 +62,22 @@ void ft_hook(void* param)
 		mlx_close_window(mlx);
 	if (mlx_is_key_down(mlx, MLX_KEY_LEFT))
 	{
-		map->x_offset += 5;
+		map->x_offset -= 5;
 		draw_image(image, map);
 	}
 	if (mlx_is_key_down(mlx, MLX_KEY_RIGHT))
 	{
-		map->x_offset -= 5;
+		map->x_offset += 5;
 		draw_image(image, map);
 	}
 	if (mlx_is_key_down(mlx, MLX_KEY_DOWN))
 	{
-		map->y_offset -= 5;
+		map->y_offset += 5;
 		draw_image(image, map);
 	}
 	if (mlx_is_key_down(mlx, MLX_KEY_UP))
 	{
-		map->y_offset += 5;
+		map->y_offset -= 5;
 		draw_image(image, map);
 	}
 	if (mlx_is_key_down(mlx, MLX_KEY_EQUAL))
@@ -114,19 +114,34 @@ void ft_hook(void* param)
 		map->projection = 'd';
 		draw_image(image, map);
 	}
-	if (mlx_is_key_down(mlx, MLX_KEY_X))
+	if (mlx_is_key_down(mlx, MLX_KEY_X) && mlx_is_key_down(mlx, MLX_KEY_COMMA))
 	{
-		rotate_all(map, 'x');
+		rotate_all(map, 'x', -0.02);
 		draw_image(image, map);
 	}
-	if (mlx_is_key_down(mlx, MLX_KEY_Y))
+	if (mlx_is_key_down(mlx, MLX_KEY_X) && mlx_is_key_down(mlx, MLX_KEY_PERIOD))
 	{
-		rotate_all(map, 'y');
+		rotate_all(map, 'x', 0.02);
 		draw_image(image, map);
 	}
-	if (mlx_is_key_down(mlx, MLX_KEY_Z))
+	if (mlx_is_key_down(mlx, MLX_KEY_Y) && mlx_is_key_down(mlx, MLX_KEY_COMMA))
 	{
-		rotate_all(map, 'z');
+		rotate_all(map, 'y', -0.02);
+		draw_image(image, map);
+	}
+	if (mlx_is_key_down(mlx, MLX_KEY_Y) && mlx_is_key_down(mlx, MLX_KEY_PERIOD))
+	{
+		rotate_all(map, 'y', 0.02);
+		draw_image(image, map);
+	}
+	if (mlx_is_key_down(mlx, MLX_KEY_Z) && mlx_is_key_down(mlx, MLX_KEY_COMMA))
+	{
+		rotate_all(map, 'z', -0.02);
+		draw_image(image, map);
+	}
+	if (mlx_is_key_down(mlx, MLX_KEY_Z) && mlx_is_key_down(mlx, MLX_KEY_PERIOD))
+	{
+		rotate_all(map, 'z', 0.02);
 		draw_image(image, map);
 	}
 }
