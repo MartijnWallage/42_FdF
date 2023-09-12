@@ -6,7 +6,7 @@
 /*   By: mwallage <mwallage@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 15:56:53 by mwallage          #+#    #+#             */
-/*   Updated: 2023/09/10 12:31:22 by mwallage         ###   ########.fr       */
+/*   Updated: 2023/09/12 19:28:36 by mwallage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,14 +84,14 @@ void ft_hook(void* param)
 		zoom(map, image, 1.02);
 	if (mlx_is_key_down(mlx, MLX_KEY_MINUS))
 		zoom(map, image, 0.98);
-	if (mlx_is_key_down(mlx, MLX_KEY_R))
-	{
-		map->beta += 0.05;
-		draw_image(image, map); 
-	}
-	if (mlx_is_key_down(mlx, MLX_KEY_T))
+	if (mlx_is_key_down(mlx, MLX_KEY_A))
 	{
 		map->alpha += 0.05;
+		draw_image(image, map); 
+	}
+	if (mlx_is_key_down(mlx, MLX_KEY_S))
+	{
+		map->beta += 0.05;
 		draw_image(image, map); 
 	}
 	if (mlx_is_key_down(mlx, MLX_KEY_C))
@@ -101,20 +101,20 @@ void ft_hook(void* param)
 	}
 	if (mlx_is_key_down(mlx, MLX_KEY_1))
 	{
-		map->beta = 0.523599;
-		map->alpha = map->beta;
+		map->alpha = 0.523599;
+		map->beta = map->alpha;
 		draw_image(image, map);
 	}
 	if (mlx_is_key_down(mlx, MLX_KEY_2))
 	{
-		map->beta = 0.6370452;
-		map->alpha = map->beta;
+		map->alpha = 0.6370452;
+		map->beta = map->alpha;
 		draw_image(image, map);
 	}
 	if (mlx_is_key_down(mlx, MLX_KEY_3))
 	{
-		map->beta = 0.296706;
-		map->alpha = 0.42690754;
+		map->alpha = 0.46373398 / 2;;
+		map->beta = 0.46373398;
 		draw_image(image, map);
 	}
 	if (mlx_is_key_down(mlx, MLX_KEY_X) && mlx_is_key_down(mlx, MLX_KEY_COMMA))
