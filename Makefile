@@ -6,7 +6,7 @@
 #    By: mwallage <mwallage@student.42berlin.de>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/10 15:31:16 by mwallage          #+#    #+#              #
-#    Updated: 2023/09/09 17:46:02 by mwallage         ###   ########.fr        #
+#    Updated: 2023/09/14 16:42:47 by mwallage         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,10 +42,10 @@ all: libmlx libft $(NAME)
 libmlx:
 	@if [ -d ${MLX_DIR} ]; then git -C ${MLX_DIR} pull; \
     else git clone https://github.com/codam-coding-college/MLX42.git ${MLX_DIR}; fi
-	cmake $(MLX_DIR) -DDEBUG=ON -B $(MLX_DIR)/build && make -C $(MLX_DIR)/build -j4
+	cmake $(MLX_DIR) -B $(MLX_DIR)/build && make -C $(MLX_DIR)/build -j4
 
 libft:
-	@if [ -d ${LIBFT} ]; then echo "libft is there" \
+	@if [ -d ${LIBFT} ]; then git -C ${LIBFT} pull; \
     else git clone https://github.com/MartijnWallage/42_libft.git ${LIBFT}; fi
 	make -C$(LIBFT)
 
