@@ -8,7 +8,8 @@
 *.elf
 
 # Libraries
-lib/*
+libft
+MLX42
 
 # Linker output
 *.ilk
