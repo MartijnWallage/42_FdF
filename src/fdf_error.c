@@ -6,7 +6,7 @@
 /*   By: mwallage <mwallage@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 14:35:18 by mwallage          #+#    #+#             */
-/*   Updated: 2023/09/10 19:43:36 by mwallage         ###   ########.fr       */
+/*   Updated: 2023/09/19 14:28:38 by mwallage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,10 @@
 
 void	handle_error(const char *message)
 {
-	ft_putstr_fd("mlx: ", 2);
-	ft_putendl_fd((char *)message, 2);
+	if (errno == 0)
+		ft_putendl_fd((char *)message, 2);
+	else
+		perror(message);	
 	exit(1);
 }
 
@@ -24,5 +26,5 @@ void	error_map(int fd, map_t *map)
 	close(fd);
 	if (map)
 		free(map);
-	handle_error("mlx: invalid map.");
+	handle_error("Map is invalid");
 }
