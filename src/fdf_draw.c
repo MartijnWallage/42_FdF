@@ -6,13 +6,13 @@
 /*   By: mwallage <mwallage@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 14:38:25 by mwallage          #+#    #+#             */
-/*   Updated: 2023/09/10 19:42:38 by mwallage         ###   ########.fr       */
+/*   Updated: 2023/09/19 16:08:45 by mwallage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/fdf.h"
 
-void	bresenham(mlx_image_t *image, point2d_t a, point2d_t b)
+static void	bresenham(mlx_image_t *image, point2d_t a, point2d_t b)
 {
     int dx;
     int dy;
@@ -91,8 +91,8 @@ void	draw_reset(mlx_image_t *image)
 	}
 }
 
-void	draw_image(mlx_image_t *image, map_t *map)
+void	draw_image(fdf_t *fdf)
 {
-	draw_reset(image);
-	draw_lines(image, map);
+	draw_reset(fdf->image);
+	draw_lines(fdf->image, fdf->map);
 }

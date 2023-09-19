@@ -6,7 +6,7 @@
 /*   By: mwallage <mwallage@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 14:37:23 by mwallage          #+#    #+#             */
-/*   Updated: 2023/09/12 19:28:09 by mwallage         ###   ########.fr       */
+/*   Updated: 2023/09/19 17:03:25 by mwallage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	parse_map(int fd, map_t *map)
 			if (!points[i][j].mapcolor)
 				error_map(fd, map);
 		}
-		ft_free_tab((void **)tab);
+		ft_free_tab((void **)tab, map->cols);
 	}
 }
 
@@ -85,7 +85,7 @@ void	get_cols(int fd, map_t *map)
 		i++;
 	}
 	map->cols = i;
-	ft_free_tab((void *)tab);
+	ft_free_tab((void **)tab, i);
 }
 
 void	get_rows(int fd, map_t *map)
@@ -181,13 +181,13 @@ map_t	*parse_input(int ac, char **av)
 	map_t	*map;
 
 	if (ac != 2 || !valid_filename(av[1]))
-		handle_error("Format:\n\t./fdf *.fdf");
+		handle_error(FORMAT);
  	fd = open(av[1], O_RDONLY, 0777);
 	if (fd == -1)
-		handle_error("mlx: file does not exist.");
+		handle_error("File does not exist");
 	map = malloc(sizeof(map_t));
 	if (!map)
-		handle_error("malloc error");
+		handle_error("Malloc error");
 	get_cols(fd, map);
 	get_rows(fd, map);
 	if (map->cols == 0 || map->rows == 0)

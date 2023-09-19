@@ -6,7 +6,7 @@
 /*   By: mwallage <mwallage@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/10 15:30:52 by mwallage          #+#    #+#             */
-/*   Updated: 2023/09/19 14:30:04 by mwallage         ###   ########.fr       */
+/*   Updated: 2023/09/19 17:01:34 by mwallage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@
 # define COLOR_THREE		0x66c2a5ff
 # define COLOR_TWO			0x3288bdff
 # define COLOR_ONE			0x5e4fa2ff
+
+# define FORMAT				"Format:\n\t./fdf maps/filename.fdf"
 
 typedef struct	point3d_s
 {
@@ -77,12 +79,12 @@ typedef struct map_s
 	point2d_t		**map2d;
 }					map_t;
 
-typedef struct	ft_hook_s
+typedef struct	fdf_s
 {
 	mlx_t		*mlx;
 	map_t		*map;
 	mlx_image_t	*image;
-}			ft_hook_t;
+}				fdf_t;
 
 /* fdf_parse.c */
 void		parse_map(int, map_t *);
@@ -97,11 +99,10 @@ void		error_map(int, map_t *);
 
 /* fdf_draw.c */
 void		draw_lines(mlx_image_t *image, map_t *map);
-void		draw_image(mlx_image_t *image, map_t *map);
+void		draw_image(fdf_t *fdf);
 void		draw_reset(mlx_image_t *image);
 
 /* fdf_project.c */
-void		iso_project(map_t *map, int i, int j);
 void		project(map_t *map, int i, int j);
 
 /* fdf_rotate.c */
@@ -112,10 +113,12 @@ void		rotate_all(map_t *map, char axis, double alpha);
 
 /* fdf_hooks.c */
 void		ft_hook(void* param);
-void		my_scrollhook(double xdelta, double ydelta, void* param);
+void		fdf_scrollhook(double xdelta, double ydelta, void* param);
+void		ft_hook_rotate(void *param);
+void		ft_hook_project(void *param);
 
 /* fdf_utils.c*/
-void		ft_free_tab(void **ptr);
+void		ft_free_tab(void **ptr, size_t len);
 double		percent(int start, int end, int current);
 void		make_upper(unsigned int i, char *c);
 

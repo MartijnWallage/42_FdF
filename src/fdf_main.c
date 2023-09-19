@@ -6,19 +6,19 @@
 /*   By: mwallage <mwallage@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/10 15:31:03 by mwallage          #+#    #+#             */
-/*   Updated: 2023/09/09 17:24:05 by mwallage         ###   ########.fr       */
+/*   Updated: 2023/09/19 17:05:00 by mwallage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/fdf.h"
 
-int32_t	main(int ac, char **av)
+static fdf_t	*init_fdf(int ac, char **av)
 {
+	map_t		*map;
 	mlx_t		*mlx;
 	mlx_image_t	*image;
-	map_t		*map;
-	ft_hook_t	hook;
-
+	fdf_t		*fdf;
+	
 	map = parse_input(ac, av);
 	mlx = mlx_init(WIDTH, HEIGHT, "FdF", true);
 	if (!mlx)
@@ -29,18 +29,38 @@ int32_t	main(int ac, char **av)
 		mlx_close_window(mlx);
 		handle_error(mlx_strerror(mlx_errno));
 	}
-	display_menu(mlx);
- 	draw_image(image, map);
-	if (mlx_image_to_window(mlx, image, 0, 0))
+	fdf = malloc(sizeof(fdf_t));
+	if (!fdf)
+		handle_error("malloc failed");
+	fdf->image = image;
+	fdf->mlx = mlx;
+	fdf->map = map;
+	return (fdf);
+}
+
+int32_t	main(int ac, char **av)
+{
+	fdf_t		*fdf;
+
+	if (ac != 2)
+		handle_error(FORMAT);
+	fdf = init_fdf(ac, av);
+	display_menu(fdf->mlx);
+ 	draw_image(fdf);
+	if (mlx_image_to_window(fdf->mlx, fdf->image, 0, 0) == -1)
 	{
-		mlx_close_window(mlx);
+		mlx_close_window(fdf->mlx);
+		ft_free_tab((void **)fdf->map->map2d, fdf->map->cols);
+		ft_free_tab((void **)fdf->map->map3d, fdf->map->cols);
+		free(fdf->map);
+		free(fdf);
 		handle_error(mlx_strerror(mlx_errno));
 	}
-	hook.mlx = mlx;
-	hook.map = map;
-	hook.image = image;
-	mlx_loop_hook(mlx, ft_hook, &hook);
-	mlx_scroll_hook(mlx, &my_scrollhook, &hook);
-	mlx_loop(mlx);
-	mlx_terminate(mlx);
+	mlx_loop_hook(fdf->mlx, &ft_hook, fdf);
+	mlx_loop_hook(fdf->mlx, &ft_hook_rotate, fdf);
+	mlx_loop_hook(fdf->mlx, &ft_hook_project, fdf);
+	mlx_scroll_hook(fdf->mlx, &fdf_scrollhook, fdf);
+	mlx_loop(fdf->mlx);
+	mlx_terminate(fdf->mlx);
+	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: mwallage <mwallage@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/09 15:17:35 by mwallage          #+#    #+#             */
-/*   Updated: 2023/09/12 19:23:56 by mwallage         ###   ########.fr       */
+/*   Updated: 2023/09/19 15:55:46 by mwallage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	display_menu(mlx_t *mlx)
 {
-	int	x;
-	int	y;
+	int		x;
+	int		y;
 
 	x = 20;
 	y = 20;

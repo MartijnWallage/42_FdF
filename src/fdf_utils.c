@@ -6,18 +6,18 @@
 /*   By: mwallage <mwallage@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 14:35:10 by mwallage          #+#    #+#             */
-/*   Updated: 2023/09/07 18:19:29 by mwallage         ###   ########.fr       */
+/*   Updated: 2023/09/19 17:01:21 by mwallage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/fdf.h"
 
-void	ft_free_tab(void **tab)
+void	ft_free_tab(void **tab, size_t len)
 {
 	size_t	i;
 
 	i = 0;
-	while (tab[i])
+	while (i < len)
 	{
 		free(tab[i]);
 		i++;
@@ -32,7 +32,9 @@ double	percent(int start, int end, int current)
 
 	placement = current - start;
 	distance = end - start;
-	return ((distance == 0) ? 1.0 : (placement / distance));
+	if (distance == 0)
+		return (1.0);
+	return (placement / distance);
 }
 
 void	make_upper(unsigned int i, char *c)
