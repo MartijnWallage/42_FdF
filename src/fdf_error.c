@@ -6,7 +6,7 @@
 /*   By: mwallage <mwallage@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 14:35:18 by mwallage          #+#    #+#             */
-/*   Updated: 2023/09/19 14:28:38 by mwallage         ###   ########.fr       */
+/*   Updated: 2023/09/20 16:35:35 by mwallage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,8 @@ void	handle_error(const char *message)
 	exit(1);
 }
 
-void	error_map(int fd, map_t *map)
+void	error_map(int fd)
 {
 	close(fd);
-	if (map)
-		free(map);
-	handle_error("Map is invalid");
+	handle_error(INVALID_MAP);
 }

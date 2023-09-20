@@ -6,7 +6,7 @@
 /*   By: mwallage <mwallage@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 14:38:25 by mwallage          #+#    #+#             */
-/*   Updated: 2023/09/19 16:08:45 by mwallage         ###   ########.fr       */
+/*   Updated: 2023/09/20 16:27:25 by mwallage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,34 +14,29 @@
 
 static void	bresenham(mlx_image_t *image, point2d_t a, point2d_t b)
 {
-    int dx;
-    int dy;
-    int error[2];
-	point2d_t	current;
+	int			error[2];
+	point2d_t	cur;
 
-	current.x = a.x;
-	current.y = a.y;
-	current.rgba = a.rgba;	
-	dx = abs(b.x - a.x);
-	dy = abs(b.y - a.y);
-	error[0] = dx - dy;
-    while (current.x != b.x || current.y != b.y)
+	cur.x = a.x;
+	cur.y = a.y;
+	error[0] = abs(b.x - a.x) - abs(b.y - a.y);
+	while (cur.x != b.x || cur.y != b.y)
 	{
-		if ((uint32_t)(current.x) < image->width && (uint32_t)(current.y) < image->height)
-			mlx_put_pixel(image, current.x, current.y, get_color(current, a, b, dx, dy));
+		if ((uint32_t)cur.x < image->width && (uint32_t)cur.y < image->height)
+			mlx_put_pixel(image, cur.x, cur.y, get_color(cur, a, b));
 		error[1] = 2 * error[0];
-        if (error[1] > -dy)
+		if (error[1] > -abs(b.y - a.y))
 		{
-            error[0] -= dy;
-			current.x += (a.x < b.x);
-			current.x -= (b.x < a.x);
-        }
-        if (error[1] < dx)
+			error[0] -= abs(b.y - a.y);
+			cur.x += (a.x < b.x);
+			cur.x -= (b.x < a.x);
+		}
+		if (error[1] < abs(b.x - a.x))
 		{
-            error[0] += dx;
-			current.y += (a.y < b.y);
-			current.y -= (b.y < a.y);
-        }
+			error[0] += abs(b.x - a.x);
+			cur.y += (a.y < b.y);
+			cur.y -= (b.y < a.y);
+		}
 	}
 }
 
@@ -49,7 +44,7 @@ void	draw_lines(mlx_image_t *image, map_t *map)
 {
 	int	i;
 	int	j;
-	
+
 	i = -1;
 	while (++i < map->rows)
 	{

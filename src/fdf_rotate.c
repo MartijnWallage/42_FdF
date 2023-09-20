@@ -6,13 +6,13 @@
 /*   By: mwallage <mwallage@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/09 17:38:43 by mwallage          #+#    #+#             */
-/*   Updated: 2023/09/19 16:36:06 by mwallage         ###   ########.fr       */
+/*   Updated: 2023/09/20 15:15:41 by mwallage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/fdf.h"
 
-void	rotate_x(double *y, double *z, double alpha)
+static void	rotate_x(double *y, double *z, double alpha)
 {
 	double	previous_y;
 
@@ -21,7 +21,7 @@ void	rotate_x(double *y, double *z, double alpha)
 	*z = -previous_y * sin(alpha) + *z * cos(alpha);
 }
 
-void	rotate_y(double *x, double *z, double beta)
+static void	rotate_y(double *x, double *z, double beta)
 {
 	double	previous_x;
 
@@ -30,7 +30,7 @@ void	rotate_y(double *x, double *z, double beta)
 	*z = -previous_x * sin(beta) + *z * cos(beta);
 }
 
-void	rotate_z(double *x, double *y, double gamma)
+static void	rotate_z(double *x, double *y, double gamma)
 {
 	double	previous_x;
 	double	previous_y;
@@ -57,7 +57,7 @@ void	rotate_all(map_t *map, char axis, double alpha)
 			else if (axis == 'y')
 				rotate_y(&(map->map3d[i][j].x), &(map->map3d[i][j].z), alpha);
 			else if (axis == 'z')
-				rotate_x(&(map->map3d[i][j].x), &(map->map3d[i][j].y), alpha);
+				rotate_z(&(map->map3d[i][j].x), &(map->map3d[i][j].y), alpha);
 		}
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: mwallage <mwallage@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/10 15:30:52 by mwallage          #+#    #+#             */
-/*   Updated: 2023/09/19 17:01:34 by mwallage         ###   ########.fr       */
+/*   Updated: 2023/09/20 16:52:56 by mwallage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@
 # define COLOR_ONE			0x5e4fa2ff
 
 # define FORMAT				"Format:\n\t./fdf maps/filename.fdf"
+# define MALLOC				"Malloc failed"
+# define INVALID_MAP		"Map is invalid"
 
 typedef struct	point3d_s
 {
@@ -91,11 +93,11 @@ void		parse_map(int, map_t *);
 int			valid_filename(const char *);
 void		get_cols(int, map_t *);
 void		get_rows(int, map_t *);
-map_t		*parse_input(int, char **);
+void		malloc_map(map_t *map);
 
 /* fdf_error.c */
-void		handle_error(const char *);
-void		error_map(int, map_t *);
+void		handle_error(const char *message);
+void		error_map(int fd);
 
 /* fdf_draw.c */
 void		draw_lines(mlx_image_t *image, map_t *map);
@@ -106,9 +108,6 @@ void		draw_reset(mlx_image_t *image);
 void		project(map_t *map, int i, int j);
 
 /* fdf_rotate.c */
-void		rotate_x(double *y, double *z, double alpha);
-void		rotate_y(double *x, double *z, double beta);
-void		rotate_z(double *x, double *y, double gamma);
 void		rotate_all(map_t *map, char axis, double alpha);
 
 /* fdf_hooks.c */
@@ -121,10 +120,11 @@ void		ft_hook_project(void *param);
 void		ft_free_tab(void **ptr, size_t len);
 double		percent(int start, int end, int current);
 void		make_upper(unsigned int i, char *c);
+int			radiant(int start, int end, double percentage);
 
 /* fdf_color.c */
 int			get_light(int start, int end, double percentage);
-int			get_color(point2d_t current, point2d_t a, point2d_t b, int dx, int dy);
+int			get_color(point2d_t current, point2d_t a, point2d_t b);
 int			parse_color(char *tabj);
 void		set_zcolor(map_t *map);
 

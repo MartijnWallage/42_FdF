@@ -6,7 +6,7 @@
 /*   By: mwallage <mwallage@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 14:35:10 by mwallage          #+#    #+#             */
-/*   Updated: 2023/09/19 17:01:21 by mwallage         ###   ########.fr       */
+/*   Updated: 2023/09/20 15:28:00 by mwallage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,4 +41,9 @@ void	make_upper(unsigned int i, char *c)
 {
 	i++;
 	*c = ft_toupper(*c);
+}
+
+int	radiant(int start, int end, double percentage)
+{
+	return ((int)((1 - percentage) * start + percentage * end));
 }

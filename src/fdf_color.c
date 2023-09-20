@@ -6,39 +6,28 @@
 /*   By: mwallage <mwallage@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 10:25:01 by mwallage          #+#    #+#             */
-/*   Updated: 2023/09/10 19:41:04 by mwallage         ###   ########.fr       */
+/*   Updated: 2023/09/20 15:40:55 by mwallage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/fdf.h"
 
-static int	radiant(int start, int end, double percentage)
-{
-	return ((int)((1 - percentage) * start + percentage * end));
-}
-
-int	get_color(point2d_t current, point2d_t a, point2d_t b, int dx, int dy)
+int	get_color(point2d_t current, point2d_t a, point2d_t b)
 {
 	int		red;
 	int		green;
 	int		blue;
 	double	percentage;
 
-	if (current.rgba == b.rgba)
-		return (current.rgba);
-	if (dx > dy)
+	if (a.rgba == b.rgba)
+		return (a.rgba);
+	if (abs(b.x - a.x) > abs(b.y - a.y))
 		percentage = percent(a.x, b.x, current.x);
 	else
 		percentage = percent(a.y, b.y, current.y);
-	red = radiant((a.rgba >> 24) & 0xFF,
-                    (b.rgba >> 24) & 0xFF,
-                    percentage);
-	green = radiant((a.rgba >> 16) & 0xFF,
-                    (b.rgba >> 16) & 0xFF,
-                    percentage);
-	blue = radiant((a.rgba >> 8) & 0xFF,
-                    (b.rgba >> 8) & 0xFF,
-                    percentage);
+	red = radiant((a.rgba >> 24) & 0xFF, (b.rgba >> 24) & 0xFF, percentage);
+	green = radiant((a.rgba >> 16) & 0xFF, (b.rgba >> 16) & 0xFF, percentage);
+	blue = radiant((a.rgba >> 8) & 0xFF, (b.rgba >> 8) & 0xFF, percentage);
 	return ((red << 24) | (green << 16) | blue << 8 | 0xFF);
 }
 

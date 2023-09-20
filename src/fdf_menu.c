@@ -6,7 +6,7 @@
 /*   By: mwallage <mwallage@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/09 15:17:35 by mwallage          #+#    #+#             */
-/*   Updated: 2023/09/19 15:55:46 by mwallage         ###   ########.fr       */
+/*   Updated: 2023/09/20 15:29:12 by mwallage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	display_menu(mlx_t *mlx)
 	mlx_put_string(mlx, "CONTROLS", x, y);
 	mlx_put_string(mlx, "Switch colour:\tc", x, y += 30);
 	mlx_put_string(mlx, "Zoom:\t\t\t\t\t\t\t\t\t\tmouse scroll or -+", x, y += 20);
-	mlx_put_string(mlx, "Translate:\t\t\t\t\tarrow keys", x, y+=20);
+	mlx_put_string(mlx, "Translate:\t\t\t\t\tarrow keys", x, y += 20);
 	mlx_put_string(mlx, "Angle x:\t\t\t\t\t\t\ta", x, y += 20);
 	mlx_put_string(mlx, "Angle y:\t\t\t\t\t\t\ts", x, y += 20);
 	mlx_put_string(mlx, "Rotate x:\t\t\t\t\t\tx + < or x + >", x, y += 20);
