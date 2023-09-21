@@ -6,13 +6,13 @@
 /*   By: mwallage <mwallage@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 10:25:01 by mwallage          #+#    #+#             */
-/*   Updated: 2023/09/20 15:40:55 by mwallage         ###   ########.fr       */
+/*   Updated: 2023/09/21 15:22:04 by mwallage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/fdf.h"
 
-int	get_color(point2d_t current, point2d_t a, point2d_t b)
+int	get_color(t_point2d current, t_point2d a, t_point2d b)
 {
 	int		red;
 	int		green;
@@ -50,7 +50,7 @@ int	parse_color(char *tabj)
 
 static int	zcolor(double perc)
 {
-    if (perc < 0.1)
+	if (perc < 0.1)
 		return (COLOR_ONE);
 	else if (perc < 0.2)
 		return (COLOR_TWO);
@@ -72,7 +72,7 @@ static int	zcolor(double perc)
 		return (COLOR_TEN); 
 }
 
-void	set_zcolor(map_t *map)
+void	set_zcolor(t_map *map)
 {
 	int		i;
 	int		j;

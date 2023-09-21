@@ -6,17 +6,17 @@
 /*   By: mwallage <mwallage@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 15:56:53 by mwallage          #+#    #+#             */
-/*   Updated: 2023/09/19 16:31:29 by mwallage         ###   ########.fr       */
+/*   Updated: 2023/09/21 16:03:03 by mwallage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/fdf.h"
 
-void	zoom(fdf_t *fdf, double zoom)
+void	zoom(t_fdf *fdf, double zoom)
 {
 	int	i;
 	int	j;
-	
+
 	i = -1;
 	while (++i < fdf->map->rows)
 	{
@@ -28,16 +28,15 @@ void	zoom(fdf_t *fdf, double zoom)
 			fdf->map->map3d[i][j].z *= zoom;
 		}
 	}
-	draw_image(fdf);
 }
 
-void fdf_scrollhook(double xdelta, double ydelta, void* param)
+void	fdf_scrollhook(double xdelta, double ydelta, void *param)
 {
-	fdf_t	*hook;
-	map_t		*map;
+	t_fdf		*hook;
+	t_map		*map;
 	mlx_image_t	*image;
 
-	hook = (fdf_t *)param;
+	hook = (t_fdf *)param;
 	map = hook->map;
 	image = hook->image;
 	if (ydelta > 0)
@@ -47,83 +46,70 @@ void fdf_scrollhook(double xdelta, double ydelta, void* param)
 	xdelta++;
 }
 
-void ft_hook(void* param)
+void	ft_hook(void *param)
 {
-	fdf_t	*hook;
-	mlx_t		*mlx;
-	mlx_image_t	*image;
-	map_t		*map;
-	
-	hook = (fdf_t *)param;
-	mlx = hook->mlx;
-	image = hook->image;
-	map = hook->map;
-	if (mlx_is_key_down(mlx, MLX_KEY_ESCAPE))
-		mlx_close_window(mlx);
-	if (mlx_is_key_down(mlx, MLX_KEY_LEFT))
-		map->x_offset -= 5;
-	if (mlx_is_key_down(mlx, MLX_KEY_RIGHT))
-		map->x_offset += 5; 
-	if (mlx_is_key_down(mlx, MLX_KEY_DOWN))
-		map->y_offset += 5;
-	if (mlx_is_key_down(mlx, MLX_KEY_UP))
-		map->y_offset -= 5;
-	if (mlx_is_key_down(mlx, MLX_KEY_EQUAL))
-		zoom(hook, 1.02);
-	if (mlx_is_key_down(mlx, MLX_KEY_MINUS))
-		zoom(hook, 0.98);
-	draw_image(hook);
+	t_fdf	*fdf;
+
+	fdf = (t_fdf *)param;
+	if (mlx_is_key_down(fdf->mlx, MLX_KEY_ESCAPE))
+		mlx_close_window(fdf->mlx);
+	if (mlx_is_key_down(fdf->mlx, MLX_KEY_LEFT))
+		fdf->map->x_offset -= 5;
+	if (mlx_is_key_down(fdf->mlx, MLX_KEY_RIGHT))
+		fdf->map->x_offset += 5; 
+	if (mlx_is_key_down(fdf->mlx, MLX_KEY_DOWN))
+		fdf->map->y_offset += 5;
+	if (mlx_is_key_down(fdf->mlx, MLX_KEY_UP))
+		fdf->map->y_offset -= 5;
+	if (mlx_is_key_down(fdf->mlx, MLX_KEY_EQUAL))
+		zoom(fdf, 1.02);
+	if (mlx_is_key_down(fdf->mlx, MLX_KEY_MINUS))
+		zoom(fdf, 0.98);
 }
 
-void ft_hook_project(void *param)
+void	ft_hook_project(void *param)
 {
-	fdf_t	*fdf;
-	mlx_t	*mlx;
-	map_t	*map;
+	t_fdf	*fdf;
 
-	fdf = (fdf_t *)param;
-	mlx = fdf->mlx;
-	map = fdf->map;
-	if (mlx_is_key_down(mlx, MLX_KEY_A))
-		map->alpha += 0.05; 
-	if (mlx_is_key_down(mlx, MLX_KEY_S))
-		map->beta += 0.05;
-	if (mlx_is_key_down(mlx, MLX_KEY_C))
-		map->use_zcolor = !(map->use_zcolor);
-	if (mlx_is_key_down(mlx, MLX_KEY_1))
+	fdf = (t_fdf *)param;
+	if (mlx_is_key_down(fdf->mlx, MLX_KEY_C))
+		fdf->map->use_zcolor = !(fdf->map->use_zcolor);
+	if (mlx_is_key_down(fdf->mlx, MLX_KEY_1))
 	{
-		map->alpha = 0.523599;
-		map->beta = map->alpha;
-	}		
-	if (mlx_is_key_down(mlx, MLX_KEY_2))
-	{
-		map->alpha = 0.6370452;
-		map->beta = map->alpha;
+		fdf->map->alpha = 0.523599;
+		fdf->map->beta = fdf->map->alpha;
 	}
-	if (mlx_is_key_down(mlx, MLX_KEY_3))
+	if (mlx_is_key_down(fdf->mlx, MLX_KEY_2))
 	{
-		map->alpha = 0.46373398 / 2;;
-		map->beta = 0.46373398;
+		fdf->map->alpha = 0.6370452;
+		fdf->map->beta = fdf->map->alpha;
 	}
-	draw_image(fdf);
+	if (mlx_is_key_down(fdf->mlx, MLX_KEY_3))
+	{
+		fdf->map->alpha = 0.46373398 / 2;
+		fdf->map->beta = 0.46373398;
+	}
 }
 
-void ft_hook_rotate(void *param)
+void	ft_hook_rotate(void *param)
 {
-	fdf_t	*fdf;
+	t_fdf	*fdf;
+	double	sign;
 
-	fdf = (fdf_t *) param;
-	if (mlx_is_key_down(fdf->mlx, MLX_KEY_X) && mlx_is_key_down(fdf->mlx, MLX_KEY_COMMA))
-		rotate_all(fdf->map, 'x', -0.02);
-	if (mlx_is_key_down(fdf->mlx, MLX_KEY_X) && mlx_is_key_down(fdf->mlx, MLX_KEY_PERIOD))
-		rotate_all(fdf->map, 'x', 0.02);
-	if (mlx_is_key_down(fdf->mlx, MLX_KEY_Y) && mlx_is_key_down(fdf->mlx, MLX_KEY_COMMA))
-		rotate_all(fdf->map, 'y', -0.02);
-	if (mlx_is_key_down(fdf->mlx, MLX_KEY_Y) && mlx_is_key_down(fdf->mlx, MLX_KEY_PERIOD))
-		rotate_all(fdf->map, 'y', 0.02);
-	if (mlx_is_key_down(fdf->mlx, MLX_KEY_Z) && mlx_is_key_down(fdf->mlx, MLX_KEY_COMMA))
-		rotate_all(fdf->map, 'z', -0.02);
-	if (mlx_is_key_down(fdf->mlx, MLX_KEY_Z) && mlx_is_key_down(fdf->mlx, MLX_KEY_PERIOD))
-		rotate_all(fdf->map, 'z', 0.02);
-	draw_image(fdf);
+	fdf = (t_fdf *) param;
+	sign = 0;
+	if (mlx_is_key_down(fdf->mlx, MLX_KEY_COMMA))
+		sign = -1;
+	else if (mlx_is_key_down(fdf->mlx, MLX_KEY_PERIOD))
+		sign = 1;
+	if (mlx_is_key_down(fdf->mlx, MLX_KEY_A))
+		fdf->map->alpha += sign * 0.05; 
+	if (mlx_is_key_down(fdf->mlx, MLX_KEY_S))
+		fdf->map->beta += sign * 0.05;
+	if (mlx_is_key_down(fdf->mlx, MLX_KEY_X))
+		rotate_all(fdf->map, 'x', sign * 0.02);
+	if (mlx_is_key_down(fdf->mlx, MLX_KEY_Y))
+		rotate_all(fdf->map, 'y', sign * 0.02);
+	if (mlx_is_key_down(fdf->mlx, MLX_KEY_Z))
+		rotate_all(fdf->map, 'z', sign * 0.02);
 }

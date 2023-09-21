@@ -6,13 +6,35 @@
 /*   By: mwallage <mwallage@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/10 15:31:03 by mwallage          #+#    #+#             */
-/*   Updated: 2023/09/20 17:06:36 by mwallage         ###   ########.fr       */
+/*   Updated: 2023/09/21 16:02:16 by mwallage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/fdf.h"
 
-static void	init_map(map_t *map)
+static void	malloc_map(t_map *map)
+{
+	int	i;
+
+	map->map3d = malloc(sizeof(t_point3d *) * map->rows);
+	if (!(map->map3d))
+		handle_error(MALLOC);
+	map->map2d = malloc(sizeof(t_point2d *) * map->rows);
+	if (!(map->map2d))
+		handle_error(MALLOC);
+	i = -1;
+	while (++i < map->rows)
+	{
+		map->map3d[i] = malloc(sizeof(t_point3d) * map->cols);
+		if (!(map->map3d[i]))
+			handle_error(MALLOC);
+		map->map2d[i] = malloc(sizeof(t_point2d) * map->cols);
+		if (!(map->map2d[i]))
+			handle_error(MALLOC);
+	}
+}
+
+static void	init_map(t_map *map)
 {
 	malloc_map(map);
 	map->interval = ft_min(WIDTH / map->cols, HEIGHT / map->rows) / 2;
@@ -30,15 +52,15 @@ static void	init_map(map_t *map)
 	map->high = 0;
 }
 
-static map_t	*parse_input(char *filename)
+static t_map	*parse_input(char *filename)
 {
 	int		fd;
-	map_t	*map;
+	t_map	*map;
 
- 	fd = open(filename, O_RDONLY, 0777);
+	fd = open(filename, O_RDONLY, 0777);
 	if (fd == -1)
 		handle_error("Unable to open file");
-	map = malloc(sizeof(map_t));
+	map = malloc(sizeof(t_map));
 	if (!map)
 	{
 		close(fd);
@@ -57,38 +79,32 @@ static map_t	*parse_input(char *filename)
 	return (map);
 }
 
-static fdf_t	*init_fdf(char *filename)
+static t_fdf	*init_fdf(char *filename)
 {
-	map_t			*map;
-	mlx_t			*mlx;
-	mlx_image_t		*image;
-	static fdf_t	fdf;
-	
-	map = parse_input(filename);
-	mlx = mlx_init(WIDTH, HEIGHT, "FdF", true);
-	if (!mlx)
+	static t_fdf	fdf;
+
+	fdf.map = parse_input(filename);
+	fdf.mlx = mlx_init(WIDTH, HEIGHT, "FdF", true);
+	if (!fdf.mlx)
 		handle_error(mlx_strerror(mlx_errno));
-	image = mlx_new_image(mlx, WIDTH, HEIGHT);
-	if (!image)
+	fdf.image = mlx_new_image(fdf.mlx, WIDTH, HEIGHT);
+	if (!fdf.image)
 	{
-		mlx_close_window(mlx);
+		mlx_close_window(fdf.mlx);
 		handle_error(mlx_strerror(mlx_errno));
 	}
-	fdf.mlx = mlx;
-	fdf.image = image;
-	fdf.map = map;
 	return (&fdf);
 }
 
 int32_t	main(int ac, char **av)
 {
-	fdf_t		*fdf;
+	t_fdf		*fdf;
 
 	if (ac != 2 || !valid_filename(av[1]))
 		handle_error(FORMAT);
 	fdf = init_fdf(av[1]);
 	display_menu(fdf->mlx);
- 	draw_image(fdf);
+	draw_image(fdf);
 	if (mlx_image_to_window(fdf->mlx, fdf->image, 0, 0) == -1)
 	{
 		mlx_close_window(fdf->mlx);
@@ -98,6 +114,7 @@ int32_t	main(int ac, char **av)
 	mlx_loop_hook(fdf->mlx, &ft_hook_rotate, fdf);
 	mlx_loop_hook(fdf->mlx, &ft_hook_project, fdf);
 	mlx_scroll_hook(fdf->mlx, &fdf_scrollhook, fdf);
+	mlx_loop_hook(fdf->mlx, &draw_image, fdf);
 	mlx_loop(fdf->mlx);
 	mlx_terminate(fdf->mlx);
 	return (0);

@@ -6,16 +6,16 @@
 /*   By: mwallage <mwallage@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 14:38:25 by mwallage          #+#    #+#             */
-/*   Updated: 2023/09/20 16:27:25 by mwallage         ###   ########.fr       */
+/*   Updated: 2023/09/21 16:15:26 by mwallage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/fdf.h"
 
-static void	bresenham(mlx_image_t *image, point2d_t a, point2d_t b)
+static void	bresenham(mlx_image_t *image, t_point2d a, t_point2d b)
 {
 	int			error[2];
-	point2d_t	cur;
+	t_point2d	cur;
 
 	cur.x = a.x;
 	cur.y = a.y;
@@ -40,54 +40,77 @@ static void	bresenham(mlx_image_t *image, point2d_t a, point2d_t b)
 	}
 }
 
-void	draw_lines(mlx_image_t *image, map_t *map)
+void	project(t_map *map, int i, int j)
 {
-	int	i;
-	int	j;
+	t_point3d	*previous;
+	t_point2d	*new;
 
+	previous = &(map->map3d[i][j]);
+	new = &(map->map2d[i][j]);
+	new->x = (int)((previous->x - previous->y)
+			* cos(map->alpha)
+			+ WIDTH / 2 + map->x_offset);
+	new->y = (int)(-previous->z
+			+ (previous->x + previous->y) * sin(map->beta)
+			+ HEIGHT / 2 + map->y_offset);
+	if (map->use_zcolor)
+		new->rgba = previous->zcolor;
+	else
+		new->rgba = previous->mapcolor;
+}
+
+static void	draw_line(t_fdf *fdf, int x, int y)
+{
+	if (y + 1 < fdf->map->rows)
+	{
+		if (y == 0 && x == 0)
+			project(fdf->map, y, x);
+		project(fdf->map, y + 1, x);
+		bresenham(fdf->image, fdf->map->map2d[y][x], fdf->map->map2d[y + 1][x]);
+	}
+	if (x + 1 < fdf->map->cols)
+	{
+		if (y == 0)
+			project(fdf->map, y, x + 1);
+		bresenham(fdf->image, fdf->map->map2d[y][x], fdf->map->map2d[y][x + 1]);
+	}
+}
+
+void	draw_image(void *param)
+{
+	int		i;
+	int		j;
+	t_fdf	*fdf;
+
+	fdf = (t_fdf *)param;
+	draw_reset(fdf->image);
 	i = -1;
-	while (++i < map->rows)
+	while (++i < fdf->map->rows)
 	{
 		j = -1;
-		while (++j < map->cols)
-		{
-			if (i + 1 < map->rows)
-			{
-				if (i == 0 && j == 0)
-					project(map, i, j);
-				project(map, i + 1, j);
-				bresenham(image, map->map2d[i][j], map->map2d[i + 1][j]);
-			}
-			if (j + 1 < map->cols)
-			{
-				if (i == 0)
-					project(map, i, j + 1);
-				bresenham(image, map->map2d[i][j], map->map2d[i][j + 1]);
-			}
-		}
+		while (++j < fdf->map->cols)
+			draw_line(fdf, j, i);
 	}
 }
 
-void	draw_reset(mlx_image_t *image)
+void	display_menu(mlx_t *mlx)
 {
-	uint32_t	i;
-	uint32_t	j;
+	int		x;
+	int		y;
 
-	i = 0;
-	while (i < image->height)
-	{
-		j = 0;
-		while (j < image->width)
-		{
-			mlx_put_pixel(image, j, i, BACKGROUND);
-			j++;
-		}
-		i++;
-	}
-}
-
-void	draw_image(fdf_t *fdf)
-{
-	draw_reset(fdf->image);
-	draw_lines(fdf->image, fdf->map);
+	x = 20;
+	y = 20;
+	mlx_put_string(mlx, "CONTROLS", x, y);
+	mlx_put_string(mlx, "Colour\t\t\t\t\t\t\t\tc", x, y += 35);
+	mlx_put_string(mlx, "Zoom\t\t\t\t\t\t\t\t\t\tmouse scroll or -+", x, y += 20);
+	mlx_put_string(mlx, "Translate\t\t\t\t\tarrow keys", x, y += 20);
+	mlx_put_string(mlx, "Rotate x\t\t\t\t\t\tx + </>", x, y += 20);
+	mlx_put_string(mlx, "Rotate y\t\t\t\t\t\ty + </>", x, y += 20);
+	mlx_put_string(mlx, "Rotate z\t\t\t\t\t\tz + </>", x, y += 20);
+	mlx_put_string(mlx, "PROJECTION", x, y += 30);
+	mlx_put_string(mlx, "Angle x\t\t\t\t\t\t\ta + </>", x, y += 25);
+	mlx_put_string(mlx, "Angle y\t\t\t\t\t\t\ts + </>", x, y += 20);
+	mlx_put_string(mlx, "Isometric\t\t\t\t\t1", x, y += 20);
+	mlx_put_string(mlx, "Dimetric\t\t\t\t\t\t2", x, y += 20);
+	mlx_put_string(mlx, "Trimetric\t\t\t\t\t3", x, y += 20);
 }

@@ -6,7 +6,7 @@
 /*   By: mwallage <mwallage@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/09 17:38:43 by mwallage          #+#    #+#             */
-/*   Updated: 2023/09/20 15:15:41 by mwallage         ###   ########.fr       */
+/*   Updated: 2023/09/21 15:22:04 by mwallage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static void	rotate_z(double *x, double *y, double gamma)
 	*y = previous_x * sin(gamma) + previous_y * cos(gamma);
 }
 
-void	rotate_all(map_t *map, char axis, double alpha)
+void	rotate_all(t_map *map, char axis, double alpha)
 {
 	int	i;
 	int	j;

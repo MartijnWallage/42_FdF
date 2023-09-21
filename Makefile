@@ -6,7 +6,7 @@
 #    By: mwallage <mwallage@student.42berlin.de>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/10 15:31:16 by mwallage          #+#    #+#              #
-#    Updated: 2023/09/19 15:59:21 by mwallage         ###   ########.fr        #
+#    Updated: 2023/09/21 15:54:50 by mwallage         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,10 +28,8 @@ SRC		:= fdf_main.c \
 			fdf_error.c \
 			fdf_parse.c \
 			fdf_utils.c \
-			fdf_project.c \
 			fdf_hooks.c \
 			fdf_color.c \
-			fdf_menu.c \
 			fdf_rotate.c
 SRCS	:= $(addprefix $(SRCDIR)/, $(SRC))
 OBJ		:= ${SRCS:.c=.o}
@@ -55,7 +53,6 @@ $(NAME): $(MLX_DIR) $(LIBFT) $(OBJ)
 
 clean:
 	rm -rf $(OBJ)
-	rm -rf $(MLX_DIR)/build
 	make clean -C$(LIBFT)
 
 fclean: clean
