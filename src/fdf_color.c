@@ -6,11 +6,16 @@
 /*   By: mwallage <mwallage@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 10:25:01 by mwallage          #+#    #+#             */
-/*   Updated: 2023/09/21 15:22:04 by mwallage         ###   ########.fr       */
+/*   Updated: 2023/09/26 17:12:12 by mwallage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/fdf.h"
+
+static int	radiant(int start, int end, double percentage)
+{
+	return ((int)((1 - percentage) * start + percentage * end));
+}
 
 int	get_color(t_point2d current, t_point2d a, t_point2d b)
 {

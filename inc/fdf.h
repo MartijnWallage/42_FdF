@@ -6,7 +6,7 @@
 /*   By: mwallage <mwallage@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/10 15:30:52 by mwallage          #+#    #+#             */
-/*   Updated: 2023/09/21 16:14:18 by mwallage         ###   ########.fr       */
+/*   Updated: 2023/09/26 17:12:30 by mwallage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@
 # define FORMAT				"Format:\n\t./fdf maps/filename.fdf"
 # define MALLOC				"Malloc failed"
 # define INVALID_MAP		"Map is invalid"
+# define FILE_ERROR			"Unable to open file"
 
 typedef struct s_point3d
 {
@@ -88,11 +89,11 @@ typedef struct s_fdf
 /* fdf_parse.c */
 void		parse_map(int fd, t_map *map);
 int			valid_filename(const char *filename);
-void		get_cols(int fd, t_map *map);
-void		get_rows(int fd, t_map *map);
+void		get_dimensions(int fd, t_map *map);
 /* fdf_error.c */
 void		handle_error(const char *message);
 void		error_map(int fd);
+void		handle_error_fd(int fd, char *message);
 /* fdf_draw.c */
 void		project(t_map *map, int i, int j);
 void		draw_image(void *param);
@@ -108,7 +109,6 @@ void		ft_hook_project(void *param);
 void		ft_free_tab(void **ptr, size_t len);
 double		percent(int start, int end, int current);
 void		make_upper(unsigned int i, char *c);
-int			radiant(int start, int end, double percentage);
 void		draw_reset(mlx_image_t *image);
 /* fdf_color.c */
 int			get_light(int start, int end, double percentage);

@@ -6,7 +6,7 @@
 /*   By: mwallage <mwallage@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 14:35:10 by mwallage          #+#    #+#             */
-/*   Updated: 2023/09/21 16:14:08 by mwallage         ###   ########.fr       */
+/*   Updated: 2023/09/26 17:12:04 by mwallage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,11 +41,6 @@ void	make_upper(unsigned int i, char *c)
 {
 	i++;
 	*c = ft_toupper(*c);
-}
-
-int	radiant(int start, int end, double percentage)
-{
-	return ((int)((1 - percentage) * start + percentage * end));
 }
 
 void	draw_reset(mlx_image_t *image)

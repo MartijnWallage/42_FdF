@@ -6,13 +6,13 @@
 /*   By: mwallage <mwallage@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/10 15:31:03 by mwallage          #+#    #+#             */
-/*   Updated: 2023/09/21 16:02:16 by mwallage         ###   ########.fr       */
+/*   Updated: 2023/09/26 17:45:17 by mwallage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/fdf.h"
 
-static void	malloc_map(t_map *map)
+static void	malloc_grid(t_map *map)
 {
 	int	i;
 
@@ -36,9 +36,6 @@ static void	malloc_map(t_map *map)
 
 static void	init_map(t_map *map)
 {
-	malloc_map(map);
-	map->interval = ft_min(WIDTH / map->cols, HEIGHT / map->rows) / 2;
-	map->interval = ft_max(2.0, map->interval);
 	map->alpha = 0.46373398 / 2;
 	map->beta = 0.46373398;
 	map->rotate_x = 0;
@@ -48,8 +45,8 @@ static void	init_map(t_map *map)
 	map->y_offset = 0;
 	map->z_divisor = 1;
 	map->use_zcolor = false;
-	map->low = 0;
-	map->high = 0;
+	map->low = INT_MAX;
+	map->high = INT_MIN;
 }
 
 static t_map	*parse_input(char *filename)
@@ -59,19 +56,21 @@ static t_map	*parse_input(char *filename)
 
 	fd = open(filename, O_RDONLY, 0777);
 	if (fd == -1)
-		handle_error("Unable to open file");
+		handle_error(FILE_ERROR);
 	map = malloc(sizeof(t_map));
 	if (!map)
-	{
-		close(fd);
-		handle_error(MALLOC);
-	}
-	get_cols(fd, map);
-	get_rows(fd, map);
+		handle_error_fd(fd, MALLOC);
+	init_map(map);
+	get_dimensions(fd, map);
 	if (map->cols == 0 || map->rows == 0)
 		error_map(fd);
 	close(fd);
-	init_map(map);
+	malloc_grid(map);
+	map->interval = ft_min(WIDTH / map->cols, HEIGHT / map->rows) / 2;
+	if (map->high - map->low > 0)
+		map->interval = ft_min(map->interval,
+				HEIGHT / (map->high - map->low) / 2);
+	map->interval = ft_max(2, map->interval);
 	fd = open(filename, O_RDONLY, 0777);
 	parse_map(fd, map);
 	close(fd);
