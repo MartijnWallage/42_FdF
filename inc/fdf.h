@@ -6,7 +6,7 @@
 /*   By: mwallage <mwallage@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/10 15:30:52 by mwallage          #+#    #+#             */
-/*   Updated: 2023/09/26 17:12:30 by mwallage         ###   ########.fr       */
+/*   Updated: 2023/09/26 18:22:44 by mwallage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <errno.h>
 # include <stdio.h>
 # include <string.h>
+# include <float.h>
 # include "../lib/MLX42/include/MLX42/MLX42.h"
 # include "../lib/libft/inc/libft.h"
 
@@ -75,6 +76,7 @@ typedef struct s_map
 	double			rotate_x;
 	double			rotate_y;
 	double			rotate_z;
+	double			zoom;
 	t_point3d		**map3d;
 	t_point2d		**map2d;
 }					t_map;
@@ -113,7 +115,7 @@ void		draw_reset(mlx_image_t *image);
 /* fdf_color.c */
 int			get_light(int start, int end, double percentage);
 int			get_color(t_point2d current, t_point2d a, t_point2d b);
-int			parse_color(char *tabj);
+int			parse_color(int fd, char *tabj);
 void		set_zcolor(t_map *map);
 
 #endif

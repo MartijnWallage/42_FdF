@@ -6,7 +6,7 @@
 /*   By: mwallage <mwallage@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 10:25:01 by mwallage          #+#    #+#             */
-/*   Updated: 2023/09/26 17:12:12 by mwallage         ###   ########.fr       */
+/*   Updated: 2023/09/26 18:23:01 by mwallage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	get_color(t_point2d current, t_point2d a, t_point2d b)
 	return ((red << 24) | (green << 16) | blue << 8 | 0xFF);
 }
 
-int	parse_color(char *tabj)
+int	parse_color(int fd, char *tabj)
 {
 	while (*tabj == '-')
 		tabj++;
@@ -47,7 +47,7 @@ int	parse_color(char *tabj)
 	else
 		return (0xFFFFFFFF);
 	if ((ft_strncmp(tabj, "0X", 2) && ft_strncmp(tabj, "0x", 2)))
-		return (0xFFFFFFFF);
+		error_map(fd);
 	tabj += 2;
 	ft_striteri(tabj, &make_upper);
 	return ((ft_atoi_base(tabj, "0123456789ABCDEF") << 8) | 0xFF);

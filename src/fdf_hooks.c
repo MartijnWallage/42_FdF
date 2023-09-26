@@ -6,7 +6,7 @@
 /*   By: mwallage <mwallage@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 15:56:53 by mwallage          #+#    #+#             */
-/*   Updated: 2023/09/21 16:03:03 by mwallage         ###   ########.fr       */
+/*   Updated: 2023/09/26 18:02:40 by mwallage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,35 +14,19 @@
 
 void	zoom(t_fdf *fdf, double zoom)
 {
-	int	i;
-	int	j;
-
-	i = -1;
-	while (++i < fdf->map->rows)
-	{
-		j = -1;
-		while (++j < fdf->map->cols)
-		{
-			fdf->map->map3d[i][j].x *= zoom;
-			fdf->map->map3d[i][j].y *= zoom;
-			fdf->map->map3d[i][j].z *= zoom;
-		}
-	}
+	if (fdf->map->zoom * zoom > 0 && fdf->map->zoom < DBL_MAX / zoom)
+		fdf->map->zoom *= zoom;
 }
 
 void	fdf_scrollhook(double xdelta, double ydelta, void *param)
 {
-	t_fdf		*hook;
-	t_map		*map;
-	mlx_image_t	*image;
+	t_fdf		*fdf;
 
-	hook = (t_fdf *)param;
-	map = hook->map;
-	image = hook->image;
+	fdf = (t_fdf *)param;
 	if (ydelta > 0)
-		zoom(hook, 1.02);
+		zoom(fdf, 1.02);
 	else if (ydelta < 0)
-		zoom(hook, 0.98);
+		zoom(fdf, 0.98);
 	xdelta++;
 }
 

@@ -6,13 +6,13 @@
 /*   By: mwallage <mwallage@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 14:37:23 by mwallage          #+#    #+#             */
-/*   Updated: 2023/09/26 17:44:50 by mwallage         ###   ########.fr       */
+/*   Updated: 2023/09/26 18:30:51 by mwallage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/fdf.h"
 
-static int	parse_col(t_map *map, char **tab, int i)
+static void	parse_column(int fd, t_map *map, char **tab, int i)
 {
 	t_point3d	*point;
 	int			x_offset;
@@ -23,18 +23,17 @@ static int	parse_col(t_map *map, char **tab, int i)
 	while (++j < map->cols)
 	{
 		if (!ft_isdigit(*tab[j]) && *tab[j] != '-')
-			return (0);
+			error_map(fd);
 		point = &(map->map3d[i][j]);
 		x_offset = (map->cols - 1) * map->interval / 2;
 		y_offset = (map->rows - 1) * map->interval / 2;
 		point->x = (double)j * (map->interval) - x_offset;
 		point->y = (double)i * (map->interval) - y_offset;
 		point->z = (double)ft_atoi(tab[j]) * (map->interval);
-		point->mapcolor = parse_color(tab[j]);
-		if (!map->map3d[i][j].mapcolor)
-			return (0);
+		map->high = ft_max(map->high, point->z);
+		map->low = ft_min(map->low, point->z);
+		point->mapcolor = parse_color(fd, tab[j]);
 	}
-	return (1);
 }
 
 void	parse_map(int fd, t_map *map)
@@ -43,7 +42,6 @@ void	parse_map(int fd, t_map *map)
 	char	*temp;
 	char	**tab;
 	int		i;
-	int		parsed_col;
 
 	i = -1;
 	while (++i < map->rows)
@@ -59,10 +57,8 @@ void	parse_map(int fd, t_map *map)
 		free(line);
 		if (!tab)
 			handle_error_fd(fd, MALLOC);
-		parsed_col = parse_col(map, tab, i);
+		parse_column(fd, map, tab, i);
 		ft_free_tab((void **)tab, map->cols);
-		if (!parsed_col)
-			handle_error_fd(fd, MALLOC);
 	}
 }
 
@@ -77,7 +73,7 @@ int	valid_filename(const char *filename)
 	return (ft_strncmp(filename, ".fdf", 4) == 0);
 }
 
-static int	get_col(int fd, t_map *map, char *line)
+static int	get_cols(int fd, t_map *map, char *line)
 {
 	char	**tab;
 	char	*temp;
@@ -109,7 +105,7 @@ void	get_dimensions(int fd, t_map *map)
 	line = get_next_line(fd);
 	if (!line || *line == '\0' || *line == '\n')
 		error_map(fd);
-	map->cols = get_col(fd, map, line);
+	map->cols = get_cols(fd, map, line);
 	y = 0;
 	while (line)
 	{
@@ -117,7 +113,7 @@ void	get_dimensions(int fd, t_map *map)
 		line = get_next_line(fd);
 		if (!line)
 			break ;
-		if (map->cols != get_col(fd, map, line))
+		if (map->cols != get_cols(fd, map, line))
 			error_map(fd);
 		y++;
 	}
