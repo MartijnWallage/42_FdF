@@ -6,7 +6,7 @@
 #    By: mwallage <mwallage@student.42berlin.de>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/10 15:31:16 by mwallage          #+#    #+#              #
-#    Updated: 2023/09/27 13:14:45 by mwallage         ###   ########.fr        #
+#    Updated: 2023/09/27 13:26:33 by mwallage         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,12 +39,18 @@ NAME	:= fdf
 
 all: $(NAME)
 
-$(MLX):
+$(MLX): $(MLX_DIR)
 	cmake $(MLX_DIR) -B $(MLX_DIR)/build;
 	make -C$(MLX_DIR)/build -j4;
 
-$(LIBFT):
+$(LIBFT): $(LIBFT_DIR)
 	make -C$(LIBFT_DIR);
+
+$(MLX_DIR):
+	git clone https://github.com/codam-coding-college/MLX42.git $@;
+
+$(LIBFT_DIR):
+	git clone https://github.com/MartijnWallage/42_libft.git $@;
 
 $(NAME): $(MLX) $(LIBFT) $(OBJ)
 	$(CC) -g $(OBJ) $(LIBS) $(HEADERS) -o $@
@@ -57,10 +63,10 @@ clean:
 	make clean -C$(LIBFT_DIR)
 
 fclean: clean
-	rm -rf $(NAME)
-	make fclean -C$(LIBFT_DIR)
-	rm -rf $(MLX_DIR)/build
+	rm $(NAME)
+	rm -rf $(LIBFT_DIR)
+	rm -rf $(MLX_DIR)
 
 re: clean all
 
-.PHONY: all, clean, fclean, re, libmlx, libft
+.PHONY: all, clean, fclean, re
