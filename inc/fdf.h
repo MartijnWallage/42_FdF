@@ -6,7 +6,7 @@
 /*   By: mwallage <mwallage@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/10 15:30:52 by mwallage          #+#    #+#             */
-/*   Updated: 2023/09/27 15:48:23 by mwallage         ###   ########.fr       */
+/*   Updated: 2023/09/27 20:59:03 by mwallage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,13 +68,12 @@ typedef struct s_map
 	bool			use_zcolor;
 	double			x_offset;
 	double			y_offset;
-	double			z_divisor;
 	double			interval;
 	double			alpha;
 	double			beta;
-	double			rotate_x;
-	double			rotate_y;
-	double			rotate_z;
+	double			xrotate;
+	double			yrotate;
+	double			zrotate;
 	double			zoom;
 	double			zscale;
 	t_point3d		**map3d;
@@ -101,6 +100,9 @@ void		project(t_map *map, int i, int j);
 void		draw_image(void *param);
 void		display_menu(mlx_t *mlx);
 /* fdf_rotate.c */
+void		rotate_x(double *y, double *z, double alpha);
+void		rotate_y(double *x, double *z, double beta);
+void		rotate_z(double *x, double *y, double gamma);
 void		rotate_all(t_map *map, char axis, double alpha);
 /* fdf_hooks.c */
 void		ft_hook(void *param);

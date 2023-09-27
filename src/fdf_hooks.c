@@ -6,7 +6,7 @@
 /*   By: mwallage <mwallage@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 15:56:53 by mwallage          #+#    #+#             */
-/*   Updated: 2023/09/27 15:47:59 by mwallage         ###   ########.fr       */
+/*   Updated: 2023/09/27 21:00:17 by mwallage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,9 +93,9 @@ void	ft_hook_rotate(void *param)
 	if (mlx_is_key_down(fdf->mlx, MLX_KEY_S))
 		fdf->map->zscale += sign * 0.05;
 	if (mlx_is_key_down(fdf->mlx, MLX_KEY_X))
-		rotate_all(fdf->map, 'x', sign * 0.02);
+		fdf->map->xrotate += sign * 0.02;
 	if (mlx_is_key_down(fdf->mlx, MLX_KEY_Y))
-		rotate_all(fdf->map, 'y', sign * 0.02);
+		fdf->map->yrotate += sign * 0.02;
 	if (mlx_is_key_down(fdf->mlx, MLX_KEY_Z))
-		rotate_all(fdf->map, 'z', sign * 0.02);
+		fdf->map->zrotate += sign * 0.02;
 }

@@ -6,7 +6,7 @@
 /*   By: mwallage <mwallage@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 14:38:25 by mwallage          #+#    #+#             */
-/*   Updated: 2023/09/27 15:49:46 by mwallage         ###   ########.fr       */
+/*   Updated: 2023/09/27 21:02:29 by mwallage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,15 +43,22 @@ static void	bresenham(mlx_image_t *image, t_point2d a, t_point2d b)
 void	project(t_map *map, int i, int j)
 {
 	t_point3d	*previous;
+	t_point3d	temp;
 	t_point2d	*new;
 
 	previous = &(map->map3d[i][j]);
 	new = &(map->map2d[i][j]);
-	new->x = (int)((previous->x * map->zoom - previous->y * map->zoom)
+	temp.x = previous->x;
+	temp.y = previous->y;
+	temp.z = previous->z * map->zscale;
+	rotate_x(&temp.y, &temp.z, map->xrotate);
+	rotate_y(&temp.x, &temp.z, map->yrotate);
+	rotate_z(&temp.x, &temp.y, map->zrotate);
+	new->x = (int)((temp.x * map->zoom - temp.y * map->zoom)
 			* cos(map->alpha)
 			+ WIDTH / 2 + map->x_offset);
-	new->y = (int)(-previous->z * map->zscale * map->zoom
-			+ (previous->x * map->zoom + previous->y * map->zoom)
+	new->y = (int)(-temp.z * map->zoom
+			+ (temp.x * map->zoom + temp.y * map->zoom)
 			* sin(map->beta)
 			+ HEIGHT / 2 + map->y_offset);
 	if (map->use_zcolor)

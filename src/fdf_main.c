@@ -6,7 +6,7 @@
 /*   By: mwallage <mwallage@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/10 15:31:03 by mwallage          #+#    #+#             */
-/*   Updated: 2023/09/27 15:48:36 by mwallage         ###   ########.fr       */
+/*   Updated: 2023/09/27 20:59:23 by mwallage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,12 +38,11 @@ static void	init_map(t_map *map)
 {
 	map->alpha = 0.46373398 / 2;
 	map->beta = 0.46373398;
-	map->rotate_x = 0;
-	map->rotate_y = 0;
-	map->rotate_z = 0;
+	map->xrotate = 0;
+	map->yrotate = 0;
+	map->zrotate = 0;
 	map->x_offset = 0;
 	map->y_offset = 0;
-	map->z_divisor = 1;
 	map->zoom = 1;
 	map->zscale = 1;
 	map->use_zcolor = false;
