@@ -6,7 +6,7 @@
 /*   By: mwallage <mwallage@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 14:38:25 by mwallage          #+#    #+#             */
-/*   Updated: 2023/09/27 12:18:36 by mwallage         ###   ########.fr       */
+/*   Updated: 2023/09/27 15:49:46 by mwallage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	project(t_map *map, int i, int j)
 	new->x = (int)((previous->x * map->zoom - previous->y * map->zoom)
 			* cos(map->alpha)
 			+ WIDTH / 2 + map->x_offset);
-	new->y = (int)(-previous->z * map->zoom
+	new->y = (int)(-previous->z * map->zscale * map->zoom
 			+ (previous->x * map->zoom + previous->y * map->zoom)
 			* sin(map->beta)
 			+ HEIGHT / 2 + map->y_offset);
@@ -105,12 +105,13 @@ void	display_menu(mlx_t *mlx)
 	mlx_put_string(mlx, "Colour\t\t\t\t\t\t\t\tc", x, y += 35);
 	mlx_put_string(mlx, "Zoom\t\t\t\t\t\t\t\t\t\tmouse scroll or -+", x, y += 20);
 	mlx_put_string(mlx, "Translate\t\t\t\t\tarrow keys", x, y += 20);
+	mlx_put_string(mlx, "Scale z\t\t\t\t\t\t\ts + </>", x, y += 20);
 	mlx_put_string(mlx, "Rotate x\t\t\t\t\t\tx + </>", x, y += 20);
 	mlx_put_string(mlx, "Rotate y\t\t\t\t\t\ty + </>", x, y += 20);
 	mlx_put_string(mlx, "Rotate z\t\t\t\t\t\tz + </>", x, y += 20);
 	mlx_put_string(mlx, "PROJECTION", x, y += 30);
-	mlx_put_string(mlx, "Angle x\t\t\t\t\t\t\ta + </>", x, y += 25);
-	mlx_put_string(mlx, "Angle y\t\t\t\t\t\t\ts + </>", x, y += 20);
+	mlx_put_string(mlx, "Angle x\t\t\t\t\t\t\tq + </>", x, y += 25);
+	mlx_put_string(mlx, "Angle y\t\t\t\t\t\t\tw + </>", x, y += 20);
 	mlx_put_string(mlx, "Isometric\t\t\t\t\t1", x, y += 20);
 	mlx_put_string(mlx, "Dimetric\t\t\t\t\t\t2", x, y += 20);
 	mlx_put_string(mlx, "Trimetric\t\t\t\t\t3", x, y += 20);

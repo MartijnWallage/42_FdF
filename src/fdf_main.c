@@ -6,7 +6,7 @@
 /*   By: mwallage <mwallage@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/10 15:31:03 by mwallage          #+#    #+#             */
-/*   Updated: 2023/09/26 18:27:46 by mwallage         ###   ########.fr       */
+/*   Updated: 2023/09/27 15:48:36 by mwallage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ static void	init_map(t_map *map)
 	map->y_offset = 0;
 	map->z_divisor = 1;
 	map->zoom = 1;
+	map->zscale = 1;
 	map->use_zcolor = false;
 	map->low = INT_MAX;
 	map->high = INT_MIN;

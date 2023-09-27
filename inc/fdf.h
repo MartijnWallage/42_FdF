@@ -6,7 +6,7 @@
 /*   By: mwallage <mwallage@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/10 15:30:52 by mwallage          #+#    #+#             */
-/*   Updated: 2023/09/27 13:30:12 by mwallage         ###   ########.fr       */
+/*   Updated: 2023/09/27 15:48:23 by mwallage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ typedef struct s_map
 	double			rotate_y;
 	double			rotate_z;
 	double			zoom;
+	double			zscale;
 	t_point3d		**map3d;
 	t_point2d		**map2d;
 }					t_map;

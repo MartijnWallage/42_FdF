@@ -6,7 +6,7 @@
 #    By: mwallage <mwallage@student.42berlin.de>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/10 15:31:16 by mwallage          #+#    #+#              #
-#    Updated: 2023/09/27 13:48:54 by mwallage         ###   ########.fr        #
+#    Updated: 2023/09/27 14:57:00 by mwallage         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,8 @@ ifeq ($(UNAME_S),Linux)
 	LIBS	:= -L$(LIBFT_DIR) -lft $(MLX_DIR)/build/libmlx42.a -ldl -lglfw -pthread -lm
 endif
 ifeq ($(UNAME_S),Darwin)
-	LIBS	:= -L$(LIBFT_DIR) -lft $(MLX_DIR)/build/libmlx42.a -Iinclude -lglfw -L"/opt/homebrew/Cellar/glfw/3.3.8/lib/" -pthread -lm
+	LIBS	:= -L$(LIBFT_DIR) -lft $(MLX_DIR)/build/libmlx42.a \
+	-Iinclude -lglfw -L"/opt/homebrew/Cellar/glfw/3.3.8/lib/" -pthread -lm
 endif
 SRC_DIR	:= src
 SRC		:= fdf_main.c \
@@ -72,6 +73,6 @@ fclean: clean
 	rm -rf $(LIBFT_DIR)
 	rm -rf $(MLX_DIR)
 
-re: clean all
+re: fclean all
 
 .PHONY: all, clean, fclean, re

@@ -6,7 +6,7 @@
 /*   By: mwallage <mwallage@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 14:37:23 by mwallage          #+#    #+#             */
-/*   Updated: 2023/09/26 18:30:51 by mwallage         ###   ########.fr       */
+/*   Updated: 2023/09/27 15:43:05 by mwallage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ void	get_dimensions(int fd, t_map *map)
 	if (!line || *line == '\0' || *line == '\n')
 		error_map(fd);
 	map->cols = get_cols(fd, map, line);
-	y = 0;
+	y = 1;
 	while (line)
 	{
 		free(line);
