@@ -6,7 +6,7 @@
 /*   By: mwallage <mwallage@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 14:38:25 by mwallage          #+#    #+#             */
-/*   Updated: 2023/09/26 17:51:43 by mwallage         ###   ########.fr       */
+/*   Updated: 2023/09/27 12:18:36 by mwallage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,8 @@ void	project(t_map *map, int i, int j)
 			* cos(map->alpha)
 			+ WIDTH / 2 + map->x_offset);
 	new->y = (int)(-previous->z * map->zoom
-			+ (previous->x * map->zoom + previous->y * map->zoom) * sin(map->beta)
+			+ (previous->x * map->zoom + previous->y * map->zoom)
+			* sin(map->beta)
 			+ HEIGHT / 2 + map->y_offset);
 	if (map->use_zcolor)
 		new->rgba = previous->zcolor;
