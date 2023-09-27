@@ -6,7 +6,7 @@
 #    By: mwallage <mwallage@student.42berlin.de>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/10 15:31:16 by mwallage          #+#    #+#              #
-#    Updated: 2023/09/27 13:26:33 by mwallage         ###   ########.fr        #
+#    Updated: 2023/09/27 13:48:54 by mwallage         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,7 @@ endif
 ifeq ($(UNAME_S),Darwin)
 	LIBS	:= -L$(LIBFT_DIR) -lft $(MLX_DIR)/build/libmlx42.a -Iinclude -lglfw -L"/opt/homebrew/Cellar/glfw/3.3.8/lib/" -pthread -lm
 endif
-SRCDIR	:= src
+SRC_DIR	:= src
 SRC		:= fdf_main.c \
 			fdf_draw.c \
 			fdf_error.c \
@@ -33,8 +33,9 @@ SRC		:= fdf_main.c \
 			fdf_hooks.c \
 			fdf_color.c \
 			fdf_rotate.c
-SRCS	:= $(addprefix $(SRCDIR)/, $(SRC))
-OBJ		:= ${SRCS:.c=.o}
+SRCS	:= $(addprefix $(SRC_DIR)/, $(SRC))
+OBJ_DIR	:= obj
+OBJ		:= $(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(SRCS))
 NAME	:= fdf
 
 all: $(NAME)
@@ -52,10 +53,13 @@ $(MLX_DIR):
 $(LIBFT_DIR):
 	git clone https://github.com/MartijnWallage/42_libft.git $@;
 
-$(NAME): $(MLX) $(LIBFT) $(OBJ)
+$(OBJ_DIR):
+	mkdir obj
+
+$(NAME): $(MLX) $(LIBFT) $(OBJ_DIR) $(OBJ)
 	$(CC) -g $(OBJ) $(LIBS) $(HEADERS) -o $@
 
-%.o: %.c inc/fdf.h
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c inc/fdf.h
 	$(CC) -g $(CFLAGS) -o $@ -c $< $(HEADERS)
 
 clean:
@@ -64,6 +68,7 @@ clean:
 
 fclean: clean
 	rm $(NAME)
+	rmdir $(OBJ_DIR)
 	rm -rf $(LIBFT_DIR)
 	rm -rf $(MLX_DIR)
 

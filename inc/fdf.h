@@ -6,7 +6,7 @@
 /*   By: mwallage <mwallage@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/10 15:30:52 by mwallage          #+#    #+#             */
-/*   Updated: 2023/09/26 18:22:44 by mwallage         ###   ########.fr       */
+/*   Updated: 2023/09/27 13:30:12 by mwallage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@
 # include <errno.h>
 # include <stdio.h>
 # include <string.h>
-# include <float.h>
 # include "../lib/MLX42/include/MLX42/MLX42.h"
 # include "../lib/libft/inc/libft.h"
 

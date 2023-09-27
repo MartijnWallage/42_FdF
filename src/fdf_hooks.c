@@ -6,7 +6,7 @@
 /*   By: mwallage <mwallage@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 15:56:53 by mwallage          #+#    #+#             */
-/*   Updated: 2023/09/26 18:02:40 by mwallage         ###   ########.fr       */
+/*   Updated: 2023/09/27 13:46:00 by mwallage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	zoom(t_fdf *fdf, double zoom)
 {
-	if (fdf->map->zoom * zoom > 0 && fdf->map->zoom < DBL_MAX / zoom)
+	if (fdf->map->zoom * zoom > 0)
 		fdf->map->zoom *= zoom;
 }
 
