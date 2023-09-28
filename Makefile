@@ -16,7 +16,7 @@ MLX_DIR		:= ./lib/MLX42
 MLX		:= $(MLX_DIR)/build/libmlx42.a
 LIBFT_DIR	:= ./lib/libft
 LIBFT 	:= $(LIBFT_DIR)/libft.a
-HEADERS	:= -I ./inc -I $(LIBMLX)/include -I $(LIBFT_DIR)/inc
+HEADERS	:= -I ./inc -I $(MLX_DIR)/include/MLX42 -I $(LIBFT_DIR)/inc
 UNAME_S	:= $(shell uname -s)
 ifeq ($(UNAME_S),Linux)
 	LIBS	:= -L$(LIBFT_DIR) -lft $(MLX_DIR)/build/libmlx42.a -ldl -lglfw -pthread -lm
@@ -58,10 +58,10 @@ $(OBJ_DIR):
 	mkdir obj
 
 $(NAME): $(MLX) $(LIBFT) $(OBJ_DIR) $(OBJ)
-	$(CC) -g $(OBJ) $(LIBS) $(HEADERS) -o $@
+	$(CC) $(OBJ) $(LIBS) $(HEADERS) -o $@
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c inc/fdf.h
-	$(CC) -g $(CFLAGS) -o $@ -c $< $(HEADERS)
+	$(CC) -c $(CFLAGS) $< -o $@ $(HEADERS)
 
 clean:
 	rm -rf $(OBJ)
