@@ -35,6 +35,8 @@ void	ft_hook(void *param)
 	t_fdf	*fdf;
 
 	fdf = (t_fdf *)param;
+	if (mlx_is_key_down(fdf->mlx, MLX_KEY_0))
+		init_map(fdf->map);
 	if (mlx_is_key_down(fdf->mlx, MLX_KEY_ESCAPE))
 		mlx_close_window(fdf->mlx);
 	if (mlx_is_key_down(fdf->mlx, MLX_KEY_LEFT))

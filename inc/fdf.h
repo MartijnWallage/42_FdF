@@ -87,6 +87,8 @@ typedef struct s_fdf
 	mlx_image_t	*image;
 }				t_fdf;
 
+/* fdf_main.c */
+void		init_map(t_map *map);
 /* fdf_parse.c */
 void		parse_map(int fd, t_map *map);
 int			valid_filename(const char *filename);

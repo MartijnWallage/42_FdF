@@ -40,24 +40,3 @@ void	rotate_z(double *x, double *y, double gamma)
 	*x = previous_x * cos(gamma) - previous_y * sin(gamma);
 	*y = previous_x * sin(gamma) + previous_y * cos(gamma);
 }
-
-void	rotate_all(t_map *map, char axis, double alpha)
-{
-	int	i;
-	int	j;
-
-	i = -1;
-	while (++i < map->rows)
-	{
-		j = -1;
-		while (++j < map->cols)
-		{
-			if (axis == 'x')
-				rotate_x(&(map->map3d[i][j].y), &(map->map3d[i][j].z), alpha);
-			else if (axis == 'y')
-				rotate_y(&(map->map3d[i][j].x), &(map->map3d[i][j].z), alpha);
-			else if (axis == 'z')
-				rotate_z(&(map->map3d[i][j].x), &(map->map3d[i][j].y), alpha);
-		}
-	}
-}

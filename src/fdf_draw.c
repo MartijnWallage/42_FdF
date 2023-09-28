@@ -43,23 +43,19 @@ static void	bresenham(mlx_image_t *image, t_point2d a, t_point2d b)
 void	project(t_map *map, int i, int j)
 {
 	t_point3d	*previous;
-	t_point3d	temp;
 	t_point2d	*new;
 
 	previous = &(map->map3d[i][j]);
 	new = &(map->map2d[i][j]);
-	temp.x = previous->x;
-	temp.y = previous->y;
-	temp.z = previous->z * map->zscale;
-	rotate_x(&temp.y, &temp.z, map->xrotate);
-	rotate_z(&temp.x, &temp.y, map->zrotate);
-	new->x = (int)((temp.x * map->zoom - temp.y * map->zoom)
-			* cos(map->alpha)
-			+ WIDTH / 2 + map->x_offset);
-	new->y = (int)(-temp.z * map->zoom
-			+ (temp.x * map->zoom + temp.y * map->zoom)
-			* sin(map->beta)
-			+ HEIGHT / 2 + map->y_offset);
+	previous->z *= map->zscale;
+	rotate_z(&previous->x, &previous->y, map->zrotate);
+	rotate_x(&previous->y, &previous->z, map->xrotate);
+	new->x = (int)((previous->x * map->zoom - previous->y * map->zoom)
+			* cos(map->alpha) + map->x_offset);
+	new->y = (int)(-previous->z * map->zoom
+			+ (previous->x * map->zoom + previous->y * map->zoom)
+			* sin(map->beta) + map->y_offset);
+	previous->z /= map->zscale;
 	if (map->use_zcolor)
 		new->rgba = previous->zcolor;
 	else
@@ -120,4 +116,5 @@ void	display_menu(mlx_t *mlx)
 	mlx_put_string(mlx, "Isometric\t\t\t\t\t1", x, y += 20);
 	mlx_put_string(mlx, "Dimetric\t\t\t\t\t\t2", x, y += 20);
 	mlx_put_string(mlx, "Trimetric\t\t\t\t\t3", x, y += 20);
+	mlx_put_string(mlx, "RESET\t\t\t\t\t\t\t\t\t0", x, y += 30);
 }

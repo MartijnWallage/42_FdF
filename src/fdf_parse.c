@@ -86,6 +86,8 @@ static int	get_cols(int fd, t_map *map, char *line)
 	free(temp);
 	if (!tab)
 		handle_error_fd(fd, MALLOC);
+	map->high = INT_MIN;
+	map->low = INT_MAX;
 	i = 0;
 	while (tab[i])
 	{

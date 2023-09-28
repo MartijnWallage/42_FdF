@@ -34,20 +34,17 @@ static void	malloc_grid(t_map *map)
 	}
 }
 
-static void	init_map(t_map *map)
+void	init_map(t_map *map)
 {
 	map->alpha = 0.46373398 / 2;
 	map->beta = 0.46373398;
 	map->xrotate = 0;
-	map->yrotate = 0;
 	map->zrotate = 0;
-	map->x_offset = 0;
-	map->y_offset = 0;
+	map->x_offset = WIDTH / 2;
+	map->y_offset = HEIGHT / 2;
 	map->zoom = 1;
 	map->zscale = 1;
 	map->use_zcolor = false;
-	map->low = INT_MAX;
-	map->high = INT_MIN;
 }
 
 static t_map	*parse_input(char *filename)
