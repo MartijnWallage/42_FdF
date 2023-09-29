@@ -17,12 +17,23 @@ void	ft_free_tab(void **tab, size_t len)
 	size_t	i;
 
 	i = 0;
-	while (i < len)
+	while (i < len && tab[i] != NULL)
 	{
 		free(tab[i]);
 		i++;
 	}
 	free(tab);
+}
+
+void	free_map(t_map *map)
+{
+	if (!map)
+		return ;
+	if (map->grid2d)
+		ft_free_tab((void **)map->grid2d, map->rows);
+	if (map->grid3d)
+		ft_free_tab((void **)map->grid3d, map->rows);
+	free(map);
 }
 
 double	percent(int start, int end, int current)

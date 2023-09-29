@@ -89,8 +89,8 @@ void	set_zcolor(t_map *map)
 		j = -1;
 		while (++j < map->cols)
 		{
-			perc = percent(map->low, map->high, map->map3d[i][j].z);
-			map->map3d[i][j].zcolor = zcolor(perc);
+			perc = percent(map->low, map->high, map->grid3d[i][j].z);
+			map->grid3d[i][j].zcolor = zcolor(perc);
 		}
 	}
 }

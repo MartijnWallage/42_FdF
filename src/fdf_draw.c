@@ -46,8 +46,8 @@ void	project(t_map *map, int i, int j)
 	t_point3d	temp;
 	t_point2d	*new;
 
-	previous = &(map->map3d[i][j]);
-	new = &(map->map2d[i][j]);
+	previous = &(map->grid3d[i][j]);
+	new = &(map->grid2d[i][j]);
 	temp.x = previous->x;
 	temp.y = previous->y;
 	temp.z = previous->z * map->zscale;
@@ -71,13 +71,13 @@ static void	draw_line(t_fdf *fdf, int x, int y)
 		if (y == 0 && x == 0)
 			project(fdf->map, y, x);
 		project(fdf->map, y + 1, x);
-		bresenham(fdf->image, fdf->map->map2d[y][x], fdf->map->map2d[y + 1][x]);
+		bresenham(fdf->image, fdf->map->grid2d[y][x], fdf->map->grid2d[y + 1][x]);
 	}
 	if (x + 1 < fdf->map->cols)
 	{
 		if (y == 0)
 			project(fdf->map, y, x + 1);
-		bresenham(fdf->image, fdf->map->map2d[y][x], fdf->map->map2d[y][x + 1]);
+		bresenham(fdf->image, fdf->map->grid2d[y][x], fdf->map->grid2d[y][x + 1]);
 	}
 }
 

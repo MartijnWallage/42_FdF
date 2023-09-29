@@ -30,13 +30,26 @@ void	fdf_scrollhook(double xdelta, double ydelta, void *param)
 	xdelta++;
 }
 
+static void	reset_map(t_map *map)
+{
+	map->alpha = 0.46373398 / 2;
+	map->beta = 0.46373398;
+	map->xrotate = 0;
+	map->zrotate = 0;
+	map->x_offset = WIDTH / 2;
+	map->y_offset = HEIGHT / 2;
+	map->zoom = 1;
+	map->zscale = 1;
+	map->use_zcolor = false;
+}
+
 void	ft_hook(void *param)
 {
 	t_fdf	*fdf;
 
 	fdf = (t_fdf *)param;
 	if (mlx_is_key_down(fdf->mlx, MLX_KEY_0))
-		init_map(fdf->map);
+		reset_map(fdf->map);
 	if (mlx_is_key_down(fdf->mlx, MLX_KEY_ESCAPE))
 		mlx_close_window(fdf->mlx);
 	if (mlx_is_key_down(fdf->mlx, MLX_KEY_LEFT))

@@ -76,8 +76,8 @@ typedef struct s_map
 	double			zrotate;
 	double			zoom;
 	double			zscale;
-	t_point3d		**map3d;
-	t_point2d		**map2d;
+	t_point3d		**grid3d;
+	t_point2d		**grid2d;
 }					t_map;
 
 typedef struct s_fdf
@@ -113,6 +113,7 @@ void		ft_hook_rotate(void *param);
 void		ft_hook_project(void *param);
 /* fdf_utils.c*/
 void		ft_free_tab(void **ptr, size_t len);
+void		free_map(t_map *map);
 double		percent(int start, int end, int current);
 void		make_upper(unsigned int i, char *c);
 void		draw_reset(mlx_image_t *image);

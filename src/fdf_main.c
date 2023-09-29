@@ -16,21 +16,25 @@ static void	malloc_grid(t_map *map)
 {
 	int	i;
 
-	map->map3d = malloc(sizeof(t_point3d *) * map->rows);
-	if (!(map->map3d))
+	map->grid3d = malloc(sizeof(t_point3d *) * map->rows);
+	map->grid2d = malloc(sizeof(t_point2d *) * map->rows);
+	if (!(map->grid2d) || !(map->grid3d))
+	{
+		free_map(map);
 		handle_error(MALLOC);
-	map->map2d = malloc(sizeof(t_point2d *) * map->rows);
-	if (!(map->map2d))
-		handle_error(MALLOC);
+	}
 	i = -1;
 	while (++i < map->rows)
 	{
-		map->map3d[i] = malloc(sizeof(t_point3d) * map->cols);
-		if (!(map->map3d[i]))
+		map->grid3d[i] = malloc(sizeof(t_point3d) * map->cols);
+		map->grid2d[i] = malloc(sizeof(t_point2d) * map->cols);
+		if (!(map->grid2d[i]) || !(map->grid3d[i]))
+		{
+			map->grid3d[i] = NULL;
+			map->grid2d[i] = NULL;
+			free_map(map);
 			handle_error(MALLOC);
-		map->map2d[i] = malloc(sizeof(t_point2d) * map->cols);
-		if (!(map->map2d[i]))
-			handle_error(MALLOC);
+		}
 	}
 }
 
@@ -45,6 +49,10 @@ void	init_map(t_map *map)
 	map->zoom = 1;
 	map->zscale = 1;
 	map->use_zcolor = false;
+	map->high = INT_MIN;
+	map->low = INT_MAX;
+	map->grid2d = NULL;
+	map->grid3d = NULL;
 }
 
 static t_map	*parse_input(char *filename)
@@ -61,13 +69,13 @@ static t_map	*parse_input(char *filename)
 	init_map(map);
 	get_dimensions(fd, map);
 	if (map->cols == 0 || map->rows == 0)
+	{
+		free_map(map);
 		error_map(fd);
+	}
 	close(fd);
 	malloc_grid(map);
 	map->interval = ft_min(WIDTH / map->cols, HEIGHT / map->rows) / 2;
-	if (map->high - map->low > 0)
-		map->interval = ft_min(map->interval,
-				HEIGHT / (map->high - map->low) / 2);
 	map->interval = ft_max(2, map->interval);
 	fd = open(filename, O_RDONLY, 0777);
 	parse_map(fd, map);
@@ -83,10 +91,14 @@ static t_fdf	*init_fdf(char *filename)
 	fdf.map = parse_input(filename);
 	fdf.mlx = mlx_init(WIDTH, HEIGHT, "FdF", true);
 	if (!fdf.mlx)
+	{
+		free_map(fdf.map);
 		handle_error(mlx_strerror(mlx_errno));
+	}
 	fdf.image = mlx_new_image(fdf.mlx, WIDTH, HEIGHT);
 	if (!fdf.image)
 	{
+		free_map(fdf.map);
 		mlx_close_window(fdf.mlx);
 		handle_error(mlx_strerror(mlx_errno));
 	}
@@ -104,6 +116,7 @@ int32_t	main(int ac, char **av)
 	draw_image(fdf);
 	if (mlx_image_to_window(fdf->mlx, fdf->image, 0, 0) == -1)
 	{
+		free_map(fdf->map);
 		mlx_close_window(fdf->mlx);
 		handle_error(mlx_strerror(mlx_errno));
 	}
