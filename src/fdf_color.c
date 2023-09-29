@@ -6,7 +6,7 @@
 /*   By: mwallage <mwallage@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 10:25:01 by mwallage          #+#    #+#             */
-/*   Updated: 2023/09/29 17:05:11 by mwallage         ###   ########.fr       */
+/*   Updated: 2023/09/29 18:21:43 by mwallage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,18 @@
 static int	radiant(int start, int end, double percentage)
 {
 	return ((int)((1 - percentage) * start + percentage * end));
+}
+
+static double	percent(int start, int end, int current)
+{
+	double	placement;
+	double	distance;
+
+	placement = current - start;
+	distance = end - start;
+	if (distance == 0)
+		return (1.0);
+	return (placement / distance);
 }
 
 int	get_color(t_point2d current, t_point2d a, t_point2d b)

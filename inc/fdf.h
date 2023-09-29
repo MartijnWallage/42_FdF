@@ -6,7 +6,7 @@
 /*   By: mwallage <mwallage@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/10 15:30:52 by mwallage          #+#    #+#             */
-/*   Updated: 2023/09/29 17:11:10 by mwallage         ###   ########.fr       */
+/*   Updated: 2023/09/29 18:21:35 by mwallage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,6 @@ typedef struct s_fdf
 void		init_map(t_map *map);
 /* fdf_parse.c */
 void		parse_map(int fd, t_map *map);
-int			valid_filename(const char *filename);
 void		get_dimensions(int fd, t_map *map);
 /* fdf_error.c */
 void		ft_free_tab(void **ptr, size_t len);
@@ -113,11 +112,10 @@ void		fdf_scrollhook(double xdelta, double ydelta, void *param);
 void		ft_hook_rotate(void *param);
 void		ft_hook_project(void *param);
 /* fdf_utils.c*/
-double		percent(int start, int end, int current);
 void		make_upper(unsigned int i, char *c);
 void		draw_reset(mlx_image_t *image);
+int			valid_filename(const char *filename);
 /* fdf_color.c */
-int			get_light(int start, int end, double percentage);
 int			get_color(t_point2d current, t_point2d a, t_point2d b);
 void		set_zcolor(t_map *map);
 

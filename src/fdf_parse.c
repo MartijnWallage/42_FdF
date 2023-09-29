@@ -6,7 +6,7 @@
 /*   By: mwallage <mwallage@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 14:37:23 by mwallage          #+#    #+#             */
-/*   Updated: 2023/09/29 17:16:18 by mwallage         ###   ########.fr       */
+/*   Updated: 2023/09/29 17:17:59 by mwallage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,17 +77,6 @@ void	parse_map(int fd, t_map *map)
 		parse_column(fd, map, tab, i);
 		ft_free_tab((void **)tab, map->cols);
 	}
-}
-
-int	valid_filename(const char *filename)
-{
-	int	len;
-
-	len = ft_strlen(filename);
-	if (len < 5)
-		return (0);
-	filename += len - 4;
-	return (ft_strncmp(filename, ".fdf", 4) == 0);
 }
 
 static int	get_cols(int fd, t_map *map, char *line)

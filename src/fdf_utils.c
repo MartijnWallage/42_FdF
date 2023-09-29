@@ -6,22 +6,21 @@
 /*   By: mwallage <mwallage@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 14:35:10 by mwallage          #+#    #+#             */
-/*   Updated: 2023/09/29 17:10:49 by mwallage         ###   ########.fr       */
+/*   Updated: 2023/09/29 18:19:00 by mwallage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/fdf.h"
 
-double	percent(int start, int end, int current)
+int	valid_filename(const char *filename)
 {
-	double	placement;
-	double	distance;
+	int	len;
 
-	placement = current - start;
-	distance = end - start;
-	if (distance == 0)
-		return (1.0);
-	return (placement / distance);
+	len = ft_strlen(filename);
+	if (len < 5)
+		return (0);
+	filename += len - 4;
+	return (ft_strncmp(filename, ".fdf", 4) == 0);
 }
 
 void	make_upper(unsigned int i, char *c)

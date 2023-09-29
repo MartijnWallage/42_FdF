@@ -6,12 +6,12 @@
 #    By: mwallage <mwallage@student.42berlin.de>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/10 15:31:16 by mwallage          #+#    #+#              #
-#    Updated: 2023/09/29 16:57:21 by mwallage         ###   ########.fr        #
+#    Updated: 2023/09/29 18:12:34 by mwallage         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC		:= cc
-CFLAGS	:= -Wall -Wextra -Werror -Wunreachable-code -Ofast
+CFLAGS	:= -g -Wall -Wextra -Werror -Wunreachable-code -Ofast
 MLX_DIR		:= ./lib/MLX42
 MLX		:= $(MLX_DIR)/build/libmlx42.a
 LIBFT_DIR	:= ./lib/libft
