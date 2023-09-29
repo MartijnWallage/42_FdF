@@ -6,35 +6,11 @@
 /*   By: mwallage <mwallage@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 14:35:10 by mwallage          #+#    #+#             */
-/*   Updated: 2023/09/26 17:12:04 by mwallage         ###   ########.fr       */
+/*   Updated: 2023/09/29 17:10:49 by mwallage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/fdf.h"
-
-void	ft_free_tab(void **tab, size_t len)
-{
-	size_t	i;
-
-	i = 0;
-	while (i < len && tab[i] != NULL)
-	{
-		free(tab[i]);
-		i++;
-	}
-	free(tab);
-}
-
-void	free_map(t_map *map)
-{
-	if (!map)
-		return ;
-	if (map->grid2d)
-		ft_free_tab((void **)map->grid2d, map->rows);
-	if (map->grid3d)
-		ft_free_tab((void **)map->grid3d, map->rows);
-	free(map);
-}
 
 double	percent(int start, int end, int current)
 {

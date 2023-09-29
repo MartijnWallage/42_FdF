@@ -6,7 +6,7 @@
 /*   By: mwallage <mwallage@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/10 15:31:03 by mwallage          #+#    #+#             */
-/*   Updated: 2023/09/27 20:59:23 by mwallage         ###   ########.fr       */
+/*   Updated: 2023/09/29 17:13:06 by mwallage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,8 @@ void	init_map(t_map *map)
 	map->use_zcolor = false;
 	map->high = INT_MIN;
 	map->low = INT_MAX;
+	map->rows = 0;
+	map->cols = 0;
 	map->grid2d = NULL;
 	map->grid3d = NULL;
 }
@@ -65,14 +67,14 @@ static t_map	*parse_input(char *filename)
 		handle_error(FILE_ERROR);
 	map = malloc(sizeof(t_map));
 	if (!map)
-		handle_error_fd(fd, MALLOC);
+	{
+		close(fd);
+		handle_error(MALLOC);
+	}
 	init_map(map);
 	get_dimensions(fd, map);
 	if (map->cols == 0 || map->rows == 0)
-	{
-		free_map(map);
-		error_map(fd);
-	}
+		error_map(fd, map, INVALID_MAP);
 	close(fd);
 	malloc_grid(map);
 	map->interval = ft_min(WIDTH / map->cols, HEIGHT / map->rows) / 2;
@@ -127,5 +129,6 @@ int32_t	main(int ac, char **av)
 	mlx_loop_hook(fdf->mlx, &draw_image, fdf);
 	mlx_loop(fdf->mlx);
 	mlx_terminate(fdf->mlx);
+	free_map(fdf->map);
 	return (0);
 }
