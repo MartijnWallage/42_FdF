@@ -6,7 +6,7 @@
 /*   By: mwallage <mwallage@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 15:56:53 by mwallage          #+#    #+#             */
-/*   Updated: 2023/09/28 18:36:11 by mwallage         ###   ########.fr       */
+/*   Updated: 2023/09/29 18:28:26 by mwallage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ static void	reset_map(t_map *map)
 	map->alpha = 0.46373398 / 2;
 	map->beta = 0.46373398;
 	map->xrotate = 0;
+	map->yrotate = 0;
 	map->zrotate = 0;
 	map->x_offset = WIDTH / 2;
 	map->y_offset = HEIGHT / 2;

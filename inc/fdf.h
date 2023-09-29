@@ -6,7 +6,7 @@
 /*   By: mwallage <mwallage@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/10 15:30:52 by mwallage          #+#    #+#             */
-/*   Updated: 2023/09/29 18:21:35 by mwallage         ###   ########.fr       */
+/*   Updated: 2023/09/29 18:24:11 by mwallage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,6 @@ void		display_menu(mlx_t *mlx);
 void		rotate_x(double *y, double *z, double alpha);
 void		rotate_y(double *x, double *z, double beta);
 void		rotate_z(double *x, double *y, double gamma);
-void		rotate_all(t_map *map, char axis, double alpha);
 /* fdf_hooks.c */
 void		ft_hook(void *param);
 void		fdf_scrollhook(double xdelta, double ydelta, void *param);

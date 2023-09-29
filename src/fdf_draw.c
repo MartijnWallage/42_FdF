@@ -6,7 +6,7 @@
 /*   By: mwallage <mwallage@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 14:38:25 by mwallage          #+#    #+#             */
-/*   Updated: 2023/09/28 18:30:24 by mwallage         ###   ########.fr       */
+/*   Updated: 2023/09/29 18:29:13 by mwallage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ void	project(t_map *map, int i, int j)
 	temp.z = previous->z * map->zscale;
 	rotate_z(&temp.x, &temp.y, map->zrotate);
 	rotate_x(&temp.y, &temp.z, map->xrotate);
+	rotate_y(&temp.x, &temp.z, map->yrotate);
 	new->x = (int)((temp.x * map->zoom - temp.y * map->zoom)
 			* cos(map->alpha) + map->x_offset);
 	new->y = (int)(-temp.z * map->zoom
@@ -111,6 +112,7 @@ void	display_menu(mlx_t *mlx)
 	mlx_put_string(mlx, "Translate\t\t\t\t\tarrow keys", x, y += 20);
 	mlx_put_string(mlx, "Scale z\t\t\t\t\t\t\ts + </>", x, y += 20);
 	mlx_put_string(mlx, "Rotate x\t\t\t\t\t\tx + </>", x, y += 20);
+	mlx_put_string(mlx, "Rotate y\t\t\t\t\t\ty + </>", x, y += 20);
 	mlx_put_string(mlx, "Rotate z\t\t\t\t\t\tz + </>", x, y += 20);
 	mlx_put_string(mlx, "PROJECTION", x, y += 30);
 	mlx_put_string(mlx, "Angle x\t\t\t\t\t\t\tq + </>", x, y += 25);

@@ -6,7 +6,7 @@
 /*   By: mwallage <mwallage@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/10 15:31:03 by mwallage          #+#    #+#             */
-/*   Updated: 2023/09/29 17:13:06 by mwallage         ###   ########.fr       */
+/*   Updated: 2023/09/29 18:24:46 by mwallage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ void	init_map(t_map *map)
 	map->alpha = 0.46373398 / 2;
 	map->beta = 0.46373398;
 	map->xrotate = 0;
+	map->yrotate = 0;
 	map->zrotate = 0;
 	map->x_offset = WIDTH / 2;
 	map->y_offset = HEIGHT / 2;
