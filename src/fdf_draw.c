@@ -6,7 +6,7 @@
 /*   By: mwallage <mwallage@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 14:38:25 by mwallage          #+#    #+#             */
-/*   Updated: 2023/09/29 18:29:13 by mwallage         ###   ########.fr       */
+/*   Updated: 2023/09/30 15:38:13 by mwallage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,18 +67,20 @@ void	project(t_map *map, int i, int j)
 
 static void	draw_line(t_fdf *fdf, int x, int y)
 {
+	if (y == 0 && x == 0)
+		project(fdf->map, y, x);
 	if (y + 1 < fdf->map->rows)
 	{
-		if (y == 0 && x == 0)
-			project(fdf->map, y, x);
 		project(fdf->map, y + 1, x);
-		bresenham(fdf->image, fdf->map->grid2d[y][x], fdf->map->grid2d[y + 1][x]);
+		bresenham(fdf->image, fdf->map->grid2d[y][x],
+			fdf->map->grid2d[y + 1][x]);
 	}
 	if (x + 1 < fdf->map->cols)
 	{
 		if (y == 0)
 			project(fdf->map, y, x + 1);
-		bresenham(fdf->image, fdf->map->grid2d[y][x], fdf->map->grid2d[y][x + 1]);
+		bresenham(fdf->image, fdf->map->grid2d[y][x],
+			fdf->map->grid2d[y][x + 1]);
 	}
 }
 

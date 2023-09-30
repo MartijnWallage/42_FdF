@@ -6,7 +6,7 @@
 /*   By: mwallage <mwallage@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/10 15:31:03 by mwallage          #+#    #+#             */
-/*   Updated: 2023/09/29 18:24:46 by mwallage         ###   ########.fr       */
+/*   Updated: 2023/09/30 15:50:42 by mwallage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,11 @@ static void	malloc_grid(t_map *map)
 		map->grid2d[i] = malloc(sizeof(t_point2d) * map->cols);
 		if (!(map->grid2d[i]) || !(map->grid3d[i]))
 		{
-			map->grid3d[i] = NULL;
-			map->grid2d[i] = NULL;
+			if (i + 1 < map->rows)
+			{
+				map->grid3d[i + 1] = NULL;
+				map->grid2d[i + 1] = NULL;
+			}
 			free_map(map);
 			handle_error(MALLOC);
 		}
@@ -74,8 +77,6 @@ static t_map	*parse_input(char *filename)
 	}
 	init_map(map);
 	get_dimensions(fd, map);
-	if (map->cols == 0 || map->rows == 0)
-		error_map(fd, map, INVALID_MAP);
 	close(fd);
 	malloc_grid(map);
 	map->interval = ft_min(WIDTH / map->cols, HEIGHT / map->rows) / 2;

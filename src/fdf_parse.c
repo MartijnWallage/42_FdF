@@ -6,7 +6,7 @@
 /*   By: mwallage <mwallage@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 14:37:23 by mwallage          #+#    #+#             */
-/*   Updated: 2023/09/29 17:17:59 by mwallage         ###   ########.fr       */
+/*   Updated: 2023/09/30 15:05:27 by mwallage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ static int	get_cols(int fd, t_map *map, char *line)
 	int		i;
 
 	temp = ft_strtrim(line, "\n");
+	free(line);
 	if (!temp)
 		error_map(fd, map, MALLOC);
 	tab = ft_split(temp, ' ');
@@ -108,18 +109,19 @@ void	get_dimensions(int fd, t_map *map)
 	char	*line;
 
 	line = get_next_line(fd);
-	if (!line || *line == '\0' || *line == '\n')
-		error_map(fd, map, INVALID_MAP);
+	if (!line)
+		error_map(fd, map, MALLOC);
 	map->cols = get_cols(fd, map, line);
+	if (map->cols == 0)
+		error_map(fd, map, INVALID_MAP);
 	map->rows = 1;
-	while (line)
+	while (1)
 	{
-		free(line);
 		line = get_next_line(fd);
 		if (!line)
 			break ;
+		map->rows++;
 		if (map->cols != get_cols(fd, map, line))
 			error_map(fd, map, INVALID_MAP);
-		map->rows++;
 	}
 }

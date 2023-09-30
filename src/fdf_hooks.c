@@ -6,17 +6,11 @@
 /*   By: mwallage <mwallage@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 15:56:53 by mwallage          #+#    #+#             */
-/*   Updated: 2023/09/29 18:28:26 by mwallage         ###   ########.fr       */
+/*   Updated: 2023/09/30 15:21:50 by mwallage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/fdf.h"
-
-void	zoom(t_fdf *fdf, double zoom)
-{
-	if (fdf->map->zoom * zoom > 0)
-		fdf->map->zoom *= zoom;
-}
 
 void	fdf_scrollhook(double xdelta, double ydelta, void *param)
 {
@@ -24,9 +18,9 @@ void	fdf_scrollhook(double xdelta, double ydelta, void *param)
 
 	fdf = (t_fdf *)param;
 	if (ydelta > 0)
-		zoom(fdf, 1.02);
-	else if (ydelta < 0)
-		zoom(fdf, 0.98);
+		fdf->map->zoom *= 1.02;
+	else if (ydelta < 0 && fdf->map->zoom * 0.98 > 0)
+		fdf->map->zoom *= 0.98;
 	xdelta++;
 }
 
@@ -62,9 +56,9 @@ void	ft_hook(void *param)
 	if (mlx_is_key_down(fdf->mlx, MLX_KEY_UP))
 		fdf->map->y_offset -= 5;
 	if (mlx_is_key_down(fdf->mlx, MLX_KEY_EQUAL))
-		zoom(fdf, 1.02);
+		fdf_scrollhook(0, 1, param);
 	if (mlx_is_key_down(fdf->mlx, MLX_KEY_MINUS))
-		zoom(fdf, 0.98);
+		fdf_scrollhook(0, -1, param);
 }
 
 void	ft_hook_project(void *param)
