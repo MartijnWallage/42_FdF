@@ -17,8 +17,7 @@ I used the Codam <a href="https://github.com/codam-coding-college/MLX42">MLX42</
 
 Usage:
 
-`./fdf ./maps/<map_name>.fdf`
-
+`./fdf maps/<map_name>.fdf`
 
 ## Bonus
 
